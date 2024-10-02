@@ -1,0 +1,34 @@
+{
+  "name": "kaiverse",
+  "private": true,
+  "description": "Collection of powerful utility functions, React components & hooks",
+  "repository": "https://github.com/kaisergeX/kaiverse.git",
+  "scripts": {
+    "build": "turbo build",
+    "build:pkgs": "turbo build --filter=./packages/*",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "publish:npm": "turbo run build lint --filter=./packages/shared && pnpm publish --filter './packages/shared' --access public && changeset tag",
+    "publish:jsr": "cd ./packages/shared && pnpm dlx jsr publish"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@changesets/cli": "^2.27.7",
+    "@eslint/js": "^9.9.0",
+    "eslint": "^9.9.0",
+    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-refresh": "^0.4.9",
+    "globals": "^15.9.0",
+    "prettier": "^3.2.5",
+    "turbo": "^2.0.14",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^8.0.1"
+  },
+  "packageManager": "pnpm@9.9.0",
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=9"
+  }
+}

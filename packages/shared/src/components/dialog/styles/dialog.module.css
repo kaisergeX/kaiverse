@@ -1,0 +1,121 @@
+@import './dialog-shared.module.css';
+
+@layer default, variant;
+
+@layer default {
+  @media (prefers-reduced-motion: no-preference) {
+    .dialog,
+    .dialog::backdrop {
+      opacity: 0;
+    }
+
+    .dialog {
+      transition-property: opacity;
+      transition-duration: var(--k-dialog-close-transition-duration);
+      transition-timing-function: var(--k-dialog-transition-timing-fn);
+    }
+
+    .dialog[open],
+    .dialog[open]::backdrop {
+      transition-duration: var(--k-dialog-open-transition-duration);
+    }
+
+    .dialog[open] {
+      opacity: 1;
+    }
+
+    .dialog[open]::backdrop {
+      opacity: var(--k-dialog-backdrop-opacity);
+    }
+
+    .dialog:where(.drawer) {
+      transition-property: height, opacity;
+      animation: var(--k-dialog-close-animation-duration) var(--k-dialog-animation-timing-fn)
+        forwards;
+
+      &[open] {
+        animation: var(--k-dialog-open-animation-duration) var(--k-dialog-animation-timing-fn)
+          forwards;
+      }
+    }
+
+    @supports (transition-behavior: allow-discrete) {
+      .dialog,
+      .dialog::backdrop {
+        transition:
+          opacity var(--k-dialog-close-transition-duration),
+          display var(--k-dialog-close-transition-duration) allow-discrete,
+          overlay var(--k-dialog-close-transition-duration) allow-discrete;
+      }
+    }
+  }
+}
+
+@layer variant {
+  .dialog:where(.drawer) {
+    height: 100dvh;
+    width: 100%;
+
+    &.non-modal {
+      position: fixed;
+      inset-block: 0;
+      overflow: hidden;
+    }
+
+    &.left {
+      inset-inline: 0 auto;
+      animation-name: slideOutLeft;
+
+      &[open] {
+        animation-name: slideInLeft;
+      }
+    }
+
+    &.right {
+      inset-inline: auto 0;
+      animation-name: slideOutRight;
+
+      &[open] {
+        animation-name: slideInRight;
+      }
+    }
+
+    &.top,
+    &.bottom {
+      height: 40dvh;
+      width: 100%;
+    }
+
+    &.bottom {
+      inset-block: auto 0;
+
+      box-shadow:
+        0 -4px 6px -1px rgb(0 0 0 / 0.1),
+        0 -2px 4px -2px rgb(0 0 0 / 0.1);
+      animation-name: slideOutUp;
+
+      &[open] {
+        animation-name: slideInUp;
+      }
+    }
+
+    &.top {
+      inset-block: 0 auto;
+
+      box-shadow:
+        0 4px 6px -1px rgb(0 0 0 / 0.1),
+        0 2px 4px -2px rgb(0 0 0 / 0.1);
+      animation-name: slideOutDown;
+
+      &[open] {
+        animation-name: slideInDown;
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    .dialog:where(.drawer:not(.top, .bottom)) {
+      width: clamp(30vw, 40rem, 50vw);
+    }
+  }
+}
