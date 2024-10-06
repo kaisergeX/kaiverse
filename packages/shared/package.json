@@ -26,7 +26,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "tsc --noEmit && eslint src --report-unused-disable-directives --max-warnings 0 && prettier --check \"src/**/*.{ts,tsx,scss}\"",
+    "lint": "tsc --noEmit && eslint src --report-unused-disable-directives --max-warnings 0 && prettier --check \"src/**/*.{ts,tsx,css}\"",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "preview": "vite preview"
   },
   "imports": {

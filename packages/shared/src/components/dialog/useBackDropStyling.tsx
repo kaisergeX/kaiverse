@@ -11,8 +11,7 @@ export const useBackDropStyling = (
     const blurVal = backdropProps?.blur
     const customStyles = {
       [DIALOG_CSS_VARIABLES.BACKDROP_OPACITY]: backdropProps?.opacity,
-      [DIALOG_CSS_VARIABLES.BACKDROP_BLUR]:
-        typeof blurVal === 'number' ? `${blurVal}px` : blurVal,
+      [DIALOG_CSS_VARIABLES.BACKDROP_BLUR]: typeof blurVal === 'number' ? `${blurVal}px` : blurVal,
       [DIALOG_CSS_VARIABLES.BACKDROP_BG]: backdropProps?.background,
     }
 
@@ -40,12 +39,7 @@ export const useBackDropStyling = (
       backdropStyles: mergedStyles,
       customStyles,
     }
-  }, [
-    backdropProps?.background,
-    backdropProps?.blur,
-    backdropProps?.opacity,
-    dialogRef,
-  ])
+  }, [backdropProps?.background, backdropProps?.blur, backdropProps?.opacity, dialogRef])
 
   useEffect(() => {
     if (typeof document === 'undefined') {
