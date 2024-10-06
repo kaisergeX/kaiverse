@@ -18,4 +18,5 @@ pnpm dev
 
 ### Packages
 
+- [docs](apps/docs): Documentation page.
 - [shared](packages/shared): Utility functions, React components & hooks.

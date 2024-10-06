@@ -1,4 +1,5 @@
 import daisyui from 'daisyui'
+import daisyThemes from 'daisyui/src/theming/themes'
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -11,7 +12,7 @@ export default {
     extend: {},
   },
   daisyui: {
-    themes: ['retro', 'dark'],
+    themes: ['retro', {dark: daisyThemes.night}],
   },
   blocklist: ['container', 'footer'],
   plugins: [daisyui],
