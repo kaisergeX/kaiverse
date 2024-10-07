@@ -1,7 +1,11 @@
-@import 'tailwindcss/theme' layer(tailwind);
-@import 'tailwindcss/utilities' layer(tailwind);
+/* @import 'tailwindcss/theme' layer(tailwind);
+@import 'tailwindcss/utilities' layer(tailwind); */
 
-@layer tailwind {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
   html {
     font-family: var(
       --default-font-family,
@@ -25,23 +29,11 @@
   }
 }
 
-@utility kai-disabled {
-  @apply pointer-events-none cursor-not-allowed opacity-50;
-}
-
-@utility kai-button-base {
-  @apply inline-flex items-center gap-2 rounded-md border px-2.5 py-2 align-top text-sm font-semibold leading-normal shadow-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900 sm:px-3.5 sm:py-2.5 dark:focus-visible:outline-zinc-400 cursor-pointer;
-}
-
-@utility flex-center {
-  @apply flex items-center justify-center;
-}
-
-@utility flex-center-between {
-  @apply flex items-center justify-between;
-}
-
 @layer components {
+  .kai-button-base {
+    @apply inline-flex items-center gap-2 rounded-md border px-2.5 py-2 align-top text-sm font-semibold leading-normal shadow-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900 sm:px-3.5 sm:py-2.5 dark:focus-visible:outline-zinc-400 cursor-pointer;
+  }
+
   .kai-button-base:disabled {
     @apply kai-disabled;
   }
@@ -52,5 +44,19 @@
 
   .kai-button-secondary {
     @apply kai-button-base border-zinc-200 bg-transparent text-inherit hover:border-zinc-900 hover:text-inherit dark:border-zinc-600 dark:hover:border-zinc-200;
+  }
+}
+
+@layer utilities {
+  .kai-disabled {
+    @apply pointer-events-none cursor-not-allowed opacity-50;
+  }
+
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+
+  .flex-center-between {
+    @apply flex items-center justify-between;
   }
 }

@@ -1,7 +1,7 @@
-@import url(../../shared.module.css);
+@import url(../shared.module.css);
 
 .terminal {
-  composes: bg-reverse;
+  composes: k-bg-reverse;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;

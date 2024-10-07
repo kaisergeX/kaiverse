@@ -1,10 +1,10 @@
 'use client'
 
 import {useCallback, useEffect, useMemo, useRef, useState, type FormEventHandler} from 'react'
-import classes from './terminal.module.css'
-import {TERMINAL_CTRLS, TERMINAL_CLASSES, TERMINAL_COMMANDS} from './constants'
 import {classNames} from '#utils'
+import {TERMINAL_CTRLS, TERMINAL_CLASSES, TERMINAL_COMMANDS} from './constants'
 import type {TerminalProps} from './types'
+import classes from './terminal.module.css'
 
 const OUTPUT_SEPARATOR = '|'
 
@@ -13,10 +13,13 @@ function addCommandToHistory(currentCommands: string, command: string) {
 }
 
 export default function Terminal({
+  className,
   title,
   greeting: defaultMsg = '',
   commandPrefix = '$',
+  ...htmlDivAttributes
 }: TerminalProps) {
+  const terminalCommandsRef = useRef<HTMLDivElement>(null)
   const terminalInput = useRef<HTMLInputElement>(null)
   const [terminalLineData, setTerminalLineData] = useState('')
 
@@ -53,8 +56,19 @@ export default function Terminal({
   }, [])
 
   useEffect(() => {
+    const inputTarget = terminalInput.current
+    const containerTarget = terminalCommandsRef.current
+    if (!containerTarget || !inputTarget) {
+      return
+    }
+
+    const isContainerScrollable = containerTarget.scrollHeight > containerTarget.clientHeight
+    if (!isContainerScrollable) {
+      return
+    }
+
     const scrollTimeoutId = setTimeout(() =>
-      terminalInput.current?.scrollIntoView({behavior: 'smooth'}),
+      inputTarget.scrollIntoView({behavior: 'smooth', block: 'nearest'}),
     )
 
     return () => clearTimeout(scrollTimeoutId)
@@ -62,8 +76,9 @@ export default function Terminal({
 
   return (
     <div
-      className={classNames(classes.terminal, TERMINAL_CLASSES.ROOT)}
+      className={classNames(classes.terminal, TERMINAL_CLASSES.ROOT, className)}
       onClick={() => terminalInput.current?.focus()}
+      {...htmlDivAttributes}
     >
       <header className={classNames(classes.terminalHeader, TERMINAL_CLASSES.HEADER)}>
         <div className={classes.windowControls}>
@@ -74,6 +89,7 @@ export default function Terminal({
         <h2>{title}</h2>
       </header>
       <div
+        ref={terminalCommandsRef}
         className={classNames('kai-scrollbar', classes.terminalCommands, TERMINAL_CLASSES.COMMANDS)}
       >
         <pre>
