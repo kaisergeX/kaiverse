@@ -42,7 +42,7 @@ export const useBackDropStyling = (
   }, [backdropProps?.background, backdropProps?.blur, backdropProps?.opacity, dialogRef])
 
   useEffect(() => {
-    if (typeof document === 'undefined') {
+    if (typeof window === 'undefined') {
       return
     }
 

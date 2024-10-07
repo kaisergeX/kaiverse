@@ -1,0 +1,134 @@
+@layer default, variant;
+
+@layer default {
+  .slideAction {
+    --k-slide-action-theme: var(--k-primary-color, #0142af);
+
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+
+    border-radius: calc(infinity * 1px);
+    border: 1px solid var(--k-slide-action-theme);
+    overflow: hidden;
+
+    box-sizing: border-box;
+
+    .slideActionBackground {
+      position: absolute;
+      width: 3rem;
+      height: calc(100% - 1rem);
+
+      background-color: var(--k-slide-action-theme);
+      border-radius: calc(infinity * 1px);
+      opacity: 0.2;
+    }
+
+    .slideActionDragger {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 3rem;
+      height: 3rem;
+
+      background-color: var(--k-slide-action-theme);
+      border-radius: calc(infinity * 1px);
+      border: none;
+      cursor: grab;
+
+      z-index: 1;
+
+      &:active {
+        cursor: grabbing;
+      }
+
+      & > .slideActionDefaultIcon {
+        fill: #ffffff;
+      }
+    }
+
+    .slideActionLabel {
+      flex: 1;
+
+      font-weight: 600;
+      color: var(--k-slide-action-theme);
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: default;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .slideAction .slideActionLabel {
+      background: linear-gradient(
+          to right,
+          var(--k-slide-action-theme),
+          transparent,
+          var(--k-slide-action-theme)
+        )
+        0 0 / 400% 100%;
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+  }
+
+  @media (min-width: 600px) {
+    .slideAction {
+      max-width: 20rem;
+    }
+  }
+}
+
+@layer variant {
+  .slideAction.compact {
+    padding: 0;
+
+    & > .slideActionBackground {
+      width: 2.5rem;
+      height: 100%;
+    }
+
+    & > .slideActionDragger {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+
+    & > .slideActionLabel {
+      padding-right: 0.5rem;
+      font-size: 0.875rem;
+    }
+  }
+
+  .slideActionBackground.static {
+    width: calc(100% - 1rem);
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .slideActionLabel.default {
+      color: var(--k-slide-action-theme);
+    }
+
+    .slideActionLabel.slide {
+      color: transparent;
+      animation: gradientWaveText 8s infinite linear;
+    }
+  }
+
+  @media (min-width: 600px) {
+    .slideAction.compact {
+      max-width: 15rem;
+    }
+  }
+}
+
+@keyframes gradientWaveText {
+  from {
+    background-position: 400% 0;
+  }
+}

@@ -3,6 +3,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import Layout from '@theme/Layout'
 import HomepageFeatures from '@site/src/components/HomepageFeatures'
 import Heading from '@theme/Heading'
+import {Terminal} from '@kaiverse/k/ui'
 
 import styles from './index.module.css'
 
@@ -28,6 +29,9 @@ export default function Home(): JSX.Element {
       </header>
 
       <main>
+        <div className="container h-[40dvh] p-4">
+          <Terminal title="Terminal" greeting="Welcome to Terminal UI Demo!" data-theme="dark" />
+        </div>
         <HomepageFeatures />
       </main>
     </Layout>

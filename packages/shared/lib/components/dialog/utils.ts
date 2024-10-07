@@ -135,7 +135,7 @@ export const dialogPickChild = <
       cloneElement(item, {
         ...item.props,
         ...customProps,
-        className: classNames(item.props?.className ?? '', customProps?.className ?? ''),
+        className: classNames(item.props?.className, customProps?.className),
         style: item.props.style ?? customProps.style,
       }),
     )
