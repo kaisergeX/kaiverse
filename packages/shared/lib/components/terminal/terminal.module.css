@@ -34,26 +34,34 @@
     flex: 1;
     padding-inline: 1rem;
 
+    font-size: 0.875rem;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
       'Courier New', monospace;
     overflow-y: auto;
+
+    & > pre {
+      margin: unset;
+      padding: unset;
+      background-color: inherit;
+    }
 
     & > form {
       display: flex;
       align-items: center;
       gap: 0.5rem;
 
-      span {
-        font-size: 0.875rem;
+      & > span {
         color: #71717a;
       }
 
-      input {
+      & > input {
+        font-family: inherit;
         width: 100%;
 
         border: none;
         outline: none;
 
+        color: inherit;
         background-color: transparent;
         caret-shape: block;
       }

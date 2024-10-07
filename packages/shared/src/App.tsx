@@ -15,7 +15,7 @@ function App() {
   return (
     <>
       <h1>Kaiverse</h1>
-      <button className="kai-button" onClick={() => setOpenDialog(true)}>
+      <button className="k-button" onClick={() => setOpenDialog(true)}>
         Open dialog
       </button>
 

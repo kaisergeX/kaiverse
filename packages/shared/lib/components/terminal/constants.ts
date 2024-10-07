@@ -2,6 +2,7 @@ export const TERMINAL_CLASSES = {
   ROOT: 'k-terminal',
   HEADER: 'k-terminal-header',
   COMMANDS: 'k-terminal-commands',
+  INPUT: 'k-terminal-input',
 } as const
 
 export const TERMINAL_CTRLS = {

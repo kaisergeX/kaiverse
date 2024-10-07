@@ -3,7 +3,7 @@
 import {useCallback, useEffect, useMemo, useRef, useState, type FormEventHandler} from 'react'
 import {classNames} from '#utils'
 import {TERMINAL_CTRLS, TERMINAL_CLASSES, TERMINAL_COMMANDS} from './constants'
-import type {TerminalProps} from './types'
+import type {PrintlnFn, TerminalProps} from './types'
 import classes from './terminal.module.css'
 
 const OUTPUT_SEPARATOR = '|'
@@ -17,11 +17,16 @@ export default function Terminal({
   title,
   greeting: defaultMsg = '',
   commandPrefix = '$',
+  commandHandler,
   ...htmlDivAttributes
 }: TerminalProps) {
   const terminalCommandsRef = useRef<HTMLDivElement>(null)
   const terminalInput = useRef<HTMLInputElement>(null)
   const [terminalLineData, setTerminalLineData] = useState('')
+
+  const println = useCallback<PrintlnFn>((input) => {
+    setTerminalLineData((curr) => addCommandToHistory(curr, input.toString().trim()))
+  }, [])
 
   const renderTerminalOutput = useMemo(
     () =>
@@ -29,31 +34,37 @@ export default function Terminal({
     [terminalLineData],
   )
 
-  const handleInput = useCallback<FormEventHandler<HTMLFormElement>>((e) => {
-    e.preventDefault()
-    const command = new FormData(e.currentTarget).get(TERMINAL_CTRLS.INPUT)?.toString().trim()
+  const handleInput = useCallback<FormEventHandler<HTMLFormElement>>(
+    (e) => {
+      e.preventDefault()
+      const command = new FormData(e.currentTarget).get(TERMINAL_CTRLS.INPUT)?.toString().trim()
 
-    if (!command) {
-      return
-    }
-
-    switch (command.toLowerCase()) {
-      case TERMINAL_COMMANDS.CLEAR: {
-        setTerminalLineData('')
-        break
+      if (!command) {
+        return
       }
 
-      default: {
-        setTerminalLineData((curr) =>
-          addCommandToHistory(curr, `out: command not found: ${command}`),
-        )
-        break
-      }
-    }
+      e.currentTarget.reset()
 
-    e.currentTarget.reset()
-    setTimeout(() => terminalInput.current?.scrollIntoView({behavior: 'smooth'}))
-  }, [])
+      if (commandHandler?.(command, println)) {
+        return
+      }
+
+      switch (command.toLowerCase()) {
+        case TERMINAL_COMMANDS.CLEAR: {
+          setTerminalLineData('')
+          break
+        }
+
+        default: {
+          setTerminalLineData((curr) =>
+            addCommandToHistory(curr, `out: command not found: ${command}`),
+          )
+          break
+        }
+      }
+    },
+    [commandHandler, println],
+  )
 
   useEffect(() => {
     const inputTarget = terminalInput.current
@@ -77,8 +88,8 @@ export default function Terminal({
   return (
     <div
       className={classNames(classes.terminal, TERMINAL_CLASSES.ROOT, className)}
-      onClick={() => terminalInput.current?.focus()}
       {...htmlDivAttributes}
+      onClick={() => terminalInput.current?.focus()}
     >
       <header className={classNames(classes.terminalHeader, TERMINAL_CLASSES.HEADER)}>
         <div className={classes.windowControls}>
@@ -90,7 +101,7 @@ export default function Terminal({
       </header>
       <div
         ref={terminalCommandsRef}
-        className={classNames('kai-scrollbar', classes.terminalCommands, TERMINAL_CLASSES.COMMANDS)}
+        className={classNames(classes.terminalCommands, TERMINAL_CLASSES.COMMANDS)}
       >
         <pre>
           {defaultMsg}
@@ -98,7 +109,13 @@ export default function Terminal({
         </pre>
         <form id={TERMINAL_CTRLS.FORM} onSubmit={handleInput}>
           <span>{commandPrefix}</span>
-          <input ref={terminalInput} type="text" name={TERMINAL_CTRLS.INPUT} autoComplete="off" />
+          <input
+            ref={terminalInput}
+            className={TERMINAL_CLASSES.INPUT}
+            type="text"
+            name={TERMINAL_CTRLS.INPUT}
+            autoComplete="off"
+          />
         </form>
       </div>
     </div>
