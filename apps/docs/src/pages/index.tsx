@@ -3,12 +3,12 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import Layout from '@theme/Layout'
 import HomepageFeatures from '@site/src/components/HomepageFeatures'
 import Heading from '@theme/Heading'
-import {Terminal} from '@kaiverse/k/ui'
 
 import styles from './index.module.css'
 
 export default function Home(): JSX.Element {
   const {siteConfig} = useDocusaurusContext()
+
   return (
     <Layout title={siteConfig.title} description={siteConfig.tagline}>
       <header className="p-16 text-center">
@@ -20,7 +20,7 @@ export default function Home(): JSX.Element {
           <div className={styles.buttons}>
             <Link
               className="btn btn-primary hover:no-underline hover:text-primary-content"
-              to="/docs/intro"
+              to="/docs/getting-started"
             >
               Getting Started
             </Link>
@@ -29,9 +29,6 @@ export default function Home(): JSX.Element {
       </header>
 
       <main>
-        <div className="container h-[40dvh] p-4">
-          <Terminal title="Terminal" greeting="Welcome to Terminal UI Demo!" data-theme="dark" />
-        </div>
         <HomepageFeatures />
       </main>
     </Layout>

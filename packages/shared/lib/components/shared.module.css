@@ -16,7 +16,7 @@
     align-items: center;
   }
 
-  :global(.kai-scrollbar) {
+  :global(.k-scrollbar) {
     &::-webkit-scrollbar {
       width: 16px;
     }
