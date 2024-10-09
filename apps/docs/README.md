@@ -1,10 +1,13 @@
 <div align="center">
 <h1>Kaiverse</h1>
 
-<p>Collection of powerful utility functions, React components & hooks. Typescript supported.</p>
-</div>
+<p>Documentation page for <a href="/packages/shared"><code>@kaiverse/k</code></a><br/>
+A collection of powerful utility functions, React components & hooks. Typescript supported.</p>
 
-This docs website is built using [Docusaurus](https://docusaurus.io/).
+[![.github/workflows/ci.yml](https://github.com/kaisergeX/kaiverse/actions/workflows/ci.yml/badge.svg)](https://github.com/kaisergeX/kaiverse/actions/workflows/ci.yml)
+[![built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
+
+</div>
 
 ### Installation
 
@@ -24,4 +27,4 @@ pnpm dev
 pnpm build
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+This command generates static content into the `dist` directory and can be served using any static contents hosting service.

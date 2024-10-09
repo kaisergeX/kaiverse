@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --sl-font: 'Nunito Variable', sans-serif;
+  --sl-sidebar-width: 15rem;
+  --sl-content-width: 55rem;
+}
+
+/* Light mode colors. */
+:root[data-theme='light'] {
+  --sl-color-accent-low: #c8d6fd;
+  --sl-color-accent: #4b302f;
+  --sl-color-accent-high: #1d2a6b;
+  --sl-color-white: #211514;
+  --sl-color-gray-1: #381f1e;
+  --sl-color-gray-2: #4b302f;
+  --sl-color-gray-3: #6d504f;
+  --sl-color-gray-4: #a28281;
+  --sl-color-gray-5: #cfbdbc;
+  --sl-color-gray-6: #f8eae9;
+  --sl-color-gray-7: #fcf4f4;
+  --sl-color-black: #ffffff;
+}
+
+code {
+  overflow-wrap: revert;
+  border-radius: 4px;
+}

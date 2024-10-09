@@ -1,0 +1,35 @@
+---
+title: Kaiverse
+description: Collection of powerful utilities, React components, and hooks.<br/>Typescript fully supported.
+template: splash
+hero:
+  title: Build website faster with better DX
+  tagline: Collection of powerful utilities, React components, and hooks.<br/>Typescript fully supported.
+  image:
+    file: ../../assets/houston.webp
+  actions:
+    - text: Getting Started
+      link: /getting-started
+      icon: right-arrow
+---
+
+import {Card, CardGrid} from '@astrojs/starlight/components'
+import Demo from '@/demo'
+
+<CardGrid stagger>
+  <Card title="Components" icon="seti:react">
+    Feature-rich React components.
+  </Card>
+  <Card title="Hooks & Utilities" icon="seti:html">
+    Powerful utility functions and hooks.
+  </Card>
+  <Card title="Styling" icon="seti:css">
+    All components styles are within [cascade
+    layers](https://developer.mozilla.org/docs/Web/CSS/@layer) and can be easily customized.
+  </Card>
+  <Card title="And more is incoming!" icon="puzzle">
+    Stay tuned for more updates.
+  </Card>
+</CardGrid>
+
+<Demo path="terminal/usage" client:load />

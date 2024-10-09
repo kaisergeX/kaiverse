@@ -1,0 +1,44 @@
+---
+title: useDebouncedState
+description: Debounces value changes
+---
+
+import UsageDemo from '@/demo/useDebouncedState/usage'
+import {Card} from '@astrojs/starlight/components'
+
+Debounces state changes
+
+## Import
+
+```js
+import {useDebouncedState} from '@kaiverse/k/hooks'
+```
+
+## Usage
+
+`useDebouncedState` hook debounces state value changes. The `state` will be updated after the delay time has passed since the last `setState` call.
+
+```jsx title="some-component.tsx"
+import {useDebouncedState} from '@kaiverse/k/hooks'
+
+export default function SomeComponent() {
+  const [value, setValue] = useDebouncedState('', 200)
+
+  return (
+    <>
+      <input
+        placeholder="Type something to see debounce state update"
+        type="text"
+        defaultValue={value}
+        onChange={(event) => setValue(event.currentTarget.value)}
+      />
+
+      <p>Debounced state value: {value}</p>
+    </>
+  )
+}
+```
+
+<Card title="Playground">
+  <UsageDemo client:load />
+</Card>

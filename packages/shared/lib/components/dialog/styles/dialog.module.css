@@ -1,8 +1,8 @@
 @import './dialog-shared.module.css';
 
-@layer default, variant;
+@layer k-default, k-variant;
 
-@layer default {
+@layer k-default {
   @media (prefers-reduced-motion: no-preference) {
     .dialog,
     .dialog::backdrop {
@@ -51,7 +51,7 @@
   }
 }
 
-@layer variant {
+@layer k-variant {
   .dialog:where(.drawer) {
     height: 100dvh;
     width: 100%;
