@@ -1,0 +1,61 @@
+---
+title: Terminal
+description: A guide in my new Starlight docs site.
+---
+
+import Demo from '@/demo'
+
+## Import
+
+```js
+import {Terminal} from '@kaiverse/k/ui'
+```
+
+## Usage
+
+```jsx title="your-component.tsx"
+<Terminal title="..." greeting="..." />
+```
+
+Try command `hello` and then `clear` in the terminal below:
+
+<Demo path="terminal/usage" client:load />
+
+## Handle Command
+
+You can provide your handler by using `commandHandler` [prop](#terminal-props).
+Your function should returns `true` if the command is manually handled. Otherwise, commands will be executed by default handler.
+
+`commandHandler` prop also has a collection of built-in helpers (2nd argument), you can call it to manipulate the terminal's history (log) section.
+
+### Default Commands
+
+- `clear` - clear the terminal
+- Others - println: "command not found".
+
+## Title & greatings
+
+The `greeting` prop accept a `ReactNode`.
+
+<Demo path="terminal/greetings" client:load />
+
+## Special Types
+
+| Name                       | Type                                                                     | Description                                                         |
+| :------------------------- | :----------------------------------------------------------------------- | :------------------------------------------------------------------ |
+| `PrintlnFn`                | `(text: string) => void`                                                 | Print the inputted string.                                          |
+| `PrintNodeFn`              | `(node: ReactNode) => void`                                              | Print the inputted ReactNode.                                       |
+| `TerminalHelpers`          | `{println: PrintlnFn; printNode: PrintNodeFn; clearHistory: () => void}` | A collection of helper functions.                                   |
+| `TerminalStylingSelectors` | `'windowHeader' \| 'historySection' \| 'commandForm'`                    | Available selectors of special styles APIs: `classNames`, `styles`. |
+
+## `<Terminal>` Props
+
+| Name                | Type                                                       | Default | Description                                                                                                                                |
+| :------------------ | :--------------------------------------------------------- | :------ | :----------------------------------------------------------------------------------------------------------------------------------------- |
+| `classNames`        | `Partial<Record<TerminalStylingSelectors, string>>`        | —       | Applies className to related selector element.                                                                                             |
+| `styles`            | `Partial<Record<TerminalStylingSelectors, CSSProperties>>` | —       | Applies inline styles to related selector element.                                                                                         |
+| `title`             | `string`                                                   | —       | Terminal window title.                                                                                                                     |
+| `greeting`          | `ReactNode`                                                | —       | Greating section. It will be printed on top of terminal's history section.                                                                 |
+| `commandPrefix`     | `string`                                                   | `'$'`   |                                                                                                                                            |
+| `commandHandler`    | `(command: string, helper: TerminalHelpers) => boolean`    | —       | Provide custom command handler. Returns `true` if the command is manually handled, otherwise commands will be executed by default handler. |
+| `...htmlAttributes` | `Omit<HTMLAttributes<HTMLDivElement>, 'onClick'>`          | —       | Others HTML attributes.<br/><small>_Note_: `onClick` event handler is not supported.</small>                                               |

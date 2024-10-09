@@ -20,7 +20,29 @@ function App() {
       </button>
 
       <div className="container mx-auto h-[50dvh] p-4">
-        <Terminal title="Terminal" greeting="Welcome to Terminal UI Demo!" />
+        <Terminal
+          className="[&>div]:scroll-auto"
+          title="Terminal"
+          greeting="Welcome to Terminal UI Demo!"
+          commandHandler={(command, {printNode, println}) => {
+            println(`\t${command}\n`)
+            // printNode(<img src="https://i.redd.it/fktuppkre7p51.gif" />)
+            printNode(
+              <>
+                <div className="text-green-400 font-bold font-sans text-lg">Anc</div>
+                {`T
+E  __      __        __                    
+R /  \\    /  \\ ____ |  |   ____  ____   _____   ____  
+M \\   \\/\\/   // __ \\|  | _/ ___\\/  _ \\ /     \\_/ __ \\ 
+I  \\        /\\  ___/|  |_\\  \\__(  <_> )  Y Y  \\  ___/ 
+N   \\__/\\  /  \\___  >____/\\___  >____/|__|_|  /\\___  >
+A        \\/       \\/          \\/            \\/     \\/
+L`}
+              </>,
+            )
+            return true
+          }}
+        />
       </div>
 
       <SlideAction
@@ -60,7 +82,11 @@ function App() {
         <Dialog.Header onClose={() => setOpenDialog(false)}>
           <h2>Dialog</h2>
         </Dialog.Header>
-        <p>Dialog content</p>
+        <img
+          className="max-h-[80dvh]"
+          src="https://i.pinimg.com/736x/68/8d/d3/688dd325dbbdc238f4b70caffe77a5af.jpg"
+          alt=""
+        />
         <Dialog.Footer>Footer</Dialog.Footer>
       </Dialog>
     </>

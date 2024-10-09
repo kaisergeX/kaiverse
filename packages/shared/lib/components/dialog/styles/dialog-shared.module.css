@@ -1,10 +1,10 @@
-@layer default, keyframes;
+@layer k-default, k-keyframes;
 
-body:has(.dialog[open].modal) {
+/* body:has(.dialog[open].modal) {
   overflow: hidden;
-}
+} */
 
-@layer default {
+@layer k-default {
   .dialog,
   .dialogHeader,
   .dialogContent,
@@ -90,7 +90,7 @@ body:has(.dialog[open].modal) {
   }
 }
 
-@layer keyframes {
+@layer k-keyframes {
   @keyframes slideInLeft {
     from {
       transform: translateX(-100%);

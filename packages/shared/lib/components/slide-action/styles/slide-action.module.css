@@ -1,6 +1,6 @@
-@layer default, variant;
+@layer k-default, k-variant, k-keyframes;
 
-@layer default {
+@layer k-default {
   .slideAction {
     --k-slide-action-theme: var(--k-primary-color, #0142af);
 
@@ -84,7 +84,7 @@
   }
 }
 
-@layer variant {
+@layer k-variant {
   .slideAction.compact {
     padding: 0;
 
@@ -127,8 +127,10 @@
   }
 }
 
-@keyframes gradientWaveText {
-  from {
-    background-position: 400% 0;
+@layer k-keyframes {
+  @keyframes gradientWaveText {
+    from {
+      background-position: 400% 0;
+    }
   }
 }

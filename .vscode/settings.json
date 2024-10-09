@@ -5,5 +5,8 @@
     {
       "mode": "auto"
     }
-  ]
+  ],
+  "[astro]": {
+    "editor.defaultFormatter": "astro-build.astro-vscode"
+  }
 }
