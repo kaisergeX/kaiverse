@@ -30,6 +30,7 @@ const Dialog = forwardRef<HTMLDialogElement, DialogProps>((props, ref) => {
     styles,
     backdropProps,
 
+    onClose,
     onMouseDown,
     children,
     ...htmlDialogAttributes
@@ -74,7 +75,7 @@ const Dialog = forwardRef<HTMLDialogElement, DialogProps>((props, ref) => {
   const {matchedNode: DialogHeaderElement, rest: OtherElementsExceptHeader} = dialogPickChild(
     children,
     DialogHeader,
-    {className: stylingClassNames?.header, style: styles?.header},
+    {className: stylingClassNames?.header, style: styles?.header, onClose},
   )
 
   const {matchedNode: DialogFooterElement, rest: OtherElements} = dialogPickChild(
@@ -109,14 +110,18 @@ const Dialog = forwardRef<HTMLDialogElement, DialogProps>((props, ref) => {
       {...htmlDialogAttributes}
       ref={dialogRef}
       className={classNames(
+        DIALOG_CLASSES.ROOT,
         classes.dialog,
+        `${DIALOG_CLASSES.ROOT}--${dialogMode}`,
         classes[dialogMode],
+        `${DIALOG_CLASSES.ROOT}--${variant}`,
         classes[variant],
-        variant === 'drawer' ? classes[position] : '',
+        variant === 'drawer' ? `${DIALOG_CLASSES.ROOT}--${position} ${classes[position]}` : '',
         className,
       )}
       onMouseDown={handleMouseDown}
       onCancel={handleCancelDialog}
+      onClose={onClose}
       style={htmlDialogAttributes.style || styles?.root}
     >
       {DialogHeaderElement}
@@ -124,8 +129,8 @@ const Dialog = forwardRef<HTMLDialogElement, DialogProps>((props, ref) => {
       {OtherElements?.length ? (
         <article
           className={classNames(
-            classes.dialogContent,
             DIALOG_CLASSES.CONTENT,
+            classes.dialogContent,
             stylingClassNames?.content ?? '',
           )}
           style={styles?.content}

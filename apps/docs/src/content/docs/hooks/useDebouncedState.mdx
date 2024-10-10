@@ -4,6 +4,7 @@ description: Debounces value changes
 ---
 
 import UsageDemo from '@/demo/useDebouncedState/usage'
+import ImmediateDemo from '@/demo/useDebouncedState/immediateUpdate'
 import {Card} from '@astrojs/starlight/components'
 
 Debounces state changes
@@ -17,6 +18,10 @@ import {useDebouncedState} from '@kaiverse/k/hooks'
 ## Usage
 
 `useDebouncedState` hook debounces state value changes. The `state` will be updated after the delay time has passed since the last `setState` call.
+
+<Card title="Playground">
+  <UsageDemo client:load />
+</Card>
 
 ```jsx title="some-component.tsx"
 import {useDebouncedState} from '@kaiverse/k/hooks'
@@ -39,6 +44,24 @@ export default function SomeComponent() {
 }
 ```
 
+## Immediately update state
+
+You can immediately update state with first `setState` call by passing `true` as the third argument.
+
 <Card title="Playground">
-  <UsageDemo client:load />
+  <ImmediateDemo client:load />
 </Card>
+
+```jsx title="some-component.tsx"
+const [value, setValue] = useDebouncedState('', 200, true)
+```
+
+## Type definition
+
+```ts
+function useDebouncedState<T>(
+  defaultValue: T,
+  wait: number,
+  updateFirstChange = false,
+): Readonly<[T, React.Dispatch<React.SetStateAction<T>>]>
+```

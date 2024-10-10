@@ -5,7 +5,7 @@
 :root {
   --sl-font: 'Nunito Variable', sans-serif;
   --sl-sidebar-width: 15rem;
-  --sl-content-width: 55rem;
+  --sl-content-width: 60rem;
 }
 
 /* Light mode colors. */
@@ -22,9 +22,33 @@
   --sl-color-gray-6: #f8eae9;
   --sl-color-gray-7: #fcf4f4;
   --sl-color-black: #ffffff;
+
+  --rounded-btn: 0.5rem;
+}
+
+@view-transition {
+  navigation: auto;
 }
 
 code {
   overflow-wrap: revert;
   border-radius: 4px;
+}
+
+.k-dialog {
+  margin: revert;
+
+  &:where(.k-dialog--non-modal) {
+    border-width: revert;
+  }
+}
+
+.card {
+  border-radius: 0.25rem;
+}
+
+.sl-markdown-content {
+  kbd {
+    @apply kbd m-0;
+  }
 }

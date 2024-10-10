@@ -1,12 +1,12 @@
 import {useDebouncedState} from '@kaiverse/k/hooks'
 
-export default function Usage() {
-  const [value, setValue] = useDebouncedState('', 200)
+export default function UseDebouncedStateImmediateUpdate() {
+  const [value, setValue] = useDebouncedState('', 200, true)
 
   return (
     <>
       <label className="form-control w-full max-w-xs">
-        <span className="label label-text">Type something to see debounce state update</span>
+        <span className="label label-text">Type sth to see the behavior</span>
         <input
           className="input input-bordered w-full max-w-xs"
           placeholder="200ms debounce"

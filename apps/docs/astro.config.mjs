@@ -12,9 +12,13 @@ export default defineConfig({
     starlight({
       title: 'Kaiverse',
       social: {
-        github: 'https://github.com/withastro/starlight',
+        github: 'https://github.com/kaisergeX/kaiverse',
       },
-      customCss: ['./src/custom.css', './src/assets/landing.css', '@fontsource-variable/nunito'],
+      customCss: [
+        './src/assets/custom.css',
+        './src/assets/landing.css',
+        '@fontsource-variable/nunito',
+      ],
       sidebar: [
         {
           label: 'Getting Started',

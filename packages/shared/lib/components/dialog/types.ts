@@ -62,6 +62,7 @@ type DialogSharedProps = {
    * @default false
    */
   preventClose?: boolean
+  onClose?: () => void
 }
 
 type DialogDefaultProps = {

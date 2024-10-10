@@ -52,6 +52,18 @@
 }
 
 @layer k-variant {
+  .dialog:where(.default) {
+    border-radius: 0.5rem;
+  }
+
+  .dialog:where(.modal) {
+    border: none;
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
   .dialog:where(.drawer) {
     height: 100dvh;
     width: 100%;
