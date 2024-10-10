@@ -19,13 +19,30 @@ function App() {
         Open dialog
       </button>
 
-      <div className="container mx-auto h-[50dvh] p-4">
+      <div className="container mx-auto h-[50dvh] p-4 relative">
+        <Dialog
+          open={openDialog}
+          onClose={() => setOpenDialog(false)}
+          dialogMode="non-modal"
+          backdropProps={{
+            blur: 2,
+          }}
+        >
+          <Dialog.Header>
+            <h2>Dialog</h2>
+          </Dialog.Header>
+          <img
+            className="max-h-[80dvh] mx-auto block"
+            src="https://i.pinimg.com/736x/68/8d/d3/688dd325dbbdc238f4b70caffe77a5af.jpg"
+            alt=""
+          />
+          <Dialog.Footer>Footer</Dialog.Footer>
+        </Dialog>
         <Terminal
-          className="[&>div]:scroll-auto"
           title="Terminal"
           greeting="Welcome to Terminal UI Demo!"
           commandHandler={(command, {printNode, println}) => {
-            println(`\t${command}\n`)
+            println(command)
             // printNode(<img src="https://i.redd.it/fktuppkre7p51.gif" />)
             printNode(
               <>
@@ -37,7 +54,7 @@ M \\   \\/\\/   // __ \\|  | _/ ___\\/  _ \\ /     \\_/ __ \\
 I  \\        /\\  ___/|  |_\\  \\__(  <_> )  Y Y  \\  ___/ 
 N   \\__/\\  /  \\___  >____/\\___  >____/|__|_|  /\\___  >
 A        \\/       \\/          \\/            \\/     \\/
-L`}
+L\n`}
               </>,
             )
             return true
@@ -70,25 +87,6 @@ L`}
         onChange={(isConfirmed) => setStatus(isConfirmed)}
         onSwipeEnd={handleOnSwipeEnd}
       />
-
-      <Dialog
-        open={openDialog}
-        onClose={() => setOpenDialog(false)}
-        variant="drawer"
-        backdropProps={{
-          blur: 2,
-        }}
-      >
-        <Dialog.Header onClose={() => setOpenDialog(false)}>
-          <h2>Dialog</h2>
-        </Dialog.Header>
-        <img
-          className="max-h-[80dvh]"
-          src="https://i.pinimg.com/736x/68/8d/d3/688dd325dbbdc238f4b70caffe77a5af.jpg"
-          alt=""
-        />
-        <Dialog.Footer>Footer</Dialog.Footer>
-      </Dialog>
     </>
   )
 }
