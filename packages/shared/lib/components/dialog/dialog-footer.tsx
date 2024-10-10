@@ -1,7 +1,7 @@
 import type {HTMLAttributes, PropsWithChildren} from 'react'
-import classes from './styles/dialog.module.css'
-import {DIALOG_CLASSES} from './constants'
 import {classNames} from '#utils'
+import {DIALOG_CLASSES} from './constants'
+import classes from './styles/dialog.module.css'
 
 export default function DialogFooter({
   className,
@@ -11,7 +11,7 @@ export default function DialogFooter({
   return (
     <footer
       {...dialogFooterAttrs}
-      className={classNames(classes.dialogHeader, DIALOG_CLASSES.FOOTER, className)}
+      className={classNames(DIALOG_CLASSES.FOOTER, classes.dialogHeader, className)}
     >
       {children}
     </footer>

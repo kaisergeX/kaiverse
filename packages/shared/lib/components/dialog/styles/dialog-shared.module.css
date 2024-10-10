@@ -1,8 +1,9 @@
 @layer k-default, k-keyframes;
 
-/* body:has(.dialog[open].modal) {
+body:has(.dialog[open].modal) {
+  scrollbar-gutter: stable;
   overflow: hidden;
-} */
+}
 
 @layer k-default {
   .dialog,
@@ -32,16 +33,11 @@
 
     flex-direction: column;
 
-    border: none;
     box-shadow:
       0 10px 15px -3px rgb(0 0 0 / 0.1),
       0 4px 6px -4px rgb(0 0 0 / 0.1);
 
     pointer-events: none;
-  }
-
-  .dialog:focus-visible {
-    outline: none;
   }
 
   .dialog::backdrop {

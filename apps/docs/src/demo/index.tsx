@@ -1,7 +1,8 @@
 import {useIsomorphicLayoutEffect} from '@kaiverse/k/hooks'
+import {classNames} from '@kaiverse/k/utils'
 import {useState, type ReactNode} from 'react'
 
-export default function Demo({path}: {path: string}) {
+export default function Demo({path, className}: {path: string; className?: string}) {
   const [component, setComponent] = useState<ReactNode>()
 
   useIsomorphicLayoutEffect(() => {
@@ -13,5 +14,5 @@ export default function Demo({path}: {path: string}) {
     loadComponent()
   }, [path])
 
-  return <div className="not-content my-4 leading-normal">{component}</div>
+  return <div className={classNames('not-content my-4 leading-normal', className)}>{component}</div>
 }

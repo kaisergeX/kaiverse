@@ -1,7 +1,7 @@
 import {classNames} from '#utils'
 import type {HTMLAttributes, MouseEventHandler, PropsWithChildren} from 'react'
-import classes from './styles/dialog.module.css'
 import {DIALOG_CLASSES} from './constants'
+import classes from './styles/dialog.module.css'
 
 type DialogHeaderProps = PropsWithChildren<{
   hideCloseButton?: boolean
@@ -17,7 +17,10 @@ export default function DialogHeader({
   ...dialogHeaderAttrs
 }: DialogHeaderProps) {
   return (
-    <header {...dialogHeaderAttrs} className={classNames(classes.dialogHeader, className)}>
+    <header
+      {...dialogHeaderAttrs}
+      className={classNames(DIALOG_CLASSES.HEADER, classes.dialogHeader, className)}
+    >
       {children}
       {hideCloseButton || (
         <button className={DIALOG_CLASSES.HEADER_BTN_CLOSE} type="button" onClick={onClose}>
