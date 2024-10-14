@@ -1,6 +1,7 @@
 export const TERMINAL_CLASSES = {
   ROOT: 'k-terminal',
   HEADER: 'k-terminal-header',
+  WINDOW_CTRLS: 'k-terminal-ctrls',
   HISTORY: 'k-terminal-history',
   INPUT: 'k-terminal-input',
 } as const

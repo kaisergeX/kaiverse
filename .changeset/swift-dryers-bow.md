@@ -3,5 +3,4 @@
 'docs': minor
 ---
 
-[@kaiverse/k] `Dialog` update styles.
-[docs] Add docs for `Dialog` component.
+`Dialog`: update styles, add docs.

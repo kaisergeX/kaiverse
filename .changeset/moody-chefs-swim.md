@@ -3,4 +3,4 @@
 'docs': minor
 ---
 
-[@kaiverse/k] add `SlideAction` component, setup lib mode.
+Add `SlideAction` component, setup lib mode.

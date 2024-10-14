@@ -1,6 +1,6 @@
 import type {CSSProperties, DialogHTMLAttributes} from 'react'
 
-export type DialogStylingSelectors = 'root' | 'header' | 'content' | 'footer'
+export type DialogStylingSelectors = 'header' | 'content' | 'footer'
 
 type DialogSharedProps = {
   classNames?: Partial<Record<DialogStylingSelectors, string>>

@@ -4,7 +4,7 @@ import {useCallback, useEffect, useRef, useState, type Dispatch, type SetStateAc
 
 export function useDebouncedState<T = unknown>(
   defaultValue: T,
-  wait: number,
+  debounceTime: number,
   /**
    * Immediately update value on first call
    * @default false
@@ -29,12 +29,12 @@ export function useDebouncedState<T = unknown>(
         timeoutRef.current = window.setTimeout(() => {
           updateFirstChangeRef.current = true
           setValue(newValue)
-        }, wait)
+        }, debounceTime)
       }
 
       updateFirstChangeRef.current = false
     },
-    [updateFirstChange, wait],
+    [updateFirstChange, debounceTime],
   )
 
   return [value, debouncedSetValue]

@@ -39,7 +39,7 @@ function App() {
           <Dialog.Footer>Footer</Dialog.Footer>
         </Dialog>
         <Terminal
-          title="Terminal"
+          title="Terminal (macos)"
           greeting="Welcome to Terminal UI Demo!"
           commandHandler={(command, {printNode, println}) => {
             println(command)
@@ -59,6 +59,14 @@ L\n`}
             )
             return true
           }}
+        />
+      </div>
+
+      <div className="container mx-auto p-4 relative">
+        <Terminal
+          title="Terminal (window)"
+          greeting="Welcome to Terminal UI Demo!"
+          theme="window"
         />
       </div>
 

@@ -122,7 +122,6 @@ const Dialog = forwardRef<HTMLDialogElement, DialogProps>((props, ref) => {
       onMouseDown={handleMouseDown}
       onCancel={handleCancelDialog}
       onClose={onClose}
-      style={htmlDialogAttributes.style || styles?.root}
     >
       {DialogHeaderElement}
 

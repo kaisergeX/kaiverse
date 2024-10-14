@@ -6,28 +6,30 @@ export default function BackdropStyling() {
 
   return (
     <>
-      <button
-        className="btn btn-neutral"
-        type="button"
-        onClick={() => setOpenDialog(true)}
-      >
+      <button className="btn btn-neutral" type="button" onClick={() => setOpenDialog(true)}>
         Open styled drawer
       </button>
       <Dialog
+        className="bg-base-100/90"
         open={openDialog}
+        classNames={{
+          header: 'italic',
+          content: '[&_code]:text-info',
+          footer:
+            'bg-[radial-gradient(circle,rgba(34,193,195,0.4)_0%,rgba(253,187,45,0.2)_100%)] dark:bg-base-100',
+        }}
         variant="drawer"
         onClose={() => setOpenDialog(false)}
-        styles={{
-          root: {backgroundColor: 'rgba(255,255,255,0.9)'},
-          header: {fontWeight: 600, color: 'var(--cdg-color-cdgBlue)'},
-          content: {color: 'oklch(var(--n))'},
-          footer: {
-            background: 'radial-gradient(circle,rgba(34,193,195,0.4) 0%,rgba(253,187,45,0.2) 100%)',
-          },
-        }}
+        // styles={{
+        //   header: {fontWeight: 600, font-style: 'italic'},
+        //   content: {color: 'oklch(var(--n))'},
+        //   footer: {
+        //     background: 'radial-gradient(circle,rgba(34,193,195,0.4) 0%,rgba(253,187,45,0.2) 100%)',
+        //   },
+        // }}
         backdropProps={{
           blur: 1,
-          opacity: 0.9,
+          opacity: 0.5,
           background: 'linear-gradient(-25deg,rgba(238,174,202,0.6) 0%,rgba(148,187,233,0.6) 100%)',
         }}
       >
