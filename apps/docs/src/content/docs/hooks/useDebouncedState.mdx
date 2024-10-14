@@ -61,7 +61,7 @@ const [value, setValue] = useDebouncedState('', 200, true)
 ```ts
 function useDebouncedState<T>(
   defaultValue: T,
-  wait: number,
+  debounceTime: number, // ms
   updateFirstChange = false,
 ): Readonly<[T, React.Dispatch<React.SetStateAction<T>>]>
 ```

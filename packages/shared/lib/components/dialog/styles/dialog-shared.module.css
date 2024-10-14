@@ -58,7 +58,7 @@ body:has(.dialog[open].modal) {
     justify-content: space-between;
     gap: 1rem;
 
-    & > :where(:global(.k-dialog-btn-close)) {
+    & > .closeBtn {
       margin-left: auto;
       padding: 0.25rem;
 

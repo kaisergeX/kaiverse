@@ -6,7 +6,7 @@ export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   plugins: [daisyui, starlightPlugin()],
   daisyui: {
-    themes: ['cupcake'],
+    themes: ['cupcake', 'dark'],
   },
   blocklist: ['hero'],
 }

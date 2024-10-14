@@ -1,23 +1,35 @@
 'use client'
 
-import {useCallback, useEffect, useRef, type FormEventHandler} from 'react'
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  type FormEventHandler,
+} from 'react'
 import {classNames} from '#utils'
 import {TERMINAL_CTRLS, TERMINAL_CLASSES, TERMINAL_COMMANDS} from './constants'
-import type {TerminalProps} from './types'
+import type {TerminalProps, TerminalRef} from './types'
 import classes from './terminal.module.css'
 import useTerminalHistory from './useTerminalHistory'
+import {CloseIcon, MaximizeIcon, MinimizeIcon} from './icons'
 
-export default function Terminal({
-  className,
-  title,
-  greeting: defaultMsg = '',
-  commandPrefix = '$',
-  commandHandler,
+const Terminal = forwardRef<TerminalRef, TerminalProps>((props, ref) => {
+  const {
+    className,
+    title,
+    greeting: defaultMsg = '',
+    commandPrefix = props.theme === 'window' ? '>' : '$',
+    commandHandler,
+    theme = 'macos',
+    hideWindowCtrls = false,
 
-  classNames: stylingClassNames,
-  styles,
-  ...htmlDivAttributes
-}: TerminalProps) {
+    classNames: stylingClassNames,
+    styles,
+    ...htmlDivAttributes
+  } = props
+
   const terminalHistoryRef = useRef<HTMLDivElement>(null)
   const terminalInput = useRef<HTMLInputElement>(null)
   const {renderHistories, helpers} = useTerminalHistory()
@@ -86,33 +98,50 @@ export default function Terminal({
     return () => window.cancelAnimationFrame(frameId)
   }, [renderHistories])
 
+  useImperativeHandle(ref, () => helpers)
+
   return (
     <div
-      className={classNames(classes.terminal, TERMINAL_CLASSES.ROOT, className)}
       {...htmlDivAttributes}
+      className={classNames(
+        TERMINAL_CLASSES.ROOT,
+        `${TERMINAL_CLASSES.ROOT}--${theme}`,
+        classes[theme],
+        classes.terminal,
+        className,
+      )}
       onClick={() => terminalInput.current?.focus()}
     >
       <header
+        title={title}
         className={classNames(
+          TERMINAL_CLASSES.HEADER,
           classes.terminalHeader,
           stylingClassNames?.windowHeader,
-          TERMINAL_CLASSES.HEADER,
         )}
         style={styles?.windowHeader}
       >
-        <div className={classes.windowControls}>
-          <button className={classNames(classes.macos, classes.close)} type="button"></button>
-          <button className={classNames(classes.macos, classes.minimize)} type="button"></button>
-          <button className={classNames(classes.macos, classes.maximize)} type="button"></button>
-        </div>
+        {hideWindowCtrls || (
+          <div className={classNames(TERMINAL_CLASSES.WINDOW_CTRLS, classes.windowControls)}>
+            <button className={classes.close} type="button" title="Close">
+              <CloseIcon />
+            </button>
+            <button className={classes.minimize} type="button" title="Minimize">
+              <MinimizeIcon />
+            </button>
+            <button className={classes.maximize} type="button" title="Maximize">
+              <MaximizeIcon />
+            </button>
+          </div>
+        )}
         <h2>{title}</h2>
       </header>
       <div
         ref={terminalHistoryRef}
         className={classNames(
+          TERMINAL_CLASSES.HISTORY,
           classes.terminalHistory,
           stylingClassNames?.historySection,
-          TERMINAL_CLASSES.HISTORY,
         )}
         style={styles?.historySection}
       >
@@ -139,4 +168,6 @@ export default function Terminal({
       </div>
     </div>
   )
-}
+})
+
+export default Terminal

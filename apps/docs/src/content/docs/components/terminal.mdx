@@ -3,6 +3,7 @@ title: Terminal
 description: Terminal UI component.
 ---
 
+import {Aside} from '@astrojs/starlight/components'
 import Demo from '@/demo'
 
 ## Import
@@ -13,31 +14,138 @@ import {Terminal} from '@kaiverse/k/ui'
 
 ## Usage
 
-```jsx title="your-component.tsx"
-<Terminal title="..." greeting="..." />
-```
-
 Try command `hello` and then `clear` in the terminal below:
 
 <Demo path="terminal/usage" client:load />
+
+```jsx title="your-component.tsx"
+<Terminal title="..." greeting="..." />
+```
 
 ## Handle Command
 
 You can provide your handler by using `commandHandler` [prop](#terminal-props).
 Your function should returns `true` if the command is manually handled. Otherwise, commands will be executed by default handler.
 
-`commandHandler` prop also has a collection of built-in helpers (2nd argument), you can call it to manipulate the terminal's history (log) section.
-
 ### Default Commands
 
 - `clear` - clear the terminal
 - Others - println: "command not found".
 
-## Title & greatings
+### Helpers
+
+`commandHandler` prop also has a collection of built-in helpers (2nd argument), you can call it to manipulate the terminal's history (log) section.
+
+<Demo path="terminal/helpers" client:load />
+
+```jsx title="using-commandHandler.tsx"
+<Terminal
+  commandHandler={(command, {printNode, println}) => {
+    const currentTime = new Date().toLocaleTimeString()
+    printNode(
+      <>
+        <span className="text-green-400">{currentTime}</span> [
+        <code className="text-blue-400">printNode</code>]{' '}
+        <img className="size-5 invert" src="/favicon.svg" /> Command: {command}
+      </>,
+    )
+    println(`\n${currentTime} [println] Command: ${command}`)
+    return true
+  }}
+/>
+```
+
+```jsx title="call-helpers-via-ref.tsx"
+import {Terminal, type TerminalRef} from '@kaiverse/k/ui'
+
+const terminalRef = useRef<TerminalRef>(null)
+
+<Terminal ref={terminalRef} />
+<button
+  type="button"
+  onClick={() =>
+    terminalRef.current?.println(`${new Date().toLocaleTimeString()} [println]: Trigger println via TerminalRef`)
+  }
+>
+  Println
+</button>
+```
+
+#### `printNode`
+
+Prints a `ReactNode` to Terminal history section.
+
+<Aside title="The following elements & types will be ignored" type="caution">
+  <ul className="[&_p]:!m-0">
+    <li>Primitive data: `string`, `number`, `boolean`. Please use `println` helper instead.</li>
+    <li>
+      `object`, `array`. If you wanna show a list of elements in only one call, wrap it with an
+      element (eg: `<>{contents}</>`).
+    </li>
+    <li>HTML element: `iframe`, `object`, `embed`, `html`.</li>
+  </ul>
+</Aside>
+
+#### `println`
+
+Prints a string with a newline.
+
+#### `clearHistory`
+
+Clears the terminal history. Same as the default `clear` command.
+
+## Customization
+
+### Title & greatings
 
 The `greeting` prop accept a `ReactNode`.
 
 <Demo path="terminal/greetings" client:load />
+
+```jsx title="greetings.tsx"
+<Terminal
+  title="¯\_(ツ)_/¯"
+  greeting={<img width="120" height="120" src="https://i.redd.it/fktuppkre7p51.gif" />}
+/>
+```
+
+### Theme
+
+Switch between 2 themes: `macos` (default) and `window` by using the `theme` prop.
+
+<Demo path="terminal/theme" client:load />
+
+```jsx title="styling.tsx"
+<Terminal theme="window" />
+```
+
+### Hide window controls
+
+You can also hide the window controls by setting `hideWindowCtrls` to `true`.
+
+### Styling Elements
+
+`classNames` and `styles` are 2 more available options for styling the Terminal component.<br/>
+See `TerminalStylingSelectors` in the [Special Types](#special-types) section below for available selectors.
+
+<Aside>
+  Some examples and demos in the documentation use the `styles` prop for convenience, but it is not
+  recommended to use the `styles` prop as the primary means of styling components, as the
+  `classNames` prop is more flexible and has better performance.
+</Aside>
+
+<Demo path="terminal/styling" client:load />
+
+```jsx title="styling.tsx"
+<Terminal
+  className="bg-black dark:bg-slate-600"
+  classNames={{
+    windowHeader:
+      'bg-[radial-gradient(circle,rgba(34,193,195,0.4)_0%,rgba(253,187,45,0.2)_100%)] dark:bg-slate-700',
+    commandForm: '[&>span]:text-yellow-600',
+  }}
+/>
+```
 
 ## Special Types
 
@@ -46,16 +154,19 @@ The `greeting` prop accept a `ReactNode`.
 | `PrintlnFn`                | `(text: string) => void`                                                 | Print the inputted string.                                          |
 | `PrintNodeFn`              | `(node: ReactNode) => void`                                              | Print the inputted ReactNode.                                       |
 | `TerminalHelpers`          | `{println: PrintlnFn; printNode: PrintNodeFn; clearHistory: () => void}` | A collection of helper functions.                                   |
-| `TerminalStylingSelectors` | `'windowHeader' \| 'historySection' \| 'commandForm'`                    | Available selectors of special styles APIs: `classNames`, `styles`. |
+| `TerminalRef`              | `TerminalProps & TerminalHelpers`                                        | All accepted props and helper functions.                            |
+| `TerminalStylingSelectors` | `'windowHeader'` \| `'historySection'` \| `'commandForm'`                | Available selectors of special styles APIs: `classNames`, `styles`. |
 
 ## `<Terminal>` Props
 
-| Name                | Type                                                       | Default | Description                                                                                                                                |
-| :------------------ | :--------------------------------------------------------- | :------ | :----------------------------------------------------------------------------------------------------------------------------------------- |
-| `classNames`        | `Partial<Record<TerminalStylingSelectors, string>>`        | —       | Applies className to related selector element.                                                                                             |
-| `styles`            | `Partial<Record<TerminalStylingSelectors, CSSProperties>>` | —       | Applies inline styles to related selector element.                                                                                         |
-| `title`             | `string`                                                   | —       | Terminal window title.                                                                                                                     |
-| `greeting`          | `ReactNode`                                                | —       | Greating section. It will be printed on top of terminal's history section.                                                                 |
-| `commandPrefix`     | `string`                                                   | `'$'`   |                                                                                                                                            |
-| `commandHandler`    | `(command: string, helper: TerminalHelpers) => boolean`    | —       | Provide custom command handler. Returns `true` if the command is manually handled, otherwise commands will be executed by default handler. |
-| `...htmlAttributes` | `Omit<HTMLAttributes<HTMLDivElement>, 'onClick'>`          | —       | Others HTML attributes.<br/><small>_Note_: `onClick` event handler is not supported.</small>                                               |
+| Name                | Type                                                       | Default                                | Description                                                                                                                                |
+| :------------------ | :--------------------------------------------------------- | :------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------- |
+| `classNames`        | `Partial<Record<TerminalStylingSelectors, string>>`        | —                                      | Applies className to related selector element.                                                                                             |
+| `styles`            | `Partial<Record<TerminalStylingSelectors, CSSProperties>>` | —                                      | Applies inline styles to related selector element.                                                                                         |
+| `title`             | `string`                                                   | —                                      | Terminal window title.                                                                                                                     |
+| `greeting`          | `ReactNode`                                                | —                                      | Greating section. It will be printed on top of terminal's history section.                                                                 |
+| `theme`             | `'macos'` \| `'window'`                                    | `'macos'`                              |                                                                                                                                            |
+| `commandPrefix`     | `string`                                                   | `'$'` (`'>'` if `theme` is `'window'`) |                                                                                                                                            |
+| `commandHandler`    | `(command: string, helper: TerminalHelpers) => boolean`    | —                                      | Provide custom command handler. Returns `true` if the command is manually handled, otherwise commands will be executed by default handler. |
+| `hideWindowCtrls`   | `boolean`                                                  | `false`                                | Hide window controls.                                                                                                                      |
+| `...htmlAttributes` | `Omit<HTMLAttributes<HTMLDivElement>, 'onClick'>`          | —                                      | Others HTML attributes.<br/><small>_Note_: `onClick` event handler is not supported.</small>                                               |

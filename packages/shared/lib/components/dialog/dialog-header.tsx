@@ -23,7 +23,11 @@ export default function DialogHeader({
     >
       {children}
       {hideCloseButton || (
-        <button className={DIALOG_CLASSES.HEADER_BTN_CLOSE} type="button" onClick={onClose}>
+        <button
+          className={classNames(DIALOG_CLASSES.HEADER_BTN_CLOSE, classes.closeBtn)}
+          type="button"
+          onClick={onClose}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"

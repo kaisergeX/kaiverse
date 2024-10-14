@@ -34,7 +34,11 @@ type Props = {
 
   title?: string
   greeting?: ReactNode
-  /** @default '$' */
+  /**
+   * By default, the prefix is:
+   * - `'$'`
+   * - `'>'` (if `theme` is `'window'`)
+   */
   commandPrefix?: string
   /**
    * Custom command handler
@@ -47,6 +51,12 @@ type Props = {
    * @returns `true` if the command is manually handled. `false` - commands will be executed by default handler.
    */
   commandHandler?: (command: string, helper: TerminalHelpers) => boolean
+  /** @default 'macos' */
+  theme?: 'macos' | 'window'
+  /** @default false */
+  hideWindowCtrls?: boolean
 }
 
 export type TerminalProps = Props & Omit<HTMLAttributes<HTMLDivElement>, keyof Props | 'onClick'>
+
+export type TerminalRef = TerminalProps & TerminalHelpers

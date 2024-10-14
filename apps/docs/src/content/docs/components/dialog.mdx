@@ -38,9 +38,7 @@ function BasicDialog() {
 }
 ```
 
-## Variants
-
-### `non-modal` mode
+## `non-modal` mode
 
 A Dialog that has no backdrop and also doesn't render on the top-layer. It can NOT be closed by pressing the `ESC` key and the below page content can be interacted.
 
@@ -52,11 +50,27 @@ A Dialog that has no backdrop and also doesn't render on the top-layer. It can N
 <Dialog dialogMode="non-modal" />
 ```
 
+## Variants
+
 ### `drawer`
 
 A Dialog that slides in from the side of the screen.
 
+#### Position
+
+Position of the drawer. It only available when variant is set to drawer.
+
 <Demo path="dialog/drawer" client:load />
+
+```jsx
+<Dialog variant="drawer" position="..." />
+```
+
+### `mobile` 🛠️
+
+A variant that utilizes modern web technologies to replicate the [iOS drawer (sheets)](https://developer.apple.com/design/human-interface-guidelines/sheets#iOS-iPadOS) experience on the web.
+
+Comming soon...
 
 ## Accessibility
 
@@ -97,7 +111,7 @@ You can opt-out some behaviors by using the `preventFocus` and `preventClose` [p
 ### Styling Elements
 
 `classNames` and `styles` are 2 more available options for styling the Dialog component and its child elements.<br/>
-See the [Special Types section](#special-types) below for available selectors.
+See the [Special Types](#special-types) section below for available selectors.
 
 <Aside>
   Some examples and demos in the documentation use the `styles` prop for convenience, but it is not
@@ -137,12 +151,10 @@ or just get rid of the `Dialog.Header` component and create your own header.
 
 | Name                     | Type                                                               | Description                                                         |
 | :----------------------- | :----------------------------------------------------------------- | :------------------------------------------------------------------ |
-| `DialogStylingSelectors` | `'root' \| 'header' \| 'content' \| 'footer'`                      | Available selectors of special styles APIs: `classNames`, `styles`. |
+| `DialogStylingSelectors` | `'header'` \| `'content'` \| `'footer'`                            | Available selectors of special styles APIs: `classNames`, `styles`. |
 | `BackdropProps`          | `{background?: string; blur?: string \| number; opacity?: number}` | `backdropProps` prop's options.                                     |
 
 ## `<Dialog>` Props
-
-### Shared Props
 
 | Name            | Type                                                     | Default     | Description                                                                                                                                                                      |
 | :-------------- | :------------------------------------------------------- | :---------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
