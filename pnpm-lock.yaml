@@ -96,9 +96,6 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
-      '@types/node':
-        specifier: ^22.7.5
-        version: 22.7.5
       '@types/react':
         specifier: ^18.3.3
         version: 18.3.10
@@ -4927,6 +4924,7 @@ snapshots:
   '@types/node@22.7.5':
     dependencies:
       undici-types: 6.19.8
+    optional: true
 
   '@types/prop-types@15.7.13': {}
 
@@ -7867,7 +7865,8 @@ snapshots:
 
   ultrahtml@1.5.3: {}
 
-  undici-types@6.19.8: {}
+  undici-types@6.19.8:
+    optional: true
 
   unified@11.0.5:
     dependencies:
