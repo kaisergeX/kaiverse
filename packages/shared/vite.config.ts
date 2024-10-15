@@ -3,8 +3,8 @@ import react from '@vitejs/plugin-react-swc'
 import {libInjectCss} from 'vite-plugin-lib-inject-css'
 import dts from 'vite-plugin-dts'
 
-import {extname, relative, resolve} from 'path'
-import {fileURLToPath} from 'url'
+import {extname, relative, resolve} from 'node:path'
+import {fileURLToPath} from 'node:url'
 import {glob} from 'glob'
 
 // https://vitejs.dev/config/
