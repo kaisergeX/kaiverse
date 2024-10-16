@@ -1,16 +1,3 @@
-import {classNames} from '#utils'
-import {
-  isValidElement,
-  Children,
-  cloneElement,
-  type ReactNode,
-  type PropsWithChildren,
-  type ElementType,
-  type HTMLAttributes,
-  type ComponentPropsWithoutRef,
-  type ReactElement,
-} from 'react'
-
 type CustomStyles = {[key: string]: string | number | undefined | null}
 type UpdateStyleOptions = {
   /** @default false */
@@ -89,61 +76,5 @@ export function resetElementStyles(
 
   for (const property of properties) {
     element.style.setProperty(property, (originalStyles?.[property] as string) ?? null)
-  }
-}
-
-const processChildren = (children: ReactNode) => {
-  if (!isValidElement(children)) {
-    return children
-  }
-
-  const isFragment = children.type.toString() === Symbol.for('react.fragment').toString()
-
-  if (isFragment) {
-    return (children.props as PropsWithChildren<unknown>)?.children || children
-  }
-
-  return children
-}
-
-type DialogPickChildReturnType<P extends HTMLAttributes<HTMLElement>> = {
-  matchedNode?: ReactElement<P>
-  rest?: (string | number | ReactElement<unknown> | Iterable<ReactNode>)[] | null
-}
-
-export const dialogPickChild = <
-  T extends ElementType = ElementType,
-  P extends HTMLAttributes<HTMLElement> = ComponentPropsWithoutRef<T>,
->(
-  children: ReactNode,
-  targetType: T,
-  customProps?: ComponentPropsWithoutRef<T>,
-): DialogPickChildReturnType<P> => {
-  const matched: ReactElement[] = []
-
-  const rest = Children.map(processChildren(children), (item) => {
-    if (!isValidElement(item) || item.type !== targetType) {
-      return item
-    }
-
-    if (!customProps) {
-      matched.push(cloneElement(item, item.props))
-      return null
-    }
-
-    matched.push(
-      cloneElement(item, {
-        ...item.props,
-        ...customProps,
-        className: classNames(item.props?.className, customProps?.className),
-        style: item.props.style ?? customProps.style,
-      }),
-    )
-    return null
-  })
-
-  return {
-    matchedNode: matched.length > 0 ? matched[0] : undefined,
-    rest,
   }
 }

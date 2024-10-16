@@ -1,3 +1,5 @@
+'use client'
+
 import {
   forwardRef,
   useCallback,
@@ -6,16 +8,18 @@ import {
   type ReactEventHandler,
 } from 'react'
 import {useDOMRef} from '#hooks'
-import {classNames} from '#utils'
-import {useBackDropStyling} from './useBackDropStyling'
-import DialogHeader from './dialog-header'
-import DialogFooter from './dialog-footer'
+import {classNames, isDOMAvailable, updateElementStyles} from '#utils'
+import {DialogHeader} from './dialog-header'
+import {DialogTitle} from './dialog-title'
+import {DialogCloseButton} from './dialog-close-btn'
+import {DialogContent} from './dialog-content'
 import type {DialogProps} from './types'
-import {dialogPickChild} from './utils'
-import {DIALOG_CLASSES} from './constants'
+import {DialogContext} from './context'
+import {DIALOG_CLASSES, DIALOG_CSS_VARIABLES, DIALOG_DISPLAY_NAME} from './constants'
+import {useBackdropStyling} from './hooks'
 import classes from './styles/dialog.module.css'
 
-const Dialog = forwardRef<HTMLDialogElement, DialogProps>((props, ref) => {
+const DialogRoot = forwardRef<HTMLDialogElement, DialogProps>((props, ref) => {
   const {
     variant = 'default',
     position = 'right',
@@ -26,11 +30,9 @@ const Dialog = forwardRef<HTMLDialogElement, DialogProps>((props, ref) => {
     preventClose = false,
 
     className,
-    classNames: stylingClassNames,
-    styles,
     backdropProps,
+    offset = 0,
 
-    onClose,
     onMouseDown,
     children,
     ...htmlDialogAttributes
@@ -39,7 +41,7 @@ const Dialog = forwardRef<HTMLDialogElement, DialogProps>((props, ref) => {
 
   const handleCloseDialog = useCallback(
     (dialogReturnValue?: string) => {
-      if (typeof document === 'undefined' || !dialogRef.current) {
+      if (!isDOMAvailable || !dialogRef.current) {
         return
       }
 
@@ -72,22 +74,10 @@ const Dialog = forwardRef<HTMLDialogElement, DialogProps>((props, ref) => {
     [preventClose],
   )
 
-  const {matchedNode: DialogHeaderElement, rest: OtherElementsExceptHeader} = dialogPickChild(
-    children,
-    DialogHeader,
-    {className: stylingClassNames?.header, style: styles?.header, onClose},
-  )
-
-  const {matchedNode: DialogFooterElement, rest: OtherElements} = dialogPickChild(
-    OtherElementsExceptHeader,
-    DialogFooter,
-    {className: stylingClassNames?.footer, style: styles?.footer},
-  )
-
-  useBackDropStyling(dialogRef, backdropProps)
+  useBackdropStyling(dialogRef, backdropProps)
 
   useEffect(() => {
-    if (typeof document === 'undefined' || !dialogRef.current) {
+    if (!isDOMAvailable || !dialogRef.current) {
       return
     }
 
@@ -105,6 +95,12 @@ const Dialog = forwardRef<HTMLDialogElement, DialogProps>((props, ref) => {
     handleCloseDialog()
   }, [open, dialogRef, preventFocus, handleCloseDialog, dialogMode])
 
+  useEffect(() => {
+    updateElementStyles(dialogRef.current, {
+      [DIALOG_CSS_VARIABLES.OFFSET]: typeof offset === 'number' ? `${offset}px` : offset,
+    })
+  }, [dialogRef, offset])
+
   return (
     <dialog
       {...htmlDialogAttributes}
@@ -121,31 +117,20 @@ const Dialog = forwardRef<HTMLDialogElement, DialogProps>((props, ref) => {
       )}
       onMouseDown={handleMouseDown}
       onCancel={handleCancelDialog}
-      onClose={onClose}
+      data-offset={offset || undefined}
     >
-      {DialogHeaderElement}
-
-      {OtherElements?.length ? (
-        <article
-          className={classNames(
-            DIALOG_CLASSES.CONTENT,
-            classes.dialogContent,
-            stylingClassNames?.content ?? '',
-          )}
-          style={styles?.content}
-        >
-          {OtherElements}
-        </article>
-      ) : null}
-
-      {DialogFooterElement}
+      <DialogContext.Provider value={{onClose: htmlDialogAttributes.onClose}}>
+        {children}
+      </DialogContext.Provider>
     </dialog>
   )
 })
 
-Dialog.displayName = 'Dialog'
+DialogRoot.displayName = DIALOG_DISPLAY_NAME.ROOT
 
-export default Dialog as typeof Dialog & {
-  Header: typeof DialogHeader
-  Footer: typeof DialogFooter
-}
+export const Dialog = Object.assign(DialogRoot, {
+  Header: DialogHeader,
+  Title: DialogTitle,
+  CloseButton: DialogCloseButton,
+  Content: DialogContent,
+})

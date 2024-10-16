@@ -23,20 +23,32 @@ function App() {
         <Dialog
           open={openDialog}
           onClose={() => setOpenDialog(false)}
-          dialogMode="non-modal"
           backdropProps={{
             blur: 2,
           }}
+          variant="drawer"
+          offset="1rem"
         >
           <Dialog.Header>
-            <h2>Dialog</h2>
+            <Dialog.Title>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam exercitationem officiis
+              quas deleniti. A fuga provident repellendus vitae laborum quasi repellat facilis
+              numquam, excepturi accusantium saepe, praesentium illum est. Placeat. Lorem ipsum
+              dolor sit amet consectetur adipisicing elit. Saepe sed suscipit porro repudiandae sunt
+              deleniti quae corrupti et. Veritatis optio magni error, reprehenderit similique eum
+              quod velit fuga quos eos!
+            </Dialog.Title>
+            <Dialog.CloseButton />
           </Dialog.Header>
-          <img
-            className="max-h-[80dvh] mx-auto block"
-            src="https://i.pinimg.com/736x/68/8d/d3/688dd325dbbdc238f4b70caffe77a5af.jpg"
-            alt=""
-          />
-          <Dialog.Footer>Footer</Dialog.Footer>
+          <Dialog.Content>
+            <div className="h-[120dvh]">
+              <img
+                className="max-h-[80dvh] mx-auto block"
+                src="https://i.pinimg.com/736x/68/8d/d3/688dd325dbbdc238f4b70caffe77a5af.jpg"
+                alt=""
+              />
+            </div>
+          </Dialog.Content>
         </Dialog>
         <Terminal
           title="Terminal (macos)"
@@ -82,9 +94,9 @@ L\n`}
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               className="size-5 text-white"
             >
               <path stroke="none" d="M0 0h24v24H0z" fill="none" />

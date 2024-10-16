@@ -1,33 +1,6 @@
-import type {CSSProperties, DialogHTMLAttributes} from 'react'
-
-export type DialogStylingSelectors = 'header' | 'content' | 'footer'
+import type {DialogHTMLAttributes} from 'react'
 
 type DialogSharedProps = {
-  classNames?: Partial<Record<DialogStylingSelectors, string>>
-  /**
-   * It is NOT recommended to use this prop, as the `classNames` prop is more flexible and has better performance.
-   * ___
-   * ***Note:** `styles[key]`'s value will be ignored if the related element's `style` property is provided.
-   *
-   * @example
-   * ```tsx
-   * <Dialog
-   *    styles={{header: {backgroundColor: 'red'}}}
-   * >
-   *    <Dialog.Header style={{backgroundColor: 'blue'}}>Header</Dialog.Header>
-   * </Dialog>
-   * ```
-   * In this case, `styles.header` will be ignored, the Dialog's header will have a blue background color.
-   */
-  styles?: Partial<Record<DialogStylingSelectors, CSSProperties>>
-  backdropProps?: {
-    /** @default rgba(0,0,0,0.4) */
-    background?: string
-    /** @default 0 */
-    blur?: string | number
-    /** @default 1 */
-    opacity?: number
-  }
   /**
    * @default "modal"
    * @description
@@ -63,6 +36,24 @@ type DialogSharedProps = {
    */
   preventClose?: boolean
   onClose?: () => void
+  /**
+   * Change backdrop styles.
+   * ___
+   * Since `non-modal` Dialog (set by `dialogMode`) doesn't have a backdrop, this prop will be ignored.
+   */
+  backdropProps?: {
+    /** @default rgba(0,0,0,0.4) */
+    background?: string
+    /** @default 0 */
+    blur?: string | number
+    /** @default 1 */
+    opacity?: number
+  }
+  /**
+   * Dialog's offset from the edge of current viewport.
+   * @default 0 // px
+   */
+  offset?: number | string
 }
 
 type DialogDefaultProps = {

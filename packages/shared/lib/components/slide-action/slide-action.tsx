@@ -10,11 +10,12 @@ import {
 import type {SlideActionProps, SlideActionRef, SlideDraggerProps} from './slide-action.types'
 import {useSlideActionDragger} from './hooks'
 import {useDOMRef, useLazyEffect} from '#hooks'
-import {classNames} from '#utils'
+import {isDOMAvailable, classNames} from '#utils'
+import {DISPLAY_NAME_PREFIX} from '../constants'
 import classes from './styles/slide-action.module.css'
 
 const isValidColorVariable = (color: string): boolean => {
-  if (typeof window === 'undefined' || typeof document === 'undefined') {
+  if (!isDOMAvailable) {
     return false
   }
 
@@ -26,7 +27,7 @@ const isValidColorVariable = (color: string): boolean => {
  *
  * Usually use for important actions, such as purchase order, turn off privacy setting, delete something, etc...
  */
-const SlideAction = forwardRef<SlideActionRef, SlideActionProps>(
+export const SlideAction = forwardRef<SlideActionRef, SlideActionProps>(
   (
     {
       className = '',
@@ -199,4 +200,4 @@ const SlideAction = forwardRef<SlideActionRef, SlideActionProps>(
   },
 )
 
-export default SlideAction
+SlideAction.displayName = `${DISPLAY_NAME_PREFIX}/SlideAction`

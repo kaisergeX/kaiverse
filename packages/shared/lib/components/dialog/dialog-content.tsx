@@ -5,19 +5,19 @@ import type {HTMLAttributes, PropsWithChildren} from 'react'
 import {DIALOG_CLASSES, DIALOG_DISPLAY_NAME} from './constants'
 import classes from './styles/dialog.module.css'
 
-export function DialogHeader({
+export function DialogContent({
   className,
   children,
-  ...dialogHeaderAttrs
+  ...dialogContentAttrs
 }: PropsWithChildren<HTMLAttributes<HTMLElement>>) {
   return (
-    <header
-      {...dialogHeaderAttrs}
-      className={classNames(DIALOG_CLASSES.HEADER, classes.dialogHeader, className)}
+    <article
+      {...dialogContentAttrs}
+      className={classNames(DIALOG_CLASSES.CONTENT, classes.dialogContent, className)}
     >
       {children}
-    </header>
+    </article>
   )
 }
 
-DialogHeader.displayName = DIALOG_DISPLAY_NAME.HEADER
+DialogContent.displayName = DIALOG_DISPLAY_NAME.CONTENT

@@ -1,6 +1,7 @@
 import {useEffect, useMemo, useState} from 'react'
 import type {SlideDraggerParams, SlideDraggerProps} from './slide-action.types'
 import {useDrag} from '#hooks'
+import {isDOMAvailable} from '#utils'
 
 export const useSlideActionDragger = ({
   slideRef,
@@ -11,7 +12,7 @@ export const useSlideActionDragger = ({
   const [draggerWidth, setDraggerWidth] = useState(0)
 
   const slideDraggerInfo = useMemo<SlideDraggerParams>(() => {
-    if (typeof window === 'undefined' || !slideRef.current) {
+    if (!isDOMAvailable || !slideRef.current) {
       return {draggerWidth, maxSlideDistance: 0}
     }
 
@@ -34,7 +35,7 @@ export const useSlideActionDragger = ({
   })
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !slideDraggerRef.current) {
+    if (!isDOMAvailable || !slideDraggerRef.current) {
       return
     }
 

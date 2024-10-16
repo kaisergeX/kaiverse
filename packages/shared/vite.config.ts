@@ -1,6 +1,7 @@
 import {defineConfig} from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import {libInjectCss} from 'vite-plugin-lib-inject-css'
+import preserveDirectives from 'rollup-preserve-directives'
 import dts from 'vite-plugin-dts'
 
 import {extname, relative, resolve} from 'path'
@@ -9,7 +10,12 @@ import {glob} from 'glob'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), libInjectCss(), dts({tsconfigPath: resolve(__dirname, 'tsconfig.lib.json')})],
+  plugins: [
+    react(),
+    libInjectCss(),
+    dts({tsconfigPath: resolve(__dirname, 'tsconfig.lib.json')}),
+    preserveDirectives(),
+  ],
   server: {
     open: true,
   },
