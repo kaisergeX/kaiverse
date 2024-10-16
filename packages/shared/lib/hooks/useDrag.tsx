@@ -3,7 +3,7 @@
 import {useCallback, useEffect, useMemo, useRef, type RefObject} from 'react'
 import {useIsomorphicLayoutEffect} from './useIsomorphicLayoutEffect'
 import {useDebouncedState} from './useDebouncedState'
-import {clamp} from '#utils'
+import {isDOMAvailable, clamp} from '#utils'
 
 const getDecelerationFactor = (originVelocity: number): number =>
   8 * (Math.log(Math.abs(originVelocity) + 1) - 2)
@@ -456,7 +456,7 @@ export const useDrag = <T extends HTMLElement = HTMLElement>(
   )
 
   useEffect(() => {
-    if (typeof window === 'undefined') {
+    if (!isDOMAvailable) {
       return
     }
 
@@ -483,7 +483,7 @@ export const useDrag = <T extends HTMLElement = HTMLElement>(
   }, [handlePointerEnd, handlePointerMove, handlePointerStart, opts.ignorePointerCancel, target])
 
   useIsomorphicLayoutEffect(() => {
-    if (typeof window === 'undefined' || !target.current) {
+    if (!isDOMAvailable || !target.current) {
       return
     }
 

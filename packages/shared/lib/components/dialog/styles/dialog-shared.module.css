@@ -8,8 +8,7 @@ body:has(.dialog[open].modal) {
 @layer k-default {
   .dialog,
   .dialogHeader,
-  .dialogContent,
-  .dialogFooter {
+  .dialogContent {
     box-sizing: border-box;
   }
 
@@ -25,13 +24,13 @@ body:has(.dialog[open].modal) {
     --k-dialog-backdrop-blur: 0;
     --k-dialog-backdrop-opacity: 1;
 
-    padding: 0;
-    max-width: unset;
-    max-height: 100dvh;
-    max-block-size: 100%;
-    max-inline-size: unset;
+    --k-dialog-offset: 0px;
 
-    flex-direction: column;
+    padding: 0;
+    max-width: calc(100dvw - var(--k-dialog-offset, 0px));
+    max-height: calc(100dvh - var(--k-dialog-offset, 0px));
+    /* max-block-size: 100%;
+    max-inline-size: unset; */
 
     box-shadow:
       0 10px 15px -3px rgb(0 0 0 / 0.1),
@@ -46,43 +45,56 @@ body:has(.dialog[open].modal) {
   }
 
   .dialog[open] {
-    display: flex;
     pointer-events: auto;
+
+    &:has(> .dialogContent) {
+      display: flex;
+      flex-direction: column;
+    }
   }
 
   .dialogHeader {
+    position: sticky;
+    top: 0;
     padding: 1rem;
+    background-color: inherit;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
 
-    & > .closeBtn {
+    & > .dialogTitle {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+    }
+
+    & > .closeBtn:where(:only-child) {
       margin-left: auto;
-      padding: 0.25rem;
-
-      border-radius: 0.5rem;
-      border: none;
-      background-color: transparent;
-      cursor: pointer;
-
-      & > svg {
-        display: block;
-      }
     }
   }
 
   .dialogContent {
     flex: 1;
-    padding: 1rem;
-    max-height: 100%;
     width: 100%;
-    overflow: hidden auto;
+    max-width: 100dvw;
+    overflow: auto;
   }
 
-  .dialogFooter {
-    padding: 1rem;
+  .closeBtn {
+    padding: 0.25rem;
+
+    border-radius: 0.5rem;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+
+    & > svg {
+      display: block;
+    }
   }
 }
 

@@ -1,23 +1,23 @@
 'use client'
 
-import {classNames} from '#utils'
 import type {HTMLAttributes, PropsWithChildren} from 'react'
+import {classNames} from '#utils'
 import {DIALOG_CLASSES, DIALOG_DISPLAY_NAME} from './constants'
 import classes from './styles/dialog.module.css'
 
-export function DialogHeader({
+export function DialogTitle({
   className,
   children,
-  ...dialogHeaderAttrs
+  ...dialogTitleAttrs
 }: PropsWithChildren<HTMLAttributes<HTMLElement>>) {
   return (
-    <header
-      {...dialogHeaderAttrs}
-      className={classNames(DIALOG_CLASSES.HEADER, classes.dialogHeader, className)}
+    <h2
+      {...dialogTitleAttrs}
+      className={classNames(DIALOG_CLASSES.TITLE, classes.dialogTitle, className)}
     >
       {children}
-    </header>
+    </h2>
   )
 }
 
-DialogHeader.displayName = DIALOG_DISPLAY_NAME.HEADER
+DialogTitle.displayName = DIALOG_DISPLAY_NAME.TITLE

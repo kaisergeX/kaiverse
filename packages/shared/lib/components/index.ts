@@ -1,8 +1,8 @@
-export {default as Dialog} from './dialog'
+export {Dialog, DialogHeader, DialogTitle, DialogCloseButton, DialogContent} from './dialog'
 export type {DialogProps} from './dialog'
 export {default as Terminal, TERMINAL_COMMANDS} from './terminal'
 export type {TerminalRef, TerminalProps, TerminalHelpers} from './terminal'
-export {default as SlideAction} from './slide-action'
+export {SlideAction} from './slide-action'
 export type {
   SlideActionOnChange,
   SlideActionOnSwipeEnd,

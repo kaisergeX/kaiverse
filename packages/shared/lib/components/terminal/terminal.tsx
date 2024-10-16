@@ -11,15 +11,16 @@ import {
 import {classNames} from '#utils'
 import {TERMINAL_CTRLS, TERMINAL_CLASSES, TERMINAL_COMMANDS} from './constants'
 import type {TerminalProps, TerminalRef} from './types'
-import classes from './terminal.module.css'
 import useTerminalHistory from './useTerminalHistory'
 import {CloseIcon, MaximizeIcon, MinimizeIcon} from './icons'
+import {DISPLAY_NAME_PREFIX} from '../constants'
+import classes from './terminal.module.css'
 
 const Terminal = forwardRef<TerminalRef, TerminalProps>((props, ref) => {
   const {
     className,
     title,
-    greeting: defaultMsg = '',
+    greeting = '',
     commandPrefix = props.theme === 'window' ? '>' : '$',
     commandHandler,
     theme = 'macos',
@@ -134,7 +135,7 @@ const Terminal = forwardRef<TerminalRef, TerminalProps>((props, ref) => {
             </button>
           </div>
         )}
-        <h2>{title}</h2>
+        {title ? <h2>{title}</h2> : null}
       </header>
       <div
         ref={terminalHistoryRef}
@@ -146,8 +147,14 @@ const Terminal = forwardRef<TerminalRef, TerminalProps>((props, ref) => {
         style={styles?.historySection}
       >
         <pre>
-          {defaultMsg}
-          {'\n'}
+          {greeting ? (
+            <>
+              {greeting}
+              {`\n`}
+            </>
+          ) : (
+            ''
+          )}
           {renderHistories}
         </pre>
         <form
@@ -170,4 +177,5 @@ const Terminal = forwardRef<TerminalRef, TerminalProps>((props, ref) => {
   )
 })
 
+Terminal.displayName = `${DISPLAY_NAME_PREFIX}/Terminal`
 export default Terminal

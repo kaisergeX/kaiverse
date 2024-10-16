@@ -1,9 +1,9 @@
 import {useEffect, useMemo, type RefObject} from 'react'
-import {DIALOG_CSS_VARIABLES} from './constants'
-import type {DialogProps} from './types'
-import {updateElementStyles} from './utils'
+import {DIALOG_CSS_VARIABLES} from '../constants'
+import type {DialogProps} from '../types'
+import {isDOMAvailable, updateElementStyles} from '#utils'
 
-export const useBackDropStyling = (
+export const useBackdropStyling = (
   dialogRef: RefObject<HTMLDialogElement>,
   backdropProps: DialogProps['backdropProps'],
 ) => {
@@ -15,7 +15,7 @@ export const useBackDropStyling = (
       [DIALOG_CSS_VARIABLES.BACKDROP_BG]: backdropProps?.background,
     }
 
-    if (typeof window === 'undefined' || !dialogRef.current) {
+    if (!isDOMAvailable || !dialogRef.current) {
       return {backdropStyles: customStyles, customStyles}
     }
 
@@ -42,7 +42,7 @@ export const useBackDropStyling = (
   }, [backdropProps?.background, backdropProps?.blur, backdropProps?.opacity, dialogRef])
 
   useEffect(() => {
-    if (typeof window === 'undefined') {
+    if (!isDOMAvailable) {
       return
     }
 
