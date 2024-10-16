@@ -90,7 +90,9 @@ You can opt-out some behaviors by using the `preventFocus` and `preventClose` [p
 ## Compound components
 
 - `Dialog.Header` — a fully customizable header, usually contains a title and the close button.
-- `Dialog.Footer` — bottom section, usually contains actions.
+- `Dialog.Title` — render a `h2` element.
+- `Dialog.CloseButton` — a button that closes the `Dialog`.
+- `Dialog.Content` — a wrapper for the main content of the `Dialog`.
 
 ## Customization
 
@@ -104,32 +106,29 @@ You can opt-out some behaviors by using the `preventFocus` and `preventClose` [p
 | `--k-dialog-transition-timing-fn`      | `cubic-bezier(0.32, 0.72, 0, 1)` | Dialog opening and closing stages transition timing function.                                                                                         |
 | `--k-dialog-open-transition-duration`  | `200ms`                          | Opening transition duration of the Dialog and its backdrop.<br/><small>It affects `opacity`, and discrete transitions (`display`, `overlay`)</small>. |
 | `--k-dialog-close-transition-duration` | `200ms`                          | Same as `--k-dialog-open-transition-duration` but for the closing stage.                                                                              |
+| `--k-dialog-offset`                    | `0`                              | Dialog's offset from the edge of current viewport.                                                                                                    |
 | `--k-dialog-backdrop-bg`               | `rgba(0, 0, 0, 0.4)`             | Backdrop background.                                                                                                                                  |
 | `--k-dialog-backdrop-blur`             | `0`                              | Backdrop blur effect. It will be used by `backdrop-filter`'s `blur` function.                                                                         |
 | `--k-dialog-backdrop-opacity`          | `1`                              | Backdrop opacity.                                                                                                                                     |
 
-### Styling Elements
+### Offset
 
-`classNames` and `styles` are 2 more available options for styling the Dialog component and its child elements.<br/>
-See the [Special Types](#special-types) section below for available selectors.
+You can set the `offset` prop to adjust the Dialog's position from the edge of the viewport.
 
-<Aside>
-  Some examples and demos in the documentation use the `styles` prop for convenience, but it is not
-  recommended to use the `styles` prop as the primary means of styling components, as the
-  `classNames` prop is more flexible and has better performance.
-</Aside>
+Passing a number will set the offset in pixels (eg: `16` → `'16px'`), and a string will be treated as a CSS value.
 
-<Aside type="caution">
-  Styles in `styles[selector]` will be ignored if the related selector element's `style` property
-  has already provided.
-</Aside>
+<Demo path="dialog/offset" client:load />
+
+```jsx
+<Dialog offset={16} />
+```
 
 ### Styling Backdrop
 
 We can customize the Dialog's backdrop by
 
 - Using the `backdropProps` prop.
-- Update related CSS variables.
+- Update [related CSS variables](#css-variables).
 - Apply styles directly to the `::backdrop` pseudo-element.
 
 <Demo path="dialog/backdrop-styling" client:load />
@@ -149,22 +148,20 @@ or just get rid of the `Dialog.Header` component and create your own header.
 
 ## Special Types
 
-| Name                     | Type                                                               | Description                                                         |
-| :----------------------- | :----------------------------------------------------------------- | :------------------------------------------------------------------ |
-| `DialogStylingSelectors` | `'header'` \| `'content'` \| `'footer'`                            | Available selectors of special styles APIs: `classNames`, `styles`. |
-| `BackdropProps`          | `{background?: string; blur?: string \| number; opacity?: number}` | `backdropProps` prop's options.                                     |
+| Name            | Type                                                               | Description                     |
+| :-------------- | :----------------------------------------------------------------- | :------------------------------ |
+| `BackdropProps` | `{background?: string; blur?: string \| number; opacity?: number}` | `backdropProps` prop's options. |
 
 ## `<Dialog>` Props
 
-| Name            | Type                                                     | Default     | Description                                                                                                                                                                      |
-| :-------------- | :------------------------------------------------------- | :---------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `classNames`    | `Partial<Record<DialogStylingSelectors, string>>`        | —           | Applies className to related selector element.<br/><small>See the [Styling section](#styling).</small>                                                                           |
-| `styles`        | `Partial<Record<DialogStylingSelectors, CSSProperties>>` | —           | `styles[selector]` applies inline styles to related selector element ONLY if its `style` property has not been provided.<br/><small>See the [Styling section](#styling).</small> |
-| `backdropProps` | `BackdropProps`                                          | —           | Styling Dialog's backdrop.                                                                                                                                                       |
-| `variant`       | `'default'` \| `'drawer'`                                | `'default'` |                                                                                                                                                                                  |
-| `dialogMode`    | `'modal'` \| `'non-modal'`                               | `'modal'`   | `'modal'`<sup>(1)</sup><br/>`'non-modal'`<sup>(2)</sup>                                                                                                                          |
-| `preventFocus`  | `boolean`                                                | `false`     | If `true`, disable a default behavior of `<dialog>` element: Browser won't autofocus on the first nested focusable element anymore.                                              |
-| `preventClose`  | `boolean`                                                | `false`     | If `true`, the Dialog won't close when users press `Escape` key or click/tap on the backdrop.                                                                                    |
+| Name            | Type                       | Default     | Description                                                                                                                         |
+| :-------------- | :------------------------- | :---------- | :---------------------------------------------------------------------------------------------------------------------------------- |
+| `variant`       | `'default'` \| `'drawer'`  | `'default'` |                                                                                                                                     |
+| `dialogMode`    | `'modal'` \| `'non-modal'` | `'modal'`   | `'modal'`<sup>(1)</sup><br/>`'non-modal'`<sup>(2)</sup>                                                                             |
+| `preventFocus`  | `boolean`                  | `false`     | If `true`, disable a default behavior of `<dialog>` element: Browser won't autofocus on the first nested focusable element anymore. |
+| `preventClose`  | `boolean`                  | `false`     | If `true`, the Dialog won't close when users press `Escape` key or click/tap on the backdrop.                                       |
+| `backdropProps` | `BackdropProps`            | —           | Styling Dialog's backdrop.                                                                                                          |
+| `offset`        | `number` \| `string`       | `0` (px)    | Dialog's offset from the edge of current viewport.                                                                                  |
 
 ### Variant `'drawer'`
 

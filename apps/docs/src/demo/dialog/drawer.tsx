@@ -54,12 +54,14 @@ export default function DrawerDialog() {
         <Dialog.Header>
           <h2>Drawer header</h2>
         </Dialog.Header>
-        Position <strong>{drawerPosition}</strong>
-        <Dialog.Footer>
+        <Dialog.Content>
+          Position <strong>{drawerPosition}</strong>
+        </Dialog.Content>
+        <footer className="p-4">
           <button className="btn btn-secondary" type="button" onClick={handleCloseDrawer}>
             Close
           </button>
-        </Dialog.Footer>
+        </footer>
       </Dialog>
     </>
   )

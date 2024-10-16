@@ -37,6 +37,10 @@ body:has(.dialog[open].modal) {
       0 4px 6px -4px rgb(0 0 0 / 0.1);
 
     pointer-events: none;
+
+    &:has(> .dialogContent) {
+      flex-direction: column;
+    }
   }
 
   .dialog::backdrop {
@@ -49,7 +53,6 @@ body:has(.dialog[open].modal) {
 
     &:has(> .dialogContent) {
       display: flex;
-      flex-direction: column;
     }
   }
 
@@ -79,6 +82,7 @@ body:has(.dialog[open].modal) {
 
   .dialogContent {
     flex: 1;
+    padding: 1rem;
     width: 100%;
     max-width: 100dvw;
     overflow: auto;
