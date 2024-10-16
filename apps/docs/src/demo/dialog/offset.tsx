@@ -1,7 +1,7 @@
 import {Dialog} from '@kaiverse/k/ui'
 import {useState} from 'react'
 
-export default function BasicDialog() {
+export default function OffsetDialog() {
   const [openDialog, setOpenDialog] = useState(false)
 
   return (
@@ -9,18 +9,18 @@ export default function BasicDialog() {
       <button className="btn btn-neutral" type="button" onClick={() => setOpenDialog(true)}>
         Open Dialog
       </button>
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+      <Dialog open={openDialog} variant="drawer" offset={16} onClose={() => setOpenDialog(false)}>
         <Dialog.Header>
-          <Dialog.Title>Dialog header</Dialog.Title>
+          <Dialog.CloseButton />
         </Dialog.Header>
         <Dialog.Content>
-          Dialog content <br /> Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+          You can set the <code>offset</code> prop to adjust the Dialog's position from the edge of
+          the viewport
         </Dialog.Content>
-        <footer className="p-4 flex justify-between items-center">
+        <footer className="p-4">
           <button className="btn btn-secondary" type="button" onClick={() => setOpenDialog(false)}>
             Close
           </button>
-          Dialog Footer
         </footer>
       </Dialog>
     </>

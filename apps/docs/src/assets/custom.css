@@ -30,7 +30,7 @@
   navigation: auto;
 }
 
-.not-content {
+:where(.not-content) {
   button {
     margin: revert-layer;
   }

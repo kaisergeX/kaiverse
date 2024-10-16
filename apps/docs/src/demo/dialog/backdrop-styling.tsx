@@ -12,33 +12,21 @@ export default function BackdropStyling() {
       <Dialog
         className="bg-base-100/90"
         open={openDialog}
-        classNames={{
-          header: 'italic',
-          content: '[&_code]:text-info',
-          footer:
-            'bg-[radial-gradient(circle,rgba(34,193,195,0.4)_0%,rgba(253,187,45,0.2)_100%)] dark:bg-base-100',
-        }}
         variant="drawer"
         onClose={() => setOpenDialog(false)}
-        // styles={{
-        //   header: {fontWeight: 600, font-style: 'italic'},
-        //   content: {color: 'oklch(var(--n))'},
-        //   footer: {
-        //     background: 'radial-gradient(circle,rgba(34,193,195,0.4) 0%,rgba(253,187,45,0.2) 100%)',
-        //   },
-        // }}
         backdropProps={{
           blur: 1,
           opacity: 0.5,
           background: 'linear-gradient(-25deg,rgba(238,174,202,0.6) 0%,rgba(148,187,233,0.6) 100%)',
         }}
       >
-        <Dialog.Header>
+        <Dialog.Header className="italic">
           <h2>Drawer header</h2>
         </Dialog.Header>
-        We can use <code>classNames</code>, <code>styles</code>, and <code>backdropProps</code> to
-        style the Drawer component and its child elements.
-        <Dialog.Footer className="py-2">
+        <Dialog.Content className="[&_code]:text-info">
+          We can use <code>backdropProps</code> to style the Dialog's backdrop.
+        </Dialog.Content>
+        <footer className="p-2 bg-[radial-gradient(circle,rgba(34,193,195,0.4)_0%,rgba(253,187,45,0.2)_100%)] dark:bg-base-100">
           <button
             className="btn btn-secondary btn-sm"
             type="button"
@@ -46,7 +34,7 @@ export default function BackdropStyling() {
           >
             Close
           </button>
-        </Dialog.Footer>
+        </footer>
       </Dialog>
     </>
   )

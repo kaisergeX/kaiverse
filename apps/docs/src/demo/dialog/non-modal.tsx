@@ -24,20 +24,22 @@ export default function NonModalDialog() {
         <Dialog.Header>
           <h2>Non-modal Dialog</h2>
         </Dialog.Header>
-        <a
-          href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#accessibility:~:text=A%20non%2Dmodal%20dialog%20does%20not%20dismiss%20via%20the%20Esc%20key%20by%20default"
-          target="_blank"
-        >
-          Read more
-        </a>{' '}
-        about non-modal mode and
-        <br />
-        related accessibility considerations.
-        <Dialog.Footer>
+        <Dialog.Content>
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#accessibility:~:text=A%20non%2Dmodal%20dialog%20does%20not%20dismiss%20via%20the%20Esc%20key%20by%20default"
+            target="_blank"
+          >
+            Read more
+          </a>{' '}
+          about non-modal mode and
+          <br />
+          related accessibility considerations.
+        </Dialog.Content>
+        <footer className="p-4">
           <button className="btn btn-secondary" type="button" onClick={() => setOpenDialog(false)}>
             Close
           </button>
-        </Dialog.Footer>
+        </footer>
       </Dialog>
 
       <p className="my-4">
