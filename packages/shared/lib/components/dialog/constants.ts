@@ -6,6 +6,7 @@ export const DIALOG_CLASSES = {
   TITLE: 'k-dialog-title',
   CLOSE_BTN: 'k-dialog-btn-close',
   CONTENT: 'k-dialog-content',
+  FOOTER: 'k-dialog-footer',
 } as const
 
 export const DIALOG_CSS_VARIABLES = {
@@ -22,4 +23,5 @@ export const DIALOG_DISPLAY_NAME = {
   TITLE: `${DISPLAY_NAME_PREFIX}/DialogTitle`,
   CLOSE_BTN: `${DISPLAY_NAME_PREFIX}/DialogCloseButton`,
   CONTENT: `${DISPLAY_NAME_PREFIX}/DialogContent`,
+  FOOTER: `${DISPLAY_NAME_PREFIX}/DialogFooter`,
 } as const
