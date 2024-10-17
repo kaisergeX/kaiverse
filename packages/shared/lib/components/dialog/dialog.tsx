@@ -13,6 +13,7 @@ import {DialogHeader} from './dialog-header'
 import {DialogTitle} from './dialog-title'
 import {DialogCloseButton} from './dialog-close-btn'
 import {DialogContent} from './dialog-content'
+import {DialogFooter} from './dialog-footer'
 import type {DialogProps} from './types'
 import {DialogContext} from './context'
 import {DIALOG_CLASSES, DIALOG_CSS_VARIABLES, DIALOG_DISPLAY_NAME} from './constants'
@@ -133,4 +134,5 @@ export const Dialog = Object.assign(DialogRoot, {
   Title: DialogTitle,
   CloseButton: DialogCloseButton,
   Content: DialogContent,
+  Footer: DialogFooter,
 })

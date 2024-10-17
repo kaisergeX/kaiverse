@@ -2,9 +2,11 @@
 title: Getting Started
 ---
 
-import {Tabs, TabItem} from '@astrojs/starlight/components'
+import {Tabs, TabItem, Aside, Code} from '@astrojs/starlight/components'
+import AstroUsage from '@/demo/astro-usage.astro'
+import AstroUsageCode from '@/demo/astro-usage.astro?raw'
 
-`@kaiverse/k` is a collection of powerful utilities, fully featured React components, and hooks.
+`@kaiverse/k` is a collection of powerful utilities, custom React hooks, and fully featured "uncommon" React components.
 
 ## Installation
 
@@ -36,6 +38,112 @@ yarn add @kaiverse/k
 
 ## Packages
 
-- `@kaiverse/k/ui`: React components.
+- `@kaiverse/k/ui`: some rarely used React components.
 - `@kaiverse/k/hooks`: Hooks.
 - `@kaiverse/k/utils`: Utility functions.
+
+<Aside>
+  `@kaiverse/k/ui` is not a common React component library. It's a collection of rarely used
+  components.
+</Aside>
+
+If you are looking for a component library with a wide range of components such as `<Button>`, `<Input>`, `<Layout>`, etc.
+I highly recommend <a href="https://ui.shadcn.com/" target="_blank" rel="noopener">shadcn UI</a>, <a href="https://mantine.dev/" target="_blank" rel="noopener">Mantine</a>, and <a href="https://daisyui.com/" target="_blank" rel="noopener">daisyui</a> (if you love TailwindCSS).
+
+## Usage with Server Components
+
+All `@kaiverse/k/ui` components already have `'use client';` directive at the top of the file.
+
+<Aside type="caution">
+  Some components like [Dialog](/components/dialog) have associated compound components. Compound
+  components cannot be used in server components. Instead of `Component.X` syntax, use `ComponentX`
+  or add `'use client'` directive to the top of your pages/layouts/components.
+</Aside>
+
+## Usage with NextJS
+
+To use `@kaiverse/k` with NextJS, adding the following to your `next.config.mjs`:
+
+<Code
+  title="next.config.mjs"
+  ins={3}
+  lang="js"
+  code={`const nextConfig = {
+    ..., // other next config
+    transpilePackages: ['@kaiverse/k'],
+}`}
+/>
+
+### app router - tree shaking
+
+To enable tree shaking with app router, enable experimental `optimizePackageImports` feature:
+
+<Code
+  title="next.config.mjs"
+  lang="js"
+  ins={6}
+  code={`const nextConfig = {
+    ..., // other next config
+    transpilePackages: ['@kaiverse/k'],
+    experimental: {
+      ..., // other experimental flags 
+      optimizePackageImports: ['@kaiverse/k'],
+    },
+}`}
+/>
+
+## Usage with Astro
+
+<Aside title="No one asked">This documentation is built with Astro btw.</Aside>
+
+Please make sure your Astro project supports React. If not, follow the <a href="https://docs.astro.build/guides/integrations-guide/react/" target="_blank" rel="noopener">official integration guide</a>.
+
+Remember to add <a href="https://docs.astro.build/reference/directives-reference/#client-directives" target="_blank" rel="noopener">client directive</a>
+to make sure components are rendered on the client side.
+
+<Tabs>
+  <TabItem label="Playground">
+    <AstroUsage />
+  </TabItem>
+  <TabItem label="Source code">
+    <Code title="astro-usage.astro" lang="tsx" code={AstroUsageCode} />
+  </TabItem>
+</Tabs>
+
+<Aside type="tip">
+  Even though you can use some `@kaiverse/k/ui` components directly in Astro component, it's
+  recommended to wrap them in React islands with your custom logic/React states and then import your
+  React components into Astro components.
+</Aside>
+
+### Children passing
+
+Children passed into a React component from an Astro component are parsed as plain strings, not React nodes.
+
+Enable the experimental flag `experimentalReactChildren` to make it work via `astro.config.mjs`
+file.
+
+<a
+  href="https://docs.astro.build/guides/integrations-guide/react/#children-parsing"
+  target="_blank"
+  rel="noopener"
+>
+  Read more
+</a>
+Please note that there is some runtime cost to this.
+
+<Code
+  title="astro.config.mjs"
+  ins={8}
+  lang="js"
+  code={`import { defineConfig } from 'astro/config';
+  import react from '@astrojs/react';\n
+  export default defineConfig({
+    ..., // other astro config
+    integrations: [
+      react({
+        experimentalReactChildren: true,
+      }),
+    ],
+  });`}
+/>

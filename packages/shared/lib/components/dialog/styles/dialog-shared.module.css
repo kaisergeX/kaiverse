@@ -88,13 +88,26 @@ body:has(.dialog[open].modal) {
     overflow: auto;
   }
 
+  .dialogFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
   .closeBtn {
     padding: 0.25rem;
 
-    border-radius: 0.5rem;
+    border-radius: calc(infinity * 1px);
     border: none;
     background-color: transparent;
     cursor: pointer;
+    transition: background-color 200ms;
+
+    &:hover {
+      background-color: rgba(41, 19, 52, 0.2);
+    }
 
     & > svg {
       display: block;

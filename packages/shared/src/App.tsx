@@ -49,6 +49,11 @@ function App() {
               />
             </div>
           </Dialog.Content>
+          <Dialog.Footer>
+            <button className="k-button" onClick={() => setOpenDialog(false)}>
+              Close
+            </button>
+          </Dialog.Footer>
         </Dialog>
         <Terminal
           title="Terminal (macos)"

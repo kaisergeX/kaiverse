@@ -3,9 +3,10 @@ title: Dialog
 description: Display overlay area on top of a page.
 ---
 
-import {Card} from '@astrojs/starlight/components'
-import {Aside} from '@astrojs/starlight/components'
+import {Aside, Card, Code, Tabs, TabItem, Badge} from '@astrojs/starlight/components'
 import Demo from '@/demo'
+import controlledByFormCode from '@/demo/dialog/controlled-by-form?raw'
+import withoutCompoundCode from '@/demo/dialog/without-compound?raw'
 
 Display overlay area on top of a page and slides in from the side. Build on top of the native HTML [`<dialog/>`](https://developer.mozilla.org/docs/Web/HTML/Element/dialog) element.
 
@@ -15,40 +16,142 @@ import {Dialog} from '@kaiverse/k/ui'
 
 ## Basic usage
 
-<Demo path="dialog/basic" client:load />
+Some examples of how to use the Dialog component.
 
-```jsx title="demo.tsx"
-function BasicDialog() {
-  const [openDialog, setOpenDialog] = useState(false)
+### Simple dialog
 
-  return (
-    <>
-      <button type="button" onClick={() => setOpenDialog(true)}>
-        Open Dialog
-      </button>
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+<Tabs>
+  <TabItem label="Playground">
+    <Demo path="dialog/basic" client:load />
+  </TabItem>
+  <TabItem label="Source code">
+    <Code
+      title="basic.tsx"
+      lang="tsx"
+      code={`function BasicDialog() {
+    const [openDialog, setOpenDialog] = useState(false)
+    return (
+      <>
+        <button type="button" onClick={() => setOpenDialog(true)}>
+          Open Dialog
+        </button>
+        <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+          <Dialog.Header>
+            <Dialog.Title>Dialog header</Dialog.Title>
+            <Dialog.CloseButton />
+          </Dialog.Header>
+          <Dialog.Content>Dialog content</Dialog.Content>
+          <Dialog.Footer>
+            <button type="button" onClick={() => setOpenDialog(false)}>
+              Close
+            </button>
+            Dialog Footer
+          </Dialog.Footer>
+        </Dialog>
+      </>
+    )
+  }`}
+    />
+  </TabItem>
+</Tabs>
+
+### Controlled by form
+
+When submitting a `<form>` that is nested within a `<Dialog>`,
+you can close that `<Dialog>` by using [form method](https://developer.mozilla.org/docs/Web/HTML/Element/form#method) `method="dialog"`
+or set `formmethod="dialog"` to the `<button>` used to submit the form.<br />
+Also as a result, the `onClose` event will be fired.
+
+<Aside title='Combination - Controlled by React state' type='tip'>
+If you use a React state to control the `open` state of `<Dialog>`, even though the dialog is closed by the form method, remember to set that state to `false` via the `onClose` event.
+<br/>The dialog can't and shouldn't manipulate outside React state(s) by itself.
+</Aside>
+
+Let use the [`drawer` variant](#drawer) for this example.
+
+<Tabs>
+  <TabItem label="Playground">
+    <Demo path="dialog/controlled-by-form" client:load />
+  </TabItem>
+  <TabItem label="Source code">
+    <Code title="controlled-by-form.tsx" lang="tsx" code={controlledByFormCode} />
+  </TabItem>
+</Tabs>
+
+## Compound components
+
+- `Dialog.Header` — a fully customizable header, usually contains a title and the close button.
+- `Dialog.Title` — render a `h2` element.
+- `Dialog.CloseButton` — a button that closes the `Dialog`, this component must be used inside the `Dialog`.
+- `Dialog.Content` — a wrapper for the main content of the `Dialog`.
+- `Dialog.Footer` — bottom section, usually contains actions.
+
+<Aside type="tip">
+  These components are opt-in, you can get rid of all the compound components and use your own.
+</Aside>
+
+For instance, here is a drawer with the same UI as the previous "Controlled by form" example.
+
+<Tabs>
+  <TabItem label="Playground">
+    <Demo path="dialog/without-compound" client:load />
+  </TabItem>
+  <TabItem label="Source code">
+    <Code title="without-compound.tsx" lang="tsx" code={withoutCompoundCode} />
+  </TabItem>
+</Tabs>
+
+## Use in server components
+
+<Aside>Dialog compound components and the `<Dialog>` itself have `'use client';` directive at the top of the file.</Aside>
+
+<Aside type="caution">
+  Compound components cannot be used in server components. Instead of Dialog.XXX syntax, use DialogXXX (eg: `<DialogHeader>`) or add `'use client'` directive to the top of your pages/layouts/components.
+  <br/>If you don't use compound components, then no need to add `'use client'`.
+</Aside>
+
+<Tabs>
+  <TabItem label="Mark it a client component">
+    <Code
+      title="page.tsx"
+      lang="tsx"
+      ins={1}
+      code={`'use client';\n
+import {Dialog} from '@kaiverse/k/ui'\n
+  export default function ClientComponent() {
+    return (
+      <Dialog open>
         <Dialog.Header>
-          <h2>Dialog header</h2>
+          <Dialog.Title>Dialog header</Dialog.Title>
+          <Dialog.CloseButton />
         </Dialog.Header>
-        Dialog content
+        <Dialog.Content>Dialog content</Dialog.Content>
         <Dialog.Footer>Dialog Footer</Dialog.Footer>
       </Dialog>
-    </>
-  )
-}
-```
-
-## `non-modal` mode
-
-A Dialog that has no backdrop and also doesn't render on the top-layer. It can NOT be closed by pressing the `ESC` key and the below page content can be interacted.
-
-<Card>
-  <Demo className="relative min-h-[30dvh]" path="dialog/non-modal" client:load />
-</Card>
-
-```jsx
-<Dialog dialogMode="non-modal" />
-```
+    )
+  }`}
+    />
+  </TabItem>
+  <TabItem label="Server components">
+    <Code
+      title="page.tsx"
+      lang="tsx"
+      code={`import {Dialog, DialogHeader, DialogTitle, DialogCloseButton, DialogContent, DialogFooter} from '@kaiverse/k/ui'\n
+  export default function ServerComponent() {
+    return (
+      <Dialog open>
+        <DialogHeader>
+          <DialogTitle>Dialog header</DialogTitle>
+          <DialogCloseButton />
+        </DialogHeader>
+        <DialogContent>Dialog content</DialogContent>
+        <DialogFooter>Dialog Footer</DialogFooter>
+      </Dialog>
+    )
+  }`}
+    />
+  </TabItem>
+</Tabs>
 
 ## Variants
 
@@ -66,11 +169,23 @@ Position of the drawer. It only available when variant is set to drawer.
 <Dialog variant="drawer" position="..." />
 ```
 
-### `mobile` 🛠️
+### `mobile` <Badge text="WIP" variant="note" />
 
 A variant that utilizes modern web technologies to replicate the [iOS drawer (sheets)](https://developer.apple.com/design/human-interface-guidelines/sheets#iOS-iPadOS) experience on the web.
 
 Coming soon...
+
+## `non-modal` mode
+
+A Dialog that has no backdrop and also doesn't render on the top-layer. It can NOT be closed by pressing the `ESC` key and the below page content can be interacted.
+
+<Card>
+  <Demo className="relative min-h-[30dvh]" path="dialog/non-modal" client:load />
+</Card>
+
+```jsx
+<Dialog dialogMode="non-modal" />
+```
 
 ## Accessibility
 
@@ -86,13 +201,6 @@ You can opt-out some behaviors by using the `preventFocus` and `preventClose` [p
 | <kbd className='kbd-sm'>Escape</kbd>                                                                  | Close the `Dialog`. This behavior will be disabled if `dialogMode` is `'non-modal'`.                                                                                                                                                                 |
 | <kbd className='kbd-sm'>Spacebar</kbd>                                                                | Trigger focusing element.<p className='not-content'>eg: The close button when a Dialog just opened, and the button that opens the Dialog after closing it. You can continue press <kbd className='kbd-xs'>Spacebar</kbd> to open/close a Dialog.</p> |
 | <div className='not-content [&>kbd]:kbd-sm'><kbd>Tab</kbd> \| <kbd>Shift</kbd> + <kbd>Tab</kbd></div> | Cycles through all the focusable elements of the `Dialog` only.                                                                                                                                                                                      |
-
-## Compound components
-
-- `Dialog.Header` — a fully customizable header, usually contains a title and the close button.
-- `Dialog.Title` — render a `h2` element.
-- `Dialog.CloseButton` — a button that closes the `Dialog`.
-- `Dialog.Content` — a wrapper for the main content of the `Dialog`.
 
 ## Customization
 
@@ -115,7 +223,10 @@ You can opt-out some behaviors by using the `preventFocus` and `preventClose` [p
 
 You can set the `offset` prop to adjust the Dialog's position from the edge of the viewport.
 
-Passing a number will set the offset in pixels (eg: `16` → `'16px'`), and a string will be treated as a CSS value.
+<Aside>
+  Passing a number will set the offset in pixels (eg: `16` → `'16px'`), and a string will be treated
+  as a CSS value.
+</Aside>
 
 <Demo path="dialog/offset" client:load />
 
@@ -148,23 +259,26 @@ or just get rid of the `Dialog.Header` component and create your own header.
 
 ## Special Types
 
-| Name            | Type                                                               | Description                     |
-| :-------------- | :----------------------------------------------------------------- | :------------------------------ |
-| `BackdropProps` | `{background?: string; blur?: string \| number; opacity?: number}` | `backdropProps` prop's options. |
+| Name                                                                      | Type                                                               | Description                                                         |
+| :------------------------------------------------------------------------ | :----------------------------------------------------------------- | :------------------------------------------------------------------ |
+| `BackdropProps`                                                           | `{background?: string; blur?: string \| number; opacity?: number}` | `backdropProps` prop's options.                                     |
+| ~~`DialogStylingSelectors`~~ <Badge text="DEPRECATED" variant="danger" /> | `'header'` \| `'content'` \| `'footer'`                            | Available selectors of special styles APIs: `classNames`, `styles`. |
 
 ## `<Dialog>` Props
 
-| Name            | Type                       | Default     | Description                                                                                                                         |
-| :-------------- | :------------------------- | :---------- | :---------------------------------------------------------------------------------------------------------------------------------- |
-| `variant`       | `'default'` \| `'drawer'`  | `'default'` |                                                                                                                                     |
-| `dialogMode`    | `'modal'` \| `'non-modal'` | `'modal'`   | `'modal'`<sup>(1)</sup><br/>`'non-modal'`<sup>(2)</sup>                                                                             |
-| `preventFocus`  | `boolean`                  | `false`     | If `true`, disable a default behavior of `<dialog>` element: Browser won't autofocus on the first nested focusable element anymore. |
-| `preventClose`  | `boolean`                  | `false`     | If `true`, the Dialog won't close when users press `Escape` key or click/tap on the backdrop.                                       |
-| `backdropProps` | `BackdropProps`            | —           | Styling Dialog's backdrop.                                                                                                          |
-| `offset`        | `number` \| `string`       | `0` (px)    | Dialog's offset from the edge of current viewport.                                                                                  |
+| Name                                                          | Type                                                     | Default     | Description                                                                                                                         |
+| :------------------------------------------------------------ | :------------------------------------------------------- | :---------- | :---------------------------------------------------------------------------------------------------------------------------------- |
+| `variant`                                                     | `'default'` \| `'drawer'`                                | `'default'` |                                                                                                                                     |
+| `dialogMode`                                                  | `'modal'` \| `'non-modal'`                               | `'modal'`   | `'modal'`<sup>(1)</sup><br/>`'non-modal'`<sup>(2)</sup>                                                                             |
+| `preventFocus`                                                | `boolean`                                                | `false`     | If `true`, disable a default behavior of `<dialog>` element: Browser won't autofocus on the first nested focusable element anymore. |
+| `preventClose`                                                | `boolean`                                                | `false`     | If `true`, the Dialog won't close when users press `Escape` key or click/tap on the backdrop.                                       |
+| `backdropProps`                                               | `BackdropProps`                                          | —           | Styling Dialog's backdrop.                                                                                                          |
+| `offset`                                                      | `number` \| `string`                                     | `0` (px)    | Dialog's offset from the edge of current viewport.                                                                                  |
+| ~~`classNames`~~ <Badge text="DEPRECATED" variant="danger" /> | `Partial<Record<DialogStylingSelectors, string>>`        | —           | Applies className to related selector element.                                                                                      |
+| ~~`styles`~~ <Badge text="DEPRECATED" variant="danger" />     | `Partial<Record<DialogStylingSelectors, CSSProperties>>` | —           | `styles[selector]` applies inline styles to related selector element ONLY if its `style` property has not been provided.            |
 
 ### Variant `'drawer'`
 
-| Name       | Type                                           | Default   | Description                                              |
-| :--------- | :--------------------------------------------- | :-------- | :------------------------------------------------------- |
-| `position` | `'right'` \| `'bottom'` \| `'left'` \| `'top'` | `'right'` | Side of the screen where the `<Dialog/>` will be opened. |
+| Name       | Type                                           | Default   | Description                                                     |
+| :--------- | :--------------------------------------------- | :-------- | :-------------------------------------------------------------- |
+| `position` | `'right'` \| `'bottom'` \| `'left'` \| `'top'` | `'right'` | Side of the screen where the `'drawer'` variant will be opened. |
