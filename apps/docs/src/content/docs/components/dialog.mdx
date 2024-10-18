@@ -71,7 +71,7 @@ Let use the [`drawer` variant](#drawer) for this example.
 
 <Tabs>
   <TabItem label="Playground">
-    <Demo path="dialog/controlled-by-form" client:load />
+    <Demo path="dialog/controlled-by-form" client:visible />
   </TabItem>
   <TabItem label="Source code">
     <Code title="controlled-by-form.tsx" lang="tsx" code={controlledByFormCode} />
@@ -90,11 +90,11 @@ Let use the [`drawer` variant](#drawer) for this example.
   These components are opt-in, you can get rid of all the compound components and use your own.
 </Aside>
 
-For instance, here is a drawer with the same UI as the previous "Controlled by form" example.
+For instance, here is a drawer with the same UI as the previous "Controlled by form" example that doesn't use any compound components.
 
 <Tabs>
   <TabItem label="Playground">
-    <Demo path="dialog/without-compound" client:load />
+    <Demo path="dialog/without-compound" client:visible />
   </TabItem>
   <TabItem label="Source code">
     <Code title="without-compound.tsx" lang="tsx" code={withoutCompoundCode} />
@@ -163,7 +163,7 @@ A Dialog that slides in from the side of the screen.
 
 Position of the drawer. It only available when variant is set to drawer.
 
-<Demo path="dialog/drawer" client:load />
+<Demo path="dialog/drawer" client:visible />
 
 ```jsx
 <Dialog variant="drawer" position="..." />
@@ -180,7 +180,7 @@ Coming soon...
 A Dialog that has no backdrop and also doesn't render on the top-layer. It can NOT be closed by pressing the `ESC` key and the below page content can be interacted.
 
 <Card>
-  <Demo className="relative min-h-[30dvh]" path="dialog/non-modal" client:load />
+  <Demo className="relative min-h-[30dvh]" path="dialog/non-modal" client:visible />
 </Card>
 
 ```jsx
@@ -228,7 +228,7 @@ You can set the `offset` prop to adjust the Dialog's position from the edge of t
   as a CSS value.
 </Aside>
 
-<Demo path="dialog/offset" client:load />
+<Demo path="dialog/offset" client:visible />
 
 ```jsx
 <Dialog offset={16} />
@@ -242,7 +242,7 @@ We can customize the Dialog's backdrop by
 - Update [related CSS variables](#css-variables).
 - Apply styles directly to the `::backdrop` pseudo-element.
 
-<Demo path="dialog/backdrop-styling" client:load />
+<Demo path="dialog/backdrop-styling" client:visible />
 
 ### Hide close button
 
