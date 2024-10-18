@@ -8,6 +8,7 @@ import tailwind from '@astrojs/tailwind'
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://kaisergeX.github.io/k',
   integrations: [
     starlight({
       title: 'Kaiverse',
