@@ -1,5 +1,18 @@
 # docs
 
+## 0.2.0
+
+### Minor Changes
+
+- dd94c07: Update docs for NextJS supports
+
+### Patch Changes
+
+- 7cccd68: docs: fix dynamic import playgrounds in production
+- Updated dependencies [dd94c07]
+- Updated dependencies [7bb5ed8]
+  - @kaiverse/k@0.2.0
+
 ## 0.1.0
 
 ### Minor Changes

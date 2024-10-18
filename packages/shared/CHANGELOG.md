@@ -1,5 +1,12 @@
 # @kaiverse/k
 
+## 0.2.0
+
+### Minor Changes
+
+- dd94c07: Update docs for NextJS supports
+- 7bb5ed8: Support NextJS App dir.
+
 ## 0.1.0
 
 ### Minor Changes
