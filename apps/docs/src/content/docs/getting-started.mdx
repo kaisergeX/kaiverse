@@ -55,17 +55,17 @@ I highly recommend <a href="https://ui.shadcn.com/" target="_blank" rel="noopene
 All `@kaiverse/k/ui` components already have `'use client';` directive at the top of the file.
 
 <Aside type="caution">
-  Some components like [Dialog](/components/dialog) have associated compound components. Compound
+  Some components like [Dialog](components/dialog) have associated compound components. Compound
   components cannot be used in server components. Instead of `Component.X` syntax, use `ComponentX`
   or add `'use client'` directive to the top of your pages/layouts/components.
 </Aside>
 
 ## Usage with NextJS
 
-To use `@kaiverse/k` with NextJS, adding the following to your `next.config.mjs`:
+To use `@kaiverse/k` with NextJS, adding the following to your `next.config` file:
 
 <Code
-  title="next.config.mjs"
+  title="next.config.ts"
   ins={3}
   lang="js"
   code={`const nextConfig = {
@@ -79,7 +79,7 @@ To use `@kaiverse/k` with NextJS, adding the following to your `next.config.mjs`
 To enable tree shaking with app router, enable experimental `optimizePackageImports` feature:
 
 <Code
-  title="next.config.mjs"
+  title="next.config.ts"
   lang="js"
   ins={6}
   code={`const nextConfig = {
@@ -120,8 +120,7 @@ to make sure components are rendered on the client side.
 
 Children passed into a React component from an Astro component are parsed as plain strings, not React nodes.
 
-Enable the experimental flag `experimentalReactChildren` to make it work via `astro.config.mjs`
-file.
+Enable the experimental flag `experimentalReactChildren` to make it work via `astro.config` file.
 
 <a
   href="https://docs.astro.build/guides/integrations-guide/react/#children-parsing"
