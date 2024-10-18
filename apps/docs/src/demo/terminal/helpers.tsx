@@ -1,3 +1,4 @@
+import {BASE_URL} from '@/content/config'
 import {Terminal, type TerminalRef} from '@kaiverse/k/ui'
 import {useRef} from 'react'
 
@@ -29,8 +30,8 @@ export default function TerminalHelpers() {
             <>
               <span className="text-green-400">{currentDateTime}</span> [
               <code className="text-blue-400">printNode</code>]{' '}
-              <img className="size-5 invert" src="/favicon.svg" alt="@kaiverse/k" /> Command:{' '}
-              {command}
+              <img className="size-5 invert" src={`${BASE_URL}/favicon.svg`} alt="@kaiverse/k" />{' '}
+              Command: {command}
             </>,
           )
           println(`\n${currentDateTime} [println] Command: ${command}`)
