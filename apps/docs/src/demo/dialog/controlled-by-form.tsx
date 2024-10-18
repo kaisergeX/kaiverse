@@ -20,13 +20,12 @@ export default function DialogControlledByForm() {
       <button className="btn btn-neutral" type="button" onClick={() => setOpenDrawer(true)}>
         Open Drawer
       </button>
-      <p className="my-4">
-        Submitted form values:
-        <br />
+      <section className="my-4">
+        <strong>Submitted form values:</strong>
         <pre className="p-2 w-full rounded-lg bg-base-100 whitespace-pre-wrap [overflow-wrap:anywhere]">
           {JSON.stringify({keyword}, null, 2)}
         </pre>
-      </p>
+      </section>
 
       <Dialog
         open={openDrawer}

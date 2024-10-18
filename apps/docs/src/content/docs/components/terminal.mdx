@@ -36,7 +36,7 @@ Your function should returns `true` if the command is manually handled. Otherwis
 
 `commandHandler` prop also has a collection of built-in helpers (2nd argument), you can call it to manipulate the terminal's history (log) section.
 
-<Demo path="terminal/helpers" client:load />
+<Demo path="terminal/helpers" client:visible />
 
 ```jsx title="using-commandHandler.tsx"
 <Terminal
@@ -100,7 +100,7 @@ Clears the terminal history. Same as the default `clear` command.
 
 The `greeting` prop accept a `ReactNode`.
 
-<Demo path="terminal/greetings" client:load />
+<Demo path="terminal/greetings" client:visible />
 
 ```jsx title="greetings.tsx"
 <Terminal
@@ -113,7 +113,7 @@ The `greeting` prop accept a `ReactNode`.
 
 Switch between 2 themes: `macos` (default) and `window` by using the `theme` prop.
 
-<Demo path="terminal/theme" client:load />
+<Demo path="terminal/theme" client:visible />
 
 ```jsx title="styling.tsx"
 <Terminal theme="window" />
@@ -134,7 +134,7 @@ See `TerminalStylingSelectors` in the [Special Types](#special-types) section be
   `classNames` prop is more flexible and has better performance.
 </Aside>
 
-<Demo path="terminal/styling" client:load />
+<Demo path="terminal/styling" client:visible />
 
 ```jsx title="styling.tsx"
 <Terminal

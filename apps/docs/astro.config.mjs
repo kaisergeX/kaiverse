@@ -3,12 +3,18 @@ import {defineConfig} from 'astro/config'
 import starlight from '@astrojs/starlight'
 import react from '@astrojs/react'
 import tailwind from '@astrojs/tailwind'
+// import relativeLinks from 'astro-relative-links'
+// import dynamicImport from 'vite-plugin-dynamic-import'
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://kaisergex.github.io',
   base: '/kaiverse',
+  // vite: {
+  //   plugins: [dynamicImport()],
+  // },
   integrations: [
+    // relativeLinks(),
     starlight({
       title: 'Kaiverse',
       social: {
