@@ -192,7 +192,7 @@ A Dialog that has no backdrop and also doesn't render on the top-layer. It can N
 `Dialog` component build on top of the HTML [`<dialog/>`](https://developer.mozilla.org/docs/Web/HTML/Element/dialog) element.
 
 By default, it respects the default accessibility behavior and settings of a `<dialog/>` element.
-You can opt-out some behaviors by using the `preventFocus` and `preventClose` [props](#shared-props).
+You can opt-out some behaviors by using the `preventFocus` and `preventClose` [props](#dialog-props).
 
 ### Keyboard interactions
 
@@ -242,20 +242,37 @@ We can customize the Dialog's backdrop by
 - Update [related CSS variables](#css-variables).
 - Apply styles directly to the `::backdrop` pseudo-element.
 
-<Demo path="dialog/backdrop-styling" client:visible />
-
-### Hide close button
-
-You can hide the close button by adding `hideCloseButton` prop to `Dialog.Header`
-or just get rid of the `Dialog.Header` component and create your own header.
-
-```jsx
-<Dialog>
-  <Dialog.Header hideCloseButton>
-    <h2>Dialog header</h2>
-  </Dialog.Header>
-</Dialog>
-```
+<Tabs>
+  <TabItem label="Playground">
+    <Demo path="dialog/backdrop-styling" client:visible />
+  </TabItem>
+  <TabItem label="Source code">
+    <Code
+      title="backdrop-styling.tsx"
+      lang="tsx"
+      code={`<Dialog
+    className="bg-base-100/90"
+    backdropProps={{
+      blur: 1,
+      opacity: 0.5,
+      background: 'linear-gradient(-25deg,rgba(238,174,202,0.6) 0%,rgba(148,187,233,0.6) 100%)',
+    }}
+  >
+    <Dialog.Header className="italic">
+      <Dialog.Title>Drawer header</Dialog.Title>
+    </Dialog.Header>
+    <Dialog.Content className="[&_code]:text-info">
+      We can use <code>backdropProps</code> to style the Dialog's backdrop.
+    </Dialog.Content>
+    <footer className="bg-[radial-gradient(circle,rgba(34,193,195,0.4)_0%,rgba(253,187,45,0.2)_100%)]">
+      <button type="button">
+        Close
+      </button>
+    </footer>
+  </Dialog>`}
+    />
+  </TabItem>
+</Tabs>
 
 ## Special Types
 
@@ -266,16 +283,16 @@ or just get rid of the `Dialog.Header` component and create your own header.
 
 ## `<Dialog>` Props
 
-| Name                                                          | Type                                                     | Default     | Description                                                                                                                         |
-| :------------------------------------------------------------ | :------------------------------------------------------- | :---------- | :---------------------------------------------------------------------------------------------------------------------------------- |
-| `variant`                                                     | `'default'` \| `'drawer'`                                | `'default'` |                                                                                                                                     |
-| `dialogMode`                                                  | `'modal'` \| `'non-modal'`                               | `'modal'`   | `'modal'`<sup>(1)</sup><br/>`'non-modal'`<sup>(2)</sup>                                                                             |
-| `preventFocus`                                                | `boolean`                                                | `false`     | If `true`, disable a default behavior of `<dialog>` element: Browser won't autofocus on the first nested focusable element anymore. |
-| `preventClose`                                                | `boolean`                                                | `false`     | If `true`, the Dialog won't close when users press `Escape` key or click/tap on the backdrop.                                       |
-| `backdropProps`                                               | `BackdropProps`                                          | —           | Styling Dialog's backdrop.                                                                                                          |
-| `offset`                                                      | `number` \| `string`                                     | `0` (px)    | Dialog's offset from the edge of current viewport.                                                                                  |
-| ~~`classNames`~~ <Badge text="DEPRECATED" variant="danger" /> | `Partial<Record<DialogStylingSelectors, string>>`        | —           | Applies className to related selector element.                                                                                      |
-| ~~`styles`~~ <Badge text="DEPRECATED" variant="danger" />     | `Partial<Record<DialogStylingSelectors, CSSProperties>>` | —           | `styles[selector]` applies inline styles to related selector element ONLY if its `style` property has not been provided.            |
+| Name                                                          | Type                                                     | Default                                                      | Description                                                                                                                         |
+| :------------------------------------------------------------ | :------------------------------------------------------- | :----------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------- |
+| `variant`                                                     | `'default'` \| `'drawer'`                                | `'default'`                                                  |                                                                                                                                     |
+| `dialogMode`                                                  | `'modal'` \| `'non-modal'`                               | `'modal'`                                                    | `'modal'`<sup>(1)</sup><br/>`'non-modal'`<sup>(2)</sup>                                                                             |
+| `preventFocus`                                                | `boolean`                                                | `false`                                                      | If `true`, disable a default behavior of `<dialog>` element: Browser won't autofocus on the first nested focusable element anymore. |
+| `preventClose`                                                | `boolean`                                                | `false`                                                      | If `true`, the Dialog won't close when users press `Escape` key or click/tap on the backdrop.                                       |
+| `backdropProps`                                               | `BackdropProps`                                          | `background: rgba(0,0,0,0.4)`<br/>`blur: 0`<br/>`opacity: 1` | Styling Dialog's backdrop.                                                                                                          |
+| `offset`                                                      | `number` \| `string`                                     | `0` (px)                                                     | Dialog's offset from the edge of current viewport.                                                                                  |
+| ~~`classNames`~~ <Badge text="DEPRECATED" variant="danger" /> | `Partial<Record<DialogStylingSelectors, string>>`        | —                                                            | Applies className to related selector element.                                                                                      |
+| ~~`styles`~~ <Badge text="DEPRECATED" variant="danger" />     | `Partial<Record<DialogStylingSelectors, CSSProperties>>` | —                                                            | `styles[selector]` applies inline styles to related selector element ONLY if its `style` property has not been provided.            |
 
 ### Variant `'drawer'`
 

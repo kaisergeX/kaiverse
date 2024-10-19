@@ -21,7 +21,7 @@ export default function BackdropStyling() {
         }}
       >
         <Dialog.Header className="italic">
-          <h2>Drawer header</h2>
+          <Dialog.Title>Drawer header</Dialog.Title>
         </Dialog.Header>
         <Dialog.Content className="[&_code]:text-info">
           We can use <code>backdropProps</code> to style the Dialog's backdrop.

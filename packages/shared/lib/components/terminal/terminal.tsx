@@ -46,12 +46,13 @@ const Terminal = forwardRef<TerminalRef, TerminalProps>((props, ref) => {
 
       e.currentTarget.reset()
 
-      if (commandHandler?.(command, helpers)) {
+      if (commandHandler?.(command, helpers) === 'skip_default') {
         return
       }
 
       switch (command.toLowerCase()) {
-        case TERMINAL_COMMANDS.CLEAR: {
+        case TERMINAL_COMMANDS.CLEAR:
+        case TERMINAL_COMMANDS.CLS: {
           helpers.clearHistory()
           break
         }

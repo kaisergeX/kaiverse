@@ -13,4 +13,5 @@ export const TERMINAL_CTRLS = {
 
 export const TERMINAL_COMMANDS = {
   CLEAR: 'clear',
+  CLS: 'cls',
 } as const
