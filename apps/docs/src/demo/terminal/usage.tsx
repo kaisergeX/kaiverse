@@ -21,9 +21,8 @@ L\n\n`}
       commandHandler={(command, {println}) => {
         if (command === 'hello') {
           println('Hello world👋!')
-          return true
+          return 'skip_default'
         }
-        return false
       }}
       style={{maxHeight: '30dvh'}}
     />

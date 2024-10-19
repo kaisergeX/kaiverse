@@ -47,15 +47,15 @@ yarn add @kaiverse/k
   components.
 </Aside>
 
-If you are looking for a component library with a wide range of components such as `<Button>`, `<Input>`, `<Layout>`, etc.
-I highly recommend <a href="https://ui.shadcn.com/" target="_blank" rel="noopener">shadcn UI</a>, <a href="https://mantine.dev/" target="_blank" rel="noopener">Mantine</a>, and <a href="https://daisyui.com/" target="_blank" rel="noopener">daisyui</a> (if you love TailwindCSS).
+If you are looking for a component library with a wide range of components from basic (eg: `<Button>`, `<Input>`, `<Layout>`) to complex (such as `<RichTextEditor>`, `<Chart>`),
+I highly recommend <a href="https://ui.shadcn.com/" target="_blank" rel="noopener">shadcn UI</a>, <a href="https://mantine.dev/" target="_blank" rel="noopener">Mantine</a>, and <a href="https://daisyui.com/" target="_blank" rel="noopener">daisyui</a>.
 
 ## Usage with Server Components
 
 All `@kaiverse/k/ui` components already have `'use client';` directive at the top of the file.
 
 <Aside type="caution">
-  Some components like [Dialog](components/dialog) have associated compound components. Compound
+  Some components like [Dialog](/components/dialog) have associated compound components. Compound
   components cannot be used in server components. Instead of `Component.X` syntax, use `ComponentX`
   or add `'use client'` directive to the top of your pages/layouts/components.
 </Aside>
@@ -94,7 +94,7 @@ To enable tree shaking with app router, enable experimental `optimizePackageImpo
 
 ## Usage with Astro
 
-<Aside title="No one asked">This documentation is built with Astro btw.</Aside>
+<Aside title="No one asked but">This documentation is built with Astro btw.</Aside>
 
 Please make sure your Astro project supports React. If not, follow the <a href="https://docs.astro.build/guides/integrations-guide/react/" target="_blank" rel="noopener">official integration guide</a>.
 

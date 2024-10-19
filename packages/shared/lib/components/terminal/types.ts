@@ -44,13 +44,13 @@ type Props = {
    * Custom command handler
    * ___
    * Default commands:
-   * - `clear` - clear the terminal
+   * - `clear` | `cls` - clear the terminal history.
    * - Others - println: "command not found".
    *
    * @param command need to be handled
-   * @returns `true` if the command is manually handled. `false` - commands will be executed by default handler.
+   * @returns `skip_default` if the command is manually handled and you wanna skip the default handler. Otherwise, commands will be executed by it.
    */
-  commandHandler?: (command: string, helper: TerminalHelpers) => boolean
+  commandHandler?: (command: string, helper: TerminalHelpers) => 'skip_default' | void
   /** @default 'macos' */
   theme?: 'macos' | 'window'
   /** @default false */

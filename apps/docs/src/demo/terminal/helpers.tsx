@@ -1,4 +1,4 @@
-import {Terminal, type TerminalRef} from '@kaiverse/k/ui'
+import {Terminal, TERMINAL_COMMANDS, type TerminalRef} from '@kaiverse/k/ui'
 import {useRef} from 'react'
 
 export default function TerminalHelpers() {
@@ -19,26 +19,34 @@ export default function TerminalHelpers() {
             <br />
             <code className="text-rose-400">clearHistory</code> - clears the terminal history
             <br />
-            Try typing anything
+            Try command <span className="font-bold text-primary">print</span> or{' '}
+            <code className="font-semibold text-primary">p</code> to log messages, and then{' '}
+            <span className="font-bold text-rose-400">{TERMINAL_COMMANDS.CLEAR}</span>.
           </p>
         }
-        commandHandler={(command, {printNode, println}) => {
-          const currentDateTime = new Date().toLocaleTimeString()
+        commandHandler={(rawCommand, {printNode, println}) => {
+          const command = rawCommand.trim()
 
-          printNode(
-            <>
-              <span className="text-green-400">{currentDateTime}</span> [
-              <code className="text-blue-400">printNode</code>]{' '}
-              <img
-                className="size-5"
-                src="https://icons.iconarchive.com/icons/iconarchive/dogecoin-to-the-moon/48/Doge-icon.png"
-                alt="@kaiverse/k"
-              />{' '}
-              Command: {command}
-            </>,
-          )
-          println(`\n${currentDateTime} [println] Command: ${command}`)
-          return true
+          if (command === 'print' || command === 'p') {
+            const currentDateTime = new Date().toLocaleTimeString()
+
+            printNode(
+              <>
+                <span className="text-green-400">{currentDateTime}</span> [
+                <code className="text-blue-400">printNode</code>]{' '}
+                <img
+                  className="size-5"
+                  src="https://icons.iconarchive.com/icons/iconarchive/dogecoin-to-the-moon/48/Doge-icon.png"
+                  alt="@kaiverse/k"
+                />{' '}
+                Command: {command}
+              </>,
+            )
+            println(`\n${currentDateTime} [println] Command: ${command}`)
+            return 'skip_default' // skip the default handler
+          }
+
+          // let the default handler handle all other commands
         }}
       />
 

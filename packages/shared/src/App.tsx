@@ -74,7 +74,7 @@ A        \\/       \\/          \\/            \\/     \\/
 L\n`}
               </>,
             )
-            return true
+            return 'skip_default'
           }}
         />
       </div>
