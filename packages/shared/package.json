@@ -1,6 +1,6 @@
 {
   "name": "@kaiverse/k",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A collection of powerful utility functions, feature-rich uncommon React components, and hooks.",
   "author": "Vu Duc Khai",
   "type": "module",
