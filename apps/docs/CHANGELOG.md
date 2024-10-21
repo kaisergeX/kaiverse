@@ -1,5 +1,24 @@
 # docs
 
+## 0.2.0
+
+### Minor Changes
+
+- dd94c07: Update docs for NextJS supports
+- ee7c346: `SlideAction`: Add styling APIs & docs.<br/>`useDrag`: re-organize folder structure, improve `options` memorization.
+- 69e7da3: `Terminal`: `commandHandler` now should returns `'skip_default'` to skip the default handler instead of `true`.
+
+  Update `Dialog` & `Terminal` docs.
+
+### Patch Changes
+
+- 7cccd68: docs: fix dynamic import playgrounds in production
+- Updated dependencies [dd94c07]
+- Updated dependencies [ee7c346]
+- Updated dependencies [69e7da3]
+- Updated dependencies [7bb5ed8]
+  - @kaiverse/k@0.2.0
+
 ## 0.1.0
 
 ### Minor Changes

@@ -1,5 +1,17 @@
 # @kaiverse/k
 
+## 0.2.0
+
+### Minor Changes
+
+- dd94c07: Update docs for NextJS supports
+- ee7c346: `SlideAction`: Add styling APIs & docs.<br/>`useDrag`: re-organize folder structure, improve `options` memorization.
+- 69e7da3: `Terminal`: `commandHandler` now should returns `'skip_default'` to skip the default handler instead of `true`.
+
+  Update `Dialog` & `Terminal` docs.
+
+- 7bb5ed8: Support NextJS App dir.
+
 ## 0.1.0
 
 ### Minor Changes
