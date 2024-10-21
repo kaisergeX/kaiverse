@@ -19,7 +19,7 @@ export default tseslint.config(
     },
   },
   {
-    files: ['apps/**/*.{ts,tsx}', 'packages/shared/**/*.{ts,tsx}'],
+    files: ['apps/**/*.{ts,tsx}', 'packages/k/**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,

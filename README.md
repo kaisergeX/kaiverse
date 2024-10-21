@@ -18,5 +18,5 @@ pnpm dev
 
 ### Packages
 
-- [@kaiverse/k](packages/shared): Utility functions, React components & hooks.
+- [@kaiverse/k](packages/k): Utility functions, React components & hooks.
 - [docs](apps/docs): Documentation page.
