@@ -12,7 +12,7 @@ import {useSlideActionDragger} from './hooks'
 import {useDOMRef, useLazyEffect} from '#hooks'
 import {isDOMAvailable, classNames} from '#utils'
 import {DISPLAY_NAME_PREFIX} from '../constants'
-import classes from './styles/slide-action.module.css'
+import classes from './slide-action.module.css'
 
 const isValidColorVariable = (color: string): boolean => {
   if (!isDOMAvailable) {
@@ -30,7 +30,9 @@ const isValidColorVariable = (color: string): boolean => {
 export const SlideAction = forwardRef<SlideActionRef, SlideActionProps>(
   (
     {
-      className = '',
+      className,
+      classNames: stylingClassNames,
+      styles,
       icon,
       color,
       label = 'Slide',
@@ -158,10 +160,10 @@ export const SlideAction = forwardRef<SlideActionRef, SlideActionProps>(
       <div
         ref={slideRef}
         className={classNames(
-          classes.slideAction,
-          compact ? classes.compact : undefined,
-          className,
           SLIDER_ACTION_CLASSES.ROOT,
+          classes.slideAction,
+          compact ? `${SLIDER_ACTION_CLASSES.ROOT}--compact ${classes.compact}` : undefined,
+          className,
         )}
         // data-color={color} // attr(data-color) is not widely supported yet, using inline style for now
         {...htmlDivAttributes}
@@ -169,17 +171,27 @@ export const SlideAction = forwardRef<SlideActionRef, SlideActionProps>(
         <div
           ref={slideBgRef}
           className={classNames(
-            classes.slideActionBackground,
-            slideType && classes[slideType],
             SLIDER_ACTION_CLASSES.BG,
+            classes.slideActionBackground,
+            `${SLIDER_ACTION_CLASSES.BG}--${slideType}`,
+            slideType && classes[slideType],
+            stylingClassNames?.progress,
           )}
+          style={styles?.progress}
         />
 
         <button
           ref={slideDraggerRef}
-          className={classNames(classes.slideActionDragger, SLIDER_ACTION_CLASSES.DRAGGER)}
+          className={classNames(
+            SLIDER_ACTION_CLASSES.DRAGGER,
+            classes.slideActionDragger,
+            disableDrag
+              ? `${SLIDER_ACTION_CLASSES.ROOT}--disableDrag ${classes.disableDrag}`
+              : undefined,
+            stylingClassNames?.dragger,
+          )}
           type="button"
-          style={disableDrag ? {pointerEvents: 'none'} : undefined}
+          style={styles?.dragger}
         >
           {icon || <SlideActionDefaultIcon />}
         </button>
@@ -187,9 +199,11 @@ export const SlideAction = forwardRef<SlideActionRef, SlideActionProps>(
         <div
           ref={slideLabelRef}
           className={classNames(
-            classes.slideActionLabel,
-            labelType && classes[labelType],
             SLIDER_ACTION_CLASSES.LABEL,
+            classes.slideActionLabel,
+            `${SLIDER_ACTION_CLASSES.LABEL}--${labelType}`,
+            labelType && classes[labelType],
+            stylingClassNames?.label,
           )}
           title={typeof children === 'string' ? children : label}
         >

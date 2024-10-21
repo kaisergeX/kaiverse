@@ -1,4 +1,4 @@
-import starlightPlugin from '@astrojs/starlight-tailwind'
+import starlightPlugin from './plugins/starlight-tailwind'
 import daisyui from 'daisyui'
 
 /** @type {import('tailwindcss').Config} */

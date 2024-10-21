@@ -2,7 +2,7 @@
 
 @layer k-default {
   .slideAction {
-    --k-slide-action-theme: var(--k-primary-color, #0142af);
+    --k-slide-action-theme: var(--k-primary-color, #1d4ed8);
 
     position: relative;
     display: flex;
@@ -10,6 +10,7 @@
     gap: 0.5rem;
     padding: 0.5rem;
 
+    color: var(--k-slide-action-theme);
     border-radius: calc(infinity * 1px);
     border: 1px solid var(--k-slide-action-theme);
     overflow: hidden;
@@ -54,7 +55,6 @@
       flex: 1;
 
       font-weight: 600;
-      color: var(--k-slide-action-theme);
       text-align: center;
       white-space: nowrap;
       overflow: hidden;
@@ -77,6 +77,13 @@
     }
   }
 
+  /* light-dark() function is not widely supported yet */
+  @media (prefers-color-scheme: dark) {
+    .slideAction {
+      --k-slide-action-theme: #3b82f6;
+    }
+  }
+
   @media (min-width: 600px) {
     .slideAction {
       max-width: 20rem;
@@ -85,7 +92,7 @@
 }
 
 @layer k-variant {
-  .slideAction.compact {
+  .slideAction:where(.compact) {
     padding: 0;
 
     & > .slideActionBackground {
@@ -104,24 +111,24 @@
     }
   }
 
-  .slideActionBackground.static {
+  .slideActionBackground:where(.static) {
     width: calc(100% - 1rem);
     opacity: 0;
   }
 
-  @media (prefers-reduced-motion: no-preference) {
-    .slideActionLabel.default {
-      color: var(--k-slide-action-theme);
-    }
+  .slideActionDragger:where(.disableDrag) {
+    pointer-events: none;
+  }
 
-    .slideActionLabel.slide {
+  @media (prefers-reduced-motion: no-preference) {
+    .slideActionLabel:where(.slide) {
       color: transparent;
       animation: gradientWaveText 8s infinite linear;
     }
   }
 
   @media (min-width: 600px) {
-    .slideAction.compact {
+    .slideAction:where(.compact) {
       max-width: 15rem;
     }
   }

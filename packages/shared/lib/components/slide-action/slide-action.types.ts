@@ -1,7 +1,17 @@
 import type {DraggableOptions} from '#hooks'
-import type {HTMLAttributes, ReactNode, RefObject} from 'react'
+import type {CSSProperties, HTMLAttributes, ReactNode, RefObject} from 'react'
+
+type SlideActionStylingSelectors = 'dragger' | 'label' | 'progress'
 
 type Props = {
+  /** Applies className to related element. */
+  classNames?: Partial<Record<SlideActionStylingSelectors, string>>
+  /**
+   * Applies inline styles to related element.
+   *
+   * It is NOT recommended to use this prop, as the `classNames` prop is more flexible and has better performance.
+   */
+  styles?: Partial<Record<SlideActionStylingSelectors, CSSProperties>>
   icon?: ReactNode
   label?: string
   /**
@@ -47,8 +57,8 @@ type Props = {
   /** @default 'default' */
   labelType?: 'default' | 'slide'
 
-  /** @default 'static' */
-  slideType?: 'static' | 'slide'
+  /** @default 'slide' */
+  slideType?: 'slide' | 'static'
 }
 
 /**

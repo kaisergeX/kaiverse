@@ -1,6 +1,6 @@
 import {classNames} from '#utils'
 import {SLIDER_ACTION_CLASSES} from './slide-action.const'
-import classes from './styles/slide-action.module.css'
+import classes from './slide-action.module.css'
 
 export default function SlideActionDefaultIcon() {
   return (

@@ -14,4 +14,14 @@ export const demoModules = {
   'terminal/greetings': lazy(() => import('./terminal/greetings')),
   'terminal/theme': lazy(() => import('./terminal/theme')),
   'terminal/styling': lazy(() => import('./terminal/styling')),
+
+  'slide-action/basic': lazy(() => import('./slide-action/basic')),
+  'slide-action/interactive': lazy(() => import('./slide-action/interactive')),
+  'slide-action/reset-via-ref': lazy(() => import('./slide-action/reset-via-ref')),
+  'slide-action/custom-effect': lazy(() => import('./slide-action/custom-effect')),
+  'slide-action/custom-icon': lazy(() => import('./slide-action/custom-icon')),
+  'slide-action/colorful': lazy(() => import('./slide-action/colorful')),
+  'slide-action/compact': lazy(() => import('./slide-action/compact')),
+  'slide-action/allowSwipeAfterEnd': lazy(() => import('./slide-action/allowSwipeAfterEnd')),
+  'slide-action/styling': lazy(() => import('./slide-action/styling')),
 } as const

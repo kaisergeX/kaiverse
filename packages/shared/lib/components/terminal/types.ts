@@ -1,6 +1,6 @@
 import type {CSSProperties, HTMLAttributes, ReactNode} from 'react'
 
-export type TerminalStylingSelectors = 'windowHeader' | 'historySection' | 'commandForm'
+type TerminalStylingSelectors = 'windowHeader' | 'historySection' | 'commandForm'
 
 export type PrintlnFn = (text: string) => void
 export type PrintNodeFn = (node: ReactNode) => void

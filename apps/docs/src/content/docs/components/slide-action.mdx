@@ -1,0 +1,198 @@
+---
+title: Slide Action
+description: A component that requires user to swipe to confirm an action. Use for important actions, such as purchase order, privacy setting changes, delete something, etc.
+---
+
+import {Code, Aside, Tabs, TabItem} from '@astrojs/starlight/components'
+import Demo from '@/demo'
+import SlideActionCustomEffectCode from '@/demo/slide-action/custom-effect.tsx?raw'
+import SlideActionCustomIconCode from '@/demo/slide-action/custom-icon.tsx?raw'
+import SlideActionColorfulCode from '@/demo/slide-action/colorful.tsx?raw'
+import SlideActionStylingCode from '@/demo/slide-action/styling.tsx?raw'
+
+## Import
+
+```js
+import {Terminal} from '@kaiverse/k/ui'
+```
+
+## Usage
+
+When users swiped all the way to the end, we can call it a successful or confirmatory action.
+
+<Demo path="slide-action/basic" client:load />
+
+```tsx title="basic.tsx"
+<SlideAction
+  label="Swipe to confirm"
+  onSwipeEnd={() => {
+    // do sth when users swiped to the end, e.g. call API, mutation data, etc...
+  }}
+/>
+```
+
+## Reset
+
+How to reset the component status?
+
+<Tabs>
+  <TabItem label="via onSwipeEnd's argument">
+    Call `reset` function that shipped with `onSwipeEnd` callback.
+    <Demo path="slide-action/interactive" client:load />
+    <Code
+      title="slide-action-interactive.tsx"
+      lang="tsx"
+      code={`import {SlideAction, type SlideActionOnSwipeEnd} from '@kaiverse/k/ui'\n
+  const handleOnSwipeEnd = useCallback<SlideActionOnSwipeEnd>((reset) => {
+      // do sth when users swiped to the end, e.g. call API, mutation data, etc...
+    setTimeout(() => {
+      reset()
+    }, 1000)
+  }, [])\n
+  return (
+    <SlideAction
+      label="Swipe to confirm"
+      color={status ? '#059669' : undefined}
+      icon={status ? <IconCheck className="size-5 text-white" /> : undefined}
+      onSwipeEnd={handleOnSwipeEnd}
+    />
+  )`}
+    />
+  </TabItem>
+  <TabItem label="via ref">
+    Call `resetState` function from component ref.
+    <Demo path="slide-action/reset-via-ref" client:load />
+    <Code
+      title="slide-action-interactive.tsx"
+      lang="tsx"
+      code={`import {SlideAction, type SlideActionRef} from '@kaiverse/k/ui'\n
+  const slideActionRef = useRef<SlideActionRef>(null)\n
+  return (
+    <>
+      <SlideAction ref={slideActionRef}>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit
+      </SlideAction>
+      <button type="button" onClick={() => slideActionRef.current?.resetState()}>
+        Reset below SlideAction
+      </button>
+    </>
+  )`}
+    />
+  </TabItem>
+</Tabs>
+
+## Customization
+
+### Effects
+
+- `slideType`: the slide progress effect.
+- `labelType`: label effect.
+
+<Tabs>
+  <TabItem label="Playground">
+    <Demo path="slide-action/custom-effect" client:load />
+  </TabItem>
+  <TabItem label="Source code">
+    <Code title="custom-effect.tsx" lang="tsx" code={SlideActionCustomEffectCode} />
+  </TabItem>
+</Tabs>
+
+### Icon
+
+<Tabs>
+  <TabItem label="Playground">
+    <Demo path="slide-action/custom-icon" client:load />
+  </TabItem>
+  <TabItem label="Source code">
+    <Code title="custom-icon.tsx" lang="tsx" code={SlideActionCustomIconCode} />
+  </TabItem>
+</Tabs>
+
+### Color 🎨
+
+You can use the `color` prop to change the theme color.
+
+Default color: <code className="text-[#1d4ed8]">#1d4ed8</code> (`--k-slide-action-theme`)
+
+<Tabs>
+  <TabItem label="Playground">
+    <Demo path="slide-action/colorful" client:load />
+  </TabItem>
+  <TabItem label="Source code">
+    <Code title="colorful.tsx" lang="tsx" code={SlideActionColorfulCode} />
+  </TabItem>
+</Tabs>
+
+### Compact
+
+<Demo path="slide-action/compact" client:load />
+
+```tsx title="compact.tsx"
+<SlideAction compact />
+```
+
+### Styling Elements
+
+`classNames` and `styles` are 2 more available options for styling the `<SlideAction>` component.<br/>
+See `SlideActionStylingSelectors` in the [Special Types](#special-types) section below for available selectors.
+
+<Aside>
+  Some examples and demos in the documentation use the `styles` prop for convenience, but it is not
+  recommended to use the `styles` prop as the primary means of styling components, as the
+  `classNames` prop is more flexible and has better performance.
+</Aside>
+
+<Tabs>
+  <TabItem label="Playground">
+    <Demo path="slide-action/styling" client:load />
+  </TabItem>
+  <TabItem label="Source code">
+    <Code title="styling.tsx" lang="tsx" code={SlideActionStylingCode} />
+  </TabItem>
+</Tabs>
+
+## allowSwipeAfterEnd
+
+**Avoid enabling this flag as much as possible**. If you wanna reset the component status, see the [Reset section](#reset).
+
+By default, users can NOT swipe this component after the action is settled/confirmed. Set `allowSwipeAfterEnd` to `true` to disable this behavior.
+
+<Aside title="Accessibility considerations: Act unintentionally" type="caution">
+  Since an action is a successful action when users dragged/swiped this component all the way to the
+  end. <br />
+  On that state, if users tap and then release without swiping, `<SlideAction>` will assume that it
+  is an successful/confirmatory action. <br />
+  As a result, `onSwipeEnd` will be triggered.
+</Aside>
+
+<Demo path="slide-action/allowSwipeAfterEnd" client:load />
+
+```tsx title="allowSwipeAfterEnd.tsx"
+<SlideAction allowSwipeAfterEnd />
+```
+
+## Special Types
+
+| Name                          | Type                                         | Description                                                                                                          |
+| :---------------------------- | :------------------------------------------- | :------------------------------------------------------------------------------------------------------------------- |
+| `SlideActionOnSwipeEnd`       | `(reset: () => void) => void`                | Type of `onSwipeEnd` callback                                                                                        |
+| `SlideActionOnChange`         | `(isSuccess: boolean) => void`               | Type of `onChange` callback                                                                                          |
+| `SlideActionStylingSelectors` | `'dragger'` \| `'label'` \| `'progress'`     | Available selectors of special styles APIs: `classNames`, `styles`.                                                  |
+| `SlideActionRef`              | `HTMLDivElement & {resetState: () => void;}` | `<SlideAction>` element ref.<br/>Call `ref.resetState()` to reset component status. See the [reset section](#reset). |
+
+## `<SlideAction>` Props
+
+| Name                 | Type                                                          | Default                              | Description                                                                                                                                 |
+| :------------------- | :------------------------------------------------------------ | :----------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------ |
+| `children`           | `ReactNode`                                                   | —                                    | Will be consider as a label. If provided, `label` prop will be ignored.                                                                     |
+| `classNames`         | `Partial<Record<SlideActionStylingSelectors, string>>`        | —                                    | Applies className to related selector element.                                                                                              |
+| `styles`             | `Partial<Record<SlideActionStylingSelectors, CSSProperties>>` | —                                    | Applies inline styles to related selector element.                                                                                          |
+| `icon`               | `ReactNode`                                                   | Double arrow right                   | Icon for the swiper.                                                                                                                        |
+| `color`              | `string`                                                      | `--k-slide-action-theme` - `#1d4ed8` | Component theme color.<br/><small>Includes label, slide background, border and the dragger color</small>                                    |
+| `label`              | `string`                                                      | `'Slide'`                            |                                                                                                                                             |
+| `labelType`          | `'default'` \| `'slide'`                                      | `'default'`                          | Label effect                                                                                                                                |
+| `slideType`          | `'slide'` \| `'static'`                                       | `'slide'`                            | The left behind background color's effect.<br/>`'slide'`: progress effect (default).                                                        |
+| `onSwipeEnd`         | `SlideActionOnSwipeEnd`                                       | —                                    | Trigger when users swiped all the way to the end.<br/>Call the 1st argument to reset the component status. See the [reset section](#reset). |
+| `onChange`           | `SlideActionOnChange`                                         | —                                    | Trigger when component's status changes.                                                                                                    |
+| `compact`            | `boolean`                                                     | `false`                              | Compact size.                                                                                                                               |
+| `allowSwipeAfterEnd` | `boolean`                                                     | `false`                              | See the [allowSwipeAfterEnd section](#allowswipeafterend).                                                                                  |
