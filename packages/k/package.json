@@ -17,12 +17,12 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/kaisergeX/kaiverse.git",
-    "directory": "packages/shared"
+    "directory": "packages/k"
   },
   "bugs": {
     "url": "https://github.com/kaisergeX/kaiverse/issues"
   },
-  "homepage": "https://github.com/kaisergeX/kaiverse",
+  "homepage": "https://kaisergex.github.io/kaiverse/",
   "publishConfig": {
     "access": "public"
   },

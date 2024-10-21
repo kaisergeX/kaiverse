@@ -61,7 +61,7 @@ importers:
         version: 5.1.0
       '@kaiverse/k':
         specifier: workspace:*
-        version: link:../../packages/shared
+        version: link:../../packages/k
       '@types/react':
         specifier: ^18.3.11
         version: 18.3.11
@@ -95,7 +95,7 @@ importers:
     dependencies:
       '@kaiverse/k':
         specifier: workspace:*
-        version: link:../../packages/shared
+        version: link:../../packages/k
       next:
         specifier: 14.2.15
         version: 14.2.15(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -125,14 +125,14 @@ importers:
         specifier: ^5
         version: 5.6.3
 
-  packages/shared:
+  packages/k:
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
       '@types/react':
         specifier: ^18.3.3
-        version: 18.3.10
+        version: 18.3.11
       '@types/react-dom':
         specifier: ^18.3.0
         version: 18.3.0
@@ -165,13 +165,13 @@ importers:
         version: 3.4.13
       typescript:
         specifier: ^5.5.3
-        version: 5.6.2
+        version: 5.6.3
       vite:
         specifier: ^5.4.1
         version: 5.4.8(@types/node@22.7.5)(lightningcss@1.27.0)(terser@5.34.1)
       vite-plugin-dts:
         specifier: ^4.2.3
-        version: 4.2.3(@types/node@22.7.5)(rollup@4.23.0)(typescript@5.6.2)(vite@5.4.8(@types/node@22.7.5)(lightningcss@1.27.0)(terser@5.34.1))
+        version: 4.2.3(@types/node@22.7.5)(rollup@4.23.0)(typescript@5.6.3)(vite@5.4.8(@types/node@22.7.5)(lightningcss@1.27.0)(terser@5.34.1))
       vite-plugin-lib-inject-css:
         specifier: ^2.1.1
         version: 2.1.1(vite@5.4.8(@types/node@22.7.5)(lightningcss@1.27.0)(terser@5.34.1))
@@ -1341,9 +1341,6 @@ packages:
 
   '@volar/source-map@2.4.6':
     resolution: {integrity: sha512-Nsh7UW2ruK+uURIPzjJgF0YRGP5CX9nQHypA2OMqdM2FKy7rh+uv3XgPnWPw30JADbKvZ5HuBzG4gSbVDYVtiw==}
-
-  '@volar/typescript@2.4.5':
-    resolution: {integrity: sha512-mcT1mHvLljAEtHviVcBuOyAwwMKz1ibXTi5uYtP/pf4XxoAzpdkQ+Br2IC0NPCvLCbjPZmbf3I0udndkfB1CDg==}
 
   '@volar/typescript@2.4.6':
     resolution: {integrity: sha512-NMIrA7y5OOqddL9VtngPWYmdQU03htNKFtAYidbYfWA0TOhyGVd9tfcP4TsLWQ+RBWDZCbBqsr8xzU0ZOxYTCQ==}
@@ -3602,11 +3599,6 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  typescript@5.6.2:
-    resolution: {integrity: sha512-NW8ByodCSNCwZeghjN3o+JX5OFH0Ojg6sadjEKY4huZ52TqbJTJnDo5+Tw98lSy63NZvi4n+ez5m2u5d4PkZyw==}
-    engines: {node: '>=14.17'}
-    hasBin: true
-
   typescript@5.6.3:
     resolution: {integrity: sha512-hjcS1mhfuyi4WW8IWtjP7brDrG2cuDZukyrYrSauoXGNgx0S7zceP07adYkJycEr56BOUTNPzbInooiN3fn1qw==}
     engines: {node: '>=14.17'}
@@ -5281,12 +5273,6 @@ snapshots:
 
   '@volar/source-map@2.4.6': {}
 
-  '@volar/typescript@2.4.5':
-    dependencies:
-      '@volar/language-core': 2.4.5
-      path-browserify: 1.0.1
-      vscode-uri: 3.0.8
-
   '@volar/typescript@2.4.6':
     dependencies:
       '@volar/language-core': 2.4.6
@@ -5321,9 +5307,9 @@ snapshots:
       de-indent: 1.0.2
       he: 1.2.0
 
-  '@vue/language-core@2.1.6(typescript@5.6.2)':
+  '@vue/language-core@2.1.6(typescript@5.6.3)':
     dependencies:
-      '@volar/language-core': 2.4.5
+      '@volar/language-core': 2.4.6
       '@vue/compiler-dom': 3.5.11
       '@vue/compiler-vue2': 2.7.16
       '@vue/shared': 3.5.11
@@ -5332,7 +5318,7 @@ snapshots:
       muggle-string: 0.4.1
       path-browserify: 1.0.1
     optionalDependencies:
-      typescript: 5.6.2
+      typescript: 5.6.3
 
   '@vue/shared@3.5.11': {}
 
@@ -8095,8 +8081,6 @@ snapshots:
 
   typescript@5.5.4: {}
 
-  typescript@5.6.2: {}
-
   typescript@5.6.3: {}
 
   ufo@1.5.4: {}
@@ -8190,18 +8174,18 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.2
 
-  vite-plugin-dts@4.2.3(@types/node@22.7.5)(rollup@4.23.0)(typescript@5.6.2)(vite@5.4.8(@types/node@22.7.5)(lightningcss@1.27.0)(terser@5.34.1)):
+  vite-plugin-dts@4.2.3(@types/node@22.7.5)(rollup@4.23.0)(typescript@5.6.3)(vite@5.4.8(@types/node@22.7.5)(lightningcss@1.27.0)(terser@5.34.1)):
     dependencies:
       '@microsoft/api-extractor': 7.47.7(@types/node@22.7.5)
       '@rollup/pluginutils': 5.1.2(rollup@4.23.0)
-      '@volar/typescript': 2.4.5
-      '@vue/language-core': 2.1.6(typescript@5.6.2)
+      '@volar/typescript': 2.4.6
+      '@vue/language-core': 2.1.6(typescript@5.6.3)
       compare-versions: 6.1.1
       debug: 4.3.7
       kolorist: 1.8.0
       local-pkg: 0.5.0
       magic-string: 0.30.11
-      typescript: 5.6.2
+      typescript: 5.6.3
     optionalDependencies:
       vite: 5.4.8(@types/node@22.7.5)(lightningcss@1.27.0)(terser@5.34.1)
     transitivePeerDependencies:

@@ -3,7 +3,7 @@
 
 <p>
   Documentation page for
-  <a href="/packages/shared">
+  <a href="/packages/k">
     <code>@kaiverse/k</code>
   </a>
   <br />A collection of powerful utility functions, React components & hooks. Typescript supported.
