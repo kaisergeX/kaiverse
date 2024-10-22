@@ -16,6 +16,7 @@ import {CloseIcon, MaximizeIcon, MinimizeIcon} from './icons'
 import {DISPLAY_NAME_PREFIX} from '../constants'
 import classes from './terminal.module.css'
 
+/** Terminal UI component that allows users to interact with the terminal-like interface. */
 const Terminal = forwardRef<TerminalRef, TerminalProps>((props, ref) => {
   const {
     className,

@@ -1,9 +1,14 @@
 import type {RefObject} from 'react'
 
-export type DragPosition = {x: number; y: number}
+export type UseDragPosition = {x: number; y: number}
+export type UseDragRelativeLimit =
+  | 'client-size'
+  | 'client-no-padding'
+  | 'offset-size'
+  | 'offset-no-padding'
 
-export type SetPosition = (
-  position: DragPosition,
+export type UseDragSetPosition = (
+  position: UseDragPosition,
   options?: {
     /**
      * CSS transition for the position change.
@@ -23,7 +28,7 @@ export type SetPosition = (
     /**
      * By default, the hook will transform the target element for you.
      *
-     * Enable this flag to allow update the returned `position` state and manually handle the transform animation,
+     * Enable this flag to allow updating the returned `position` state and manually handle the transform animation,
      * your component will rerender on every position value change.
      *
      * @default false
@@ -40,24 +45,46 @@ type UnCachedOptions<T extends HTMLElement = HTMLElement> = {
    * @default undefined
    */
   targetRef?: RefObject<T>
-  /** Limit dragging distance */
+  /**
+   * Limit dragging distance. Higher priority than `relativeLimit`.
+   *
+   * @default undefined // no limit
+   */
   limit?: {
     x?: {max?: number; min?: number}
     y?: {max?: number; min?: number}
   }
   /**
+   * Limit dragging distance relatively to the **direct** parent element. Will be ignored if `limit` is provided.
+   *
+   * `relativeLimit` does't observe the parent element's size changes, you will need to update the `limit` manually (eg: via {@link https://developer.mozilla.org/docs/Web/API/Resize_Observer_API Resize Observer API}).
+   * ___
+   * Limit the dragging distance by:
+   * - `"client"`: [Recommended] parent element's client size (includes padding but excludes borders, margins). **DO NOT** use this option when parent is an inline element.
+   * - `"client-no-padding"`: same as `"client"` but excludes padding.
+   * - `"offset"`: parent element's offset size (including borders, padding).
+   * - `"offset-no-padding"`: same as `"offset"` but excludes padding.
+   *
+   * @default undefined // no limit
+   */
+  relativeLimit?: UseDragRelativeLimit
+  /**
    * Position step size
    * @default 0
    */
-  stepSize?: number | DragPosition
-  onStart?: (target: RefObject<T>, position: DragPosition, setPosition: SetPosition) => void
+  stepSize?: number | UseDragPosition
+  onStart?: (
+    target: RefObject<T>,
+    position: UseDragPosition,
+    setPosition: UseDragSetPosition,
+  ) => void
   /**
    * Callback function that triggers when users dragging the HTML element.
    *
    * Recommend passing a memorized function or a function from the parent of the component that contains draggable element.
    */
-  onMove?: (target: RefObject<T>, position: DragPosition) => void
-  onEnd?: (target: RefObject<T>, position: DragPosition, setPosition: SetPosition) => void
+  onMove?: (target: RefObject<T>, position: UseDragPosition) => void
+  onEnd?: (target: RefObject<T>, position: UseDragPosition, setPosition: UseDragSetPosition) => void
 }
 
 export type UseDragFlags = {
@@ -85,7 +112,7 @@ export type UseDragFlags = {
    * After releasing (`pointercancel` or `pointerup` event),
    * the target element will move back to the nearest limit position.
    * ___
-   * Only available when `limit` is provided.
+   * Only available when `limit` or `relativeLimit` is provided.
    * @default false
    */
   decelerationEffect?: boolean
@@ -119,5 +146,21 @@ export type UseDragFlags = {
   disabled?: boolean
 }
 
-export type DraggableOptions<T extends HTMLElement = HTMLElement> = UseDragFlags &
-  UnCachedOptions<T>
+export type UseDragOptions<T extends HTMLElement = HTMLElement> = UseDragFlags & UnCachedOptions<T>
+export type UseDragReturnsType<T extends HTMLElement = HTMLElement> = Readonly<{
+  /**
+   * Target element ref.
+   * @returns a RefObject of `null` when `options.targetRef` is provided or the target element is not found.
+   */
+  targetRef: RefObject<T>
+  /** Position state {x, y} */
+  position: UseDragPosition
+  /**
+   * Update element position relative to the initial position.
+   * By default, this won't rerender component and the hook will transform the target element for you.
+   * ___
+   * Enable {@link SetPosition `shouldUpdatePositionState`} option to allow updating the returned `position` state and then you can manually handle the transform animation.
+   * Please note that, your component will rerender on `position` state changes.
+   */
+  setPosition: UseDragSetPosition
+}>

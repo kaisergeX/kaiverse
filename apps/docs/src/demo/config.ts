@@ -24,4 +24,8 @@ export const demoModules = {
   'slide-action/compact': lazy(() => import('./slide-action/compact')),
   'slide-action/allowSwipeAfterEnd': lazy(() => import('./slide-action/allowSwipeAfterEnd')),
   'slide-action/styling': lazy(() => import('./slide-action/styling')),
+
+  'useDrag/basic': lazy(() => import('./useDrag/basic')),
+  'useDrag/fixed-limit': lazy(() => import('./useDrag/fixed-limit')),
+  'useDrag/relative-limit': lazy(() => import('./useDrag/relative-limit')),
 } as const

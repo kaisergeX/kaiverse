@@ -10,6 +10,11 @@
     @apply box-border;
   }
 
+  .border,
+  [class*='border-'] {
+    @apply border-solid;
+  }
+
   html {
     font-family: var(
       --default-font-family,
@@ -53,6 +58,10 @@
   .k-button-secondary {
     @apply k-button-base border-zinc-200 bg-transparent text-inherit hover:border-zinc-900 hover:text-inherit dark:border-zinc-600 dark:hover:border-zinc-200;
   }
+
+  .card {
+    @apply border-4 border-slate-300 border-solid rounded-2xl px-4 py-6 no-underline text-inherit hover:bg-slate-100 hover:border-slate-200 hover:[&>p]:text-inherit transition-colors duration-500 [&>h3]:text-gradient [&>h3]:text-3xl [&>h3]:font-extrabold;
+  }
 }
 
 @layer utilities {
@@ -66,5 +75,50 @@
 
   .flex-center-between {
     @apply flex items-center justify-between;
+  }
+
+  .text-gradient {
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .gradient-fall {
+    color: #f7941d;
+    background-image: linear-gradient(
+      45deg,
+      #f7941d 12%,
+      #d35400 60%,
+      #9e2800 20%,
+      #791800 20%,
+      #550a00 43%
+    );
+  }
+
+  .gradient-leaf {
+    color: #008947;
+    background-image: linear-gradient(
+      225deg,
+      #008947 73%,
+      #009654 37%,
+      #00a361 20%,
+      #00b06e 2%,
+      #00bd7b 79%
+    );
+  }
+
+  .gradient-maple {
+    color: #be4146;
+    background-image: linear-gradient(225deg, #be4146 73%, #d26764 24%, #f2acac 77%);
+  }
+
+  .gradient-fire {
+    color: #ff4000;
+    background-image: linear-gradient(45deg, #ff4000 50%, #ff5700 25%, #ff6e00 64%, #ff8500 76%);
+  }
+
+  .gradient-nature {
+    color: #afc95c;
+    background-image: linear-gradient(45deg, #afc95c 20%, #5c8545 21%, #a9452e 50%);
   }
 }

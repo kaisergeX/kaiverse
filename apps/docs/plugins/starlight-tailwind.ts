@@ -62,12 +62,12 @@ const StarlightTailwindPlugin = () =>
       addBase({
         // Restore crucial styles from Tailwind Preflight: https://tailwindcss.com/docs/preflight
         // Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
-        '*, ::before, ::after': {
-          //   borderWidth: '0',
-          //   borderStyle: 'solid',
-          //   borderColor: theme('borderColor.DEFAULT', 'currentColor'),
-          borderColor: 'currentColor',
-        },
+        // '*, ::before, ::after': {
+        //   // borderWidth: '0',
+        //   // borderStyle: 'solid',
+        //   // borderColor: theme('borderColor.DEFAULT', 'currentColor'),
+        //   borderColor: 'currentColor',
+        // },
         '::before, ::after': {'--tw-content': ''},
         // Keep base font-family styles even in non-Starlight pages.
         'html, :host': {'font-family': theme('fontFamily.sans')},

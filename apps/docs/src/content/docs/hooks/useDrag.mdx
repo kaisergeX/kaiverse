@@ -1,0 +1,138 @@
+---
+title: useDrag
+description: Feature-rich element Dragging hook
+---
+
+import {Aside, Card, Code, Tabs, TabItem, Badge} from '@astrojs/starlight/components'
+import Demo from '@/demo'
+import BasicCode from '@/demo/useDrag/basic?raw'
+import {BASE_URL} from '@/content/config'
+
+Feature-rich Drag element hook
+
+Components that use this hook: <a href={`${BASE_URL}/components/slide-action`}>`<SlideAction>`</a>, <a href={`${BASE_URL}/components/dialog`}>`<Dialog>` mobile variant</a>
+
+## Import
+
+```js
+import {useDrag} from '@kaiverse/k/hooks'
+```
+
+## Basic
+
+<Tabs>
+  <TabItem label="Playground">
+    <Demo path="useDrag/basic" client:load />
+  </TabItem>
+  <TabItem label="Source code">
+    <Code title="basic.tsx" lang="tsx" code={BasicCode} />
+  </TabItem>
+</Tabs>
+
+## Update Position
+
+`UseDragSetPosition`
+
+## Step
+
+Doc updating...
+
+## Direction
+
+Doc updating...
+
+## Limit
+
+Limit the draggable area by using the `limit` or `relativeLimit` option.
+
+<Aside>The limit area is calculated based on the target element's **top-left** corner.</Aside>
+
+<Demo path="useDrag/fixed-limit" client:visible />
+
+```tsx title="limit.tsx"
+useDrag({
+  // ..., other options
+  limit: {...}
+})
+```
+
+### Relative Limit
+
+You can limit the dragging area relative to the **direct** parent element by using the `relativeLimit` option. This option will be ignored if `limit` is provided.
+
+<Aside>
+  `relativeLimit` does't observe the parent element's size changes, you will need to use `limit` and
+  update it manually (eg: via [Resize Observer
+  API](https://developer.mozilla.org/docs/Web/API/Resize_Observer_API)).
+</Aside>
+
+Limit the dragging distance by:
+
+- `"client-size"` <Badge text='recommended' variant='success' />: parent element's client size (includes padding but _excludes_ borders, margins).<br />**DO NOT** use this option when parent is an inline element.
+- `"client-no-padding"` <Badge text='recommended' variant='success' />: same as `"client-size"` but excludes padding.
+- `"offset-size"`: parent element's offset size (including borders, padding).
+- `"offset-no-padding"`: same as `"offset-size"` but excludes padding.
+
+Confused? Let's put it another way:
+
+| Options          | Description                                                            |
+| :--------------- | :--------------------------------------------------------------------- |
+| `"client-*"`     | Normal limit the dragging area.                                        |
+| `"offset-*"`     | Ignore parent border-width - can be dragged over parent's border area. |
+| `"*-no-padding"` | Ignore the parent padding area - can be dragged over it.               |
+
+<Card title="Playground">
+  <Demo path="useDrag/relative-limit" client:visible />
+</Card>
+
+```tsx title="relative-limit.tsx"
+useDrag({
+  // ..., other options
+  relativeLimit: '...',
+})
+```
+
+### `decelerationEffect`
+
+Allow dragging over the limit, and enable deceleration effect. After releasing (`pointercancel` or `pointerup` event), the target element will move back to the nearest limit position.
+
+<Aside>Only available when `limit` or `relativeLimit` is provided.</Aside>
+
+Playground updating...
+
+## Special Types
+
+| Name                   | Type                                                                                 | Description              |
+| :--------------------- | :----------------------------------------------------------------------------------- | :----------------------- |
+| `UseDragPosition`      | `{x: number; y: number}`                                                             | Position parameters      |
+| `UseDragSetPosition`   | See [Update Position](#update-position) section                                      | Update position.         |
+| `UseDragRelativeLimit` | `"client-size"` \| `"client-no-padding"` \| `"offset-size"` \| `"offset-no-padding"` | `relativeLimit` options. |
+| `UseDragOptions`       | See [`useDrag` Options](#useDrag-options) below                                      | All `useDrag` options.   |
+
+## `useDrag` Options
+
+| Name                   | Type                                                                                         | Default  | Description                                                                                                                                                                                                                                                 |
+| :--------------------- | :------------------------------------------------------------------------------------------- | :------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `targetRef`            | `RefObject<T>`                                                                               | —        | If provided, this hook will track and make this ref element draggable instead of its own internal target ref (and also won't return it anymore).                                                                                                            |
+| `direction`            | `'vertical'` \| `'horizontal'` \| `'both'`                                                   | `'both'` | Dragging direction.                                                                                                                                                                                                                                         |
+| `limit`                | `{x?: {max?: number; min?: number}, y?: {max?: number; min?: number}}`                       | —        | Limit the draggable area. See [Limit](#limit) section.                                                                                                                                                                                                      |
+| `relativeLimit`        | `UseDragRelativeLimit`                                                                       | —        | Limit dragging distance relatively to the **direct** parent element. Will be ignored if `limit` is provided. See [Relative Limit](#relative-limit) section.                                                                                                 |
+| `decelerationEffect`   | `boolean`                                                                                    | `false`  | Allow dragging over the limit, and enable deceleration effect. After releasing (`pointercancel` or `pointerup` event), the target element will move back to the nearest limit position.<br/>**Only available when `limit` or `relativeLimit` is provided.** |
+| `stepSize`             | `number` \| `UseDragPosition`                                                                | `0`      | Position step size.                                                                                                                                                                                                                                         |
+| `addBrowserHintStyles` | `boolean`                                                                                    | `true`   | By default, the hook will add `will-change: transform` and `touch-action: none` to the target element.                                                                                                                                                      |
+| `onStart`              | `(target: RefObject<T>, position: UseDragPosition, setPosition: UseDragSetPosition) => void` | —        | Callback when dragging starts.                                                                                                                                                                                                                              |
+| `onMove`               | `(target: RefObject<T>, position: UseDragPosition) => void`                                  | —        | Callback when dragging.                                                                                                                                                                                                                                     |
+| `onEnd`                | `(target: RefObject<T>, position: UseDragPosition, setPosition: UseDragSetPosition) => void` | —        | Callback when dragging ends.                                                                                                                                                                                                                                |
+| `ignorePointerCancel`  | `boolean`                                                                                    | `false`  | If `true`, ignore the `pointercancel` event.                                                                                                                                                                                                                |
+| `touch`                | `boolean`                                                                                    | `true`   | Should listening touch events or not.<br/>_Side note:_ This hook treats pointer events caused by a pen or stylus device (`pointerType === 'pen'`) same as touch events.                                                                                     |
+| `mouse`                | `boolean`                                                                                    | `true`   | Should listening mouse's main button events `(usually left-click)` or not.                                                                                                                                                                                  |
+| `disabled`             | `boolean`                                                                                    | `false`  | If `true`, the target element won't draggable anymore. Equivalent to `touch === false && mouse === false`                                                                                                                                                   |
+
+#### Footgun Flags
+
+Easier to shoot yourself in the foot with these options.
+
+| Name                           | Type      | Default | Description                                                                                                                                                                                                                                                                                                                  |
+| :----------------------------- | :-------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `manualStylingOnMove`          | `boolean` | `false` | Set to `true` to allow update position state `onMove` and manually handle styling such as CSS transform.<br/>_Note_: Your component will re-render on every `step` move.                                                                                                                                                     |
+| `returnedPositionDebounceTime` | `number`  | `0`     | Enable debouncing for the `setPosition` setter in millisecond (ms). Used for manually handling the moving transform animation (`manualStylingOnMove = true`) by using returned position state instead of the `onMove` event.<br/>It doesn't affect the default `onMove` transform animation (`manualStylingOnMove = false`). |

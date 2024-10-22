@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useMemo, useState} from 'react'
 import type {SlideDraggerParams, SlideDraggerProps} from './slide-action.types'
-import {useDrag, type DraggableOptions} from '#hooks'
+import {useDrag, type UseDragOptions} from '#hooks'
 import {isDOMAvailable} from '#utils'
 
 export const useSlideActionDragger = ({
@@ -31,17 +31,17 @@ export const useSlideActionDragger = ({
     [slideDraggerInfo.maxSlideDistance],
   )
 
-  const processedOnDrag = useCallback<NonNullable<DraggableOptions['onMove']>>(
+  const processedOnDrag = useCallback<NonNullable<UseDragOptions['onMove']>>(
     (...params) => onDrag?.(slideDraggerInfo, ...params),
     [onDrag, slideDraggerInfo],
   )
 
-  const processedOnDragEnd = useCallback<NonNullable<DraggableOptions['onEnd']>>(
+  const processedOnDragEnd = useCallback<NonNullable<UseDragOptions['onEnd']>>(
     (...params) => onDragEnd?.(slideDraggerInfo, ...params),
     [onDragEnd, slideDraggerInfo],
   )
 
-  const {target: slideDraggerRef, setPosition: setDraggerPosition} = useDrag<HTMLButtonElement>({
+  const {targetRef: slideDraggerRef, setPosition: setDraggerPosition} = useDrag<HTMLButtonElement>({
     direction: 'horizontal',
     limit: dragLimit,
     onMove: processedOnDrag,
