@@ -40,6 +40,10 @@
   h6 {
     @apply my-0;
   }
+
+  svg {
+    @apply block;
+  }
 }
 
 @layer components {
@@ -113,12 +117,30 @@
   }
 
   .gradient-fire {
-    color: #ff4000;
-    background-image: linear-gradient(45deg, #ff4000 50%, #ff5700 25%, #ff6e00 64%, #ff8500 76%);
+    color: #ff5700;
+    background-image: linear-gradient(0deg, #ff5700 46%, #ff8500 33%);
   }
 
   .gradient-nature {
     color: #afc95c;
     background-image: linear-gradient(45deg, #afc95c 20%, #5c8545 21%, #a9452e 50%);
+  }
+
+  .bg-gradient-wave {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientWave 4s ease infinite;
+  }
+}
+
+@keyframes gradientWave {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }

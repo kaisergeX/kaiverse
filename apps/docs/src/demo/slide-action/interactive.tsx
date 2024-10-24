@@ -1,6 +1,6 @@
 import {SlideAction, type SlideActionOnSwipeEnd} from '@kaiverse/k/ui'
+import {IconCheck} from '@tabler/icons-react'
 import {useCallback, useState} from 'react'
-import {IconCheck} from '../icon'
 
 export default function SliderActionInteractiveDocs() {
   const [status, setStatus] = useState(false)

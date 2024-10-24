@@ -1,6 +1,6 @@
 import {SlideAction, type SlideActionRef} from '@kaiverse/k/ui'
+import {IconCheck} from '@tabler/icons-react'
 import {useRef, useState} from 'react'
-import {IconCheck} from '../icon'
 
 export default function SlideActionResetRefDocs() {
   const slideActionRef = useRef<SlideActionRef>(null)

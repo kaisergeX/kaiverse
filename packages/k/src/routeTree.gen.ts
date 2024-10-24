@@ -18,6 +18,8 @@ import { Route as rootRoute } from './routes/__root'
 
 const UseDragLazyImport = createFileRoute('/use-drag')()
 const TerminalLazyImport = createFileRoute('/terminal')()
+const SpeechToTextLazyImport = createFileRoute('/speech-to-text')()
+const SlideActionLazyImport = createFileRoute('/slide-action')()
 const DialogLazyImport = createFileRoute('/dialog')()
 const IndexLazyImport = createFileRoute('/')()
 
@@ -34,6 +36,20 @@ const TerminalLazyRoute = TerminalLazyImport.update({
   path: '/terminal',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/terminal.lazy').then((d) => d.Route))
+
+const SpeechToTextLazyRoute = SpeechToTextLazyImport.update({
+  id: '/speech-to-text',
+  path: '/speech-to-text',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/speech-to-text.lazy').then((d) => d.Route),
+)
+
+const SlideActionLazyRoute = SlideActionLazyImport.update({
+  id: '/slide-action',
+  path: '/slide-action',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/slide-action.lazy').then((d) => d.Route))
 
 const DialogLazyRoute = DialogLazyImport.update({
   id: '/dialog',
@@ -65,6 +81,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DialogLazyImport
       parentRoute: typeof rootRoute
     }
+    '/slide-action': {
+      id: '/slide-action'
+      path: '/slide-action'
+      fullPath: '/slide-action'
+      preLoaderRoute: typeof SlideActionLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/speech-to-text': {
+      id: '/speech-to-text'
+      path: '/speech-to-text'
+      fullPath: '/speech-to-text'
+      preLoaderRoute: typeof SpeechToTextLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/terminal': {
       id: '/terminal'
       path: '/terminal'
@@ -87,6 +117,8 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
   '/dialog': typeof DialogLazyRoute
+  '/slide-action': typeof SlideActionLazyRoute
+  '/speech-to-text': typeof SpeechToTextLazyRoute
   '/terminal': typeof TerminalLazyRoute
   '/use-drag': typeof UseDragLazyRoute
 }
@@ -94,6 +126,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
   '/dialog': typeof DialogLazyRoute
+  '/slide-action': typeof SlideActionLazyRoute
+  '/speech-to-text': typeof SpeechToTextLazyRoute
   '/terminal': typeof TerminalLazyRoute
   '/use-drag': typeof UseDragLazyRoute
 }
@@ -102,22 +136,45 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
   '/dialog': typeof DialogLazyRoute
+  '/slide-action': typeof SlideActionLazyRoute
+  '/speech-to-text': typeof SpeechToTextLazyRoute
   '/terminal': typeof TerminalLazyRoute
   '/use-drag': typeof UseDragLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dialog' | '/terminal' | '/use-drag'
+  fullPaths:
+    | '/'
+    | '/dialog'
+    | '/slide-action'
+    | '/speech-to-text'
+    | '/terminal'
+    | '/use-drag'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dialog' | '/terminal' | '/use-drag'
-  id: '__root__' | '/' | '/dialog' | '/terminal' | '/use-drag'
+  to:
+    | '/'
+    | '/dialog'
+    | '/slide-action'
+    | '/speech-to-text'
+    | '/terminal'
+    | '/use-drag'
+  id:
+    | '__root__'
+    | '/'
+    | '/dialog'
+    | '/slide-action'
+    | '/speech-to-text'
+    | '/terminal'
+    | '/use-drag'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
   DialogLazyRoute: typeof DialogLazyRoute
+  SlideActionLazyRoute: typeof SlideActionLazyRoute
+  SpeechToTextLazyRoute: typeof SpeechToTextLazyRoute
   TerminalLazyRoute: typeof TerminalLazyRoute
   UseDragLazyRoute: typeof UseDragLazyRoute
 }
@@ -125,6 +182,8 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
   DialogLazyRoute: DialogLazyRoute,
+  SlideActionLazyRoute: SlideActionLazyRoute,
+  SpeechToTextLazyRoute: SpeechToTextLazyRoute,
   TerminalLazyRoute: TerminalLazyRoute,
   UseDragLazyRoute: UseDragLazyRoute,
 }
@@ -143,6 +202,8 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/dialog",
+        "/slide-action",
+        "/speech-to-text",
         "/terminal",
         "/use-drag"
       ]
@@ -152,6 +213,12 @@ export const routeTree = rootRoute
     },
     "/dialog": {
       "filePath": "dialog.lazy.tsx"
+    },
+    "/slide-action": {
+      "filePath": "slide-action.lazy.tsx"
+    },
+    "/speech-to-text": {
+      "filePath": "speech-to-text.lazy.tsx"
     },
     "/terminal": {
       "filePath": "terminal.lazy.tsx"
