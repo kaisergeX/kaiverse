@@ -6,7 +6,7 @@ export default function UseDragBasic() {
   return (
     <>
       Drag the block below
-      <div className="playground outline-2 p-4 h-[30vh]">
+      <div className="playground p-4 h-[30vh]">
         <div
           ref={draggableTargetRef}
           className="rounded-lg inline-block border-2 border-accent p-4 bg-accent/20 cursor-move select-none group"

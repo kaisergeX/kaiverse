@@ -20,7 +20,7 @@ export default function DragFixedLimit() {
         <div className="outline-2 outline rounded-lg outline-neutral w-[300px] h-[150px]">
           <div
             ref={targetRef}
-            className="rounded-lg inline-block border-2 h-[50px] w-[100px] border-sky-400 bg-sky-200  cursor-move select-none group content-center text-center"
+            className="rounded-lg inline-block border-2 h-[50px] w-[100px] border-primary bg-primary/50 cursor-move select-none group content-center text-center"
           >
             👋 drag me
           </div>

@@ -26,6 +26,9 @@ export const demoModules = {
   'slide-action/styling': lazy(() => import('./slide-action/styling')),
 
   'useDrag/basic': lazy(() => import('./useDrag/basic')),
+  'useDrag/direction': lazy(() => import('./useDrag/direction')),
+  'useDrag/step': lazy(() => import('./useDrag/step')),
   'useDrag/fixed-limit': lazy(() => import('./useDrag/fixed-limit')),
   'useDrag/relative-limit': lazy(() => import('./useDrag/relative-limit')),
+  'useDrag/deceleration-effect': lazy(() => import('./useDrag/deceleration-effect')),
 } as const

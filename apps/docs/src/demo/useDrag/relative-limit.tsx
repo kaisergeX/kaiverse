@@ -31,7 +31,7 @@ export default function DragRelativeLimit() {
       <div className="playground p-8 h-[40vh] border-[16px] border-sky-200">
         <div
           ref={targetRef}
-          className="rounded-lg inline-block border-2 border-sky-400 p-4 bg-sky-200 cursor-move select-none group"
+          className="rounded-lg inline-block border-2 border-sky-400 bg-sky-200 dark:bg-sky-800 p-4 cursor-move select-none group"
         >
           👋 drag me
         </div>
@@ -43,7 +43,7 @@ export default function DragRelativeLimit() {
         </pre>
       </div>
 
-      <div className="flex items-center mt-4">
+      <div className="flex items-center mt-4 gap-1">
         <div className="h-6 w-14 bg-sky-200 rounded-md"></div>
         <span>: Border</span>
       </div>

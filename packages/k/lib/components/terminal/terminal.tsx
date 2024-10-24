@@ -70,7 +70,7 @@ const Terminal = forwardRef<TerminalRef, TerminalProps>((props, ref) => {
   useEffect(() => {
     const inputTarget = terminalInput.current
     const containerTarget = terminalHistoryRef.current
-    if (!containerTarget || !inputTarget) {
+    if (!containerTarget || !inputTarget || !renderHistories.length) {
       return
     }
 
