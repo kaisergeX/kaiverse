@@ -1,9 +1,10 @@
+[![npm](https://img.shields.io/npm/v/@kaiverse/k)](https://www.npmjs.com/package/@kaiverse/k)
 [![.github/workflows/ci.yml](https://github.com/kaisergeX/kaiverse/actions/workflows/ci.yml/badge.svg)](https://github.com/kaisergeX/kaiverse/actions/workflows/ci.yml)
 
 <div align="center">
 <h1>Kaiverse</h1>
 
-<p>Collection of powerful utility functions, React components & hooks. Typescript supported.</p>
+<p>Collection of powerful utility functions, uncommon React components & hooks. Typescript supported.</p>
 </div>
 
 ## Run this monorepo locally
@@ -18,5 +19,5 @@ pnpm dev
 
 ### Packages
 
-- [@kaiverse/k](packages/k): Utility functions, React components & hooks.
+- [@kaiverse/k](packages/k): Utility functions, uncommon React components & hooks.
 - [docs](apps/docs): Documentation page.

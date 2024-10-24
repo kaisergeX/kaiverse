@@ -1,5 +1,6 @@
 import {clamp} from '#utils'
-import type {DraggableOptions, DragPosition} from './useDrag.types'
+import {useEffect, useState, type RefObject} from 'react'
+import type {UseDragOptions, UseDragPosition} from './useDrag.types'
 
 export const getNearestScale = (value: number, stepSize: number) => {
   if (stepSize === 0 || stepSize === 1) {
@@ -12,11 +13,11 @@ export const getNearestScale = (value: number, stepSize: number) => {
 }
 
 export const getImposedLimitPosition = (
-  {x, y}: DragPosition,
-  direction: DraggableOptions['direction'] = 'both',
-  limit?: DraggableOptions['limit'],
-): {limittedPosition: DragPosition; isLimitExceeded: boolean} => {
-  const limittedPosition: DragPosition = {
+  {x, y}: UseDragPosition,
+  direction: UseDragOptions['direction'] = 'both',
+  limit?: UseDragOptions['limit'],
+): {limittedPosition: UseDragPosition; isLimitExceeded: boolean} => {
+  const limittedPosition: UseDragPosition = {
     x:
       direction === 'vertical'
         ? 0
@@ -58,10 +59,10 @@ const getDeceleratedVelocity = (origin: number, limit: number): number => {
 }
 
 export const getDeceleratedPosition = (
-  {x, y}: DragPosition,
-  limit?: DraggableOptions['limit'],
-): DragPosition => {
-  const result: DragPosition = {x, y}
+  {x, y}: UseDragPosition,
+  limit?: UseDragOptions['limit'],
+): UseDragPosition => {
+  const result: UseDragPosition = {x, y}
   const limitMinX = limit?.x?.min
   const limitMaxX = limit?.x?.max
   const limitMinY = limit?.y?.min
@@ -84,4 +85,83 @@ export const getDeceleratedPosition = (
   }
 
   return result
+}
+
+export const useRelativeLimit = <T extends HTMLElement = HTMLElement>(
+  dragElementRef: RefObject<T>,
+  relativeLimit: UseDragOptions<T>['relativeLimit'],
+): UseDragOptions<T>['limit'] => {
+  const [limit, setLimit] = useState<UseDragOptions<T>['limit']>()
+
+  useEffect(() => {
+    const target = dragElementRef.current
+    const parent = target?.parentElement
+    if (!relativeLimit || !target || !parent) {
+      return
+    }
+
+    let draggableX = parent.offsetWidth,
+      draggableY = parent.offsetHeight
+
+    if (relativeLimit === 'client-size' || relativeLimit === 'client-no-padding') {
+      draggableX = parent.clientWidth
+      draggableY = parent.clientHeight
+
+      // draggableX, draggableY could be 0 on some cases (eg: parent is an inline element and relativeLimit is 'client-*').
+      // In 'client-*' mode, parent should not be an inline element,
+      if (draggableX === 0 && draggableY === 0) {
+        return
+      }
+    }
+
+    const targetRect = target.getBoundingClientRect()
+    const parentRect = parent.getBoundingClientRect()
+
+    /**
+     * sure we can use `target.offsetTop` instead, but in order to get the correct offset,
+     * user will be forced to make the parent element becomes positioned (`relative`, `absolute`, or `fixed`).
+     */
+    const targetOffsetTop = targetRect.top - parentRect.top
+    const targetOffsetLeft = targetRect.left - parentRect.left
+
+    let minX = -targetOffsetLeft,
+      minY = -targetOffsetTop,
+      maxX = draggableX - target.offsetWidth - targetOffsetLeft,
+      maxY = draggableY - target.offsetHeight - targetOffsetTop
+
+    const parentComputedStyle = window.getComputedStyle(parent)
+    if (relativeLimit === 'client-size' || relativeLimit === 'client-no-padding') {
+      const parentBorder = {
+        top: parseFloat(parentComputedStyle.borderTopWidth),
+        right: parseFloat(parentComputedStyle.borderRightWidth),
+        bottom: parseFloat(parentComputedStyle.borderBottomWidth),
+        left: parseFloat(parentComputedStyle.borderLeftWidth),
+      }
+
+      minX += parentBorder.left
+      minY += parentBorder.top
+      maxX += parentBorder.right
+      maxY += parentBorder.bottom
+    }
+
+    if (relativeLimit !== 'client-no-padding' && relativeLimit !== 'offset-no-padding') {
+      const parentPadding = {
+        top: parseFloat(parentComputedStyle.paddingTop),
+        right: parseFloat(parentComputedStyle.paddingRight),
+        bottom: parseFloat(parentComputedStyle.paddingBottom),
+        left: parseFloat(parentComputedStyle.paddingLeft),
+      }
+      minX += parentPadding.left
+      minY += parentPadding.top
+      maxX -= parentPadding.right
+      maxY -= parentPadding.bottom
+    }
+
+    setLimit({
+      x: {min: minX, max: maxX},
+      y: {min: minY, max: maxY},
+    })
+  }, [dragElementRef, relativeLimit])
+
+  return limit
 }

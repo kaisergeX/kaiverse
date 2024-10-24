@@ -1,4 +1,4 @@
-import type {DraggableOptions} from '#hooks'
+import type {UseDragOptions} from '#hooks'
 import type {CSSProperties, HTMLAttributes, ReactNode, RefObject} from 'react'
 
 type SlideActionStylingSelectors = 'dragger' | 'label' | 'progress'
@@ -80,11 +80,11 @@ export type SlideDraggerProps = {
   slideRef: RefObject<HTMLDivElement>
   onDrag?: (
     slideDraggerInfo: SlideDraggerParams,
-    ...params: Parameters<NonNullable<DraggableOptions['onMove']>>
+    ...params: Parameters<NonNullable<UseDragOptions['onMove']>>
   ) => void
   onDragEnd?: (
     slideDraggerInfo: SlideDraggerParams,
-    ...params: Parameters<NonNullable<DraggableOptions['onEnd']>>
+    ...params: Parameters<NonNullable<UseDragOptions['onEnd']>>
   ) => void
   disableDrag?: boolean
 }

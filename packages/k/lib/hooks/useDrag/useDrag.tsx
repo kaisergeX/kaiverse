@@ -1,36 +1,43 @@
 'use client'
 
-import {useCallback, useEffect, useMemo, useRef, type RefObject} from 'react'
+import {useCallback, useEffect, useMemo, useRef} from 'react'
 import {isDOMAvailable} from '#utils'
 import {useDebouncedState} from '../useDebouncedState'
 import {useIsomorphicLayoutEffect} from '../useIsomorphicLayoutEffect'
-import {getDeceleratedPosition, getImposedLimitPosition, getNearestScale} from './useDrag.utils'
-import type {DraggableOptions, DragPosition, SetPosition, UseDragFlags} from './useDrag.types'
+import {
+  getDeceleratedPosition,
+  getImposedLimitPosition,
+  getNearestScale,
+  useRelativeLimit,
+} from './useDrag.utils'
+import type {
+  UseDragOptions,
+  UseDragPosition,
+  UseDragFlags,
+  UseDragReturnsType,
+  UseDragSetPosition,
+} from './useDrag.types'
 
 let initTransition: string | null = null
 
 const TRANSFORM_DURATION = 500 // ms
 const TRANSFORM_TIMING_FN = 'cubic-bezier(0.32, 0.72, 0, 1)'
 
+/**
+ * Feature-rich Drag element hook
+ * ___
+ * Initialize position is always at `{x: 0, y: 0}`; `limit` and all position change will be related to this point.
+ */
 export const useDrag = <T extends HTMLElement = HTMLElement>(
-  useDragOptions: DraggableOptions<T> = {},
-): {
-  /**
-   * Target element ref.
-   * @returns a RefObject of `null` if `options.targetRef` is provided or the target element is not found.
-   */
-  target: RefObject<T>
-  /** Position state {x, y} */
-  position: DragPosition
-  /** Function to set a new position value. */
-  setPosition: SetPosition
-} => {
+  useDragOptions: UseDragOptions<T> = {},
+): UseDragReturnsType<T> => {
   const {
     targetRef: customTargetRef,
     onStart,
     onMove,
     onEnd,
-    limit,
+    limit: fixedLimit,
+    relativeLimit,
     stepSize: unprocessedStep = 0,
     ...primitiveFlags
   } = useDragOptions
@@ -61,7 +68,7 @@ export const useDrag = <T extends HTMLElement = HTMLElement>(
     return processingOptions
   }, [primitiveFlags])
 
-  const stepSize = useMemo<DragPosition>(
+  const stepSize = useMemo<UseDragPosition>(
     () =>
       typeof unprocessedStep === 'object'
         ? unprocessedStep
@@ -69,12 +76,16 @@ export const useDrag = <T extends HTMLElement = HTMLElement>(
     [unprocessedStep],
   )
 
-  const targetRef = useRef<T>(null)
-  const target = customTargetRef || targetRef
-  const startXY = useRef<DragPosition>({x: 0, y: 0})
-  const prevPosition = useRef<DragPosition>({x: 0, y: 0})
+  const _targetRef = useRef<T>(null)
+  const target = customTargetRef || _targetRef
+
+  const relativeLimitValues = useRelativeLimit(target, relativeLimit)
+  const limit = fixedLimit || relativeLimitValues
+
+  const startXY = useRef<UseDragPosition>({x: 0, y: 0})
+  const prevPosition = useRef<UseDragPosition>({x: 0, y: 0})
   const dragging = useRef(false)
-  const [position, setPosition] = useDebouncedState<DragPosition>(
+  const [position, setPosition] = useDebouncedState<UseDragPosition>(
     {x: 0, y: 0},
     opts.returnedPositionDebounceTime ?? 0,
   )
@@ -84,7 +95,7 @@ export const useDrag = <T extends HTMLElement = HTMLElement>(
     isSupportTranslate ? 'translate' : 'transform'
   } ${TRANSFORM_DURATION}ms ${TRANSFORM_TIMING_FN}`
 
-  const setTransform = useCallback<SetPosition>(
+  const setTransform = useCallback<UseDragSetPosition>(
     (newPosition, options) => {
       if (!target.current) {
         return
@@ -186,7 +197,7 @@ export const useDrag = <T extends HTMLElement = HTMLElement>(
       const {x: prevX, y: prevY} = prevPosition.current
       dragging.current = true
 
-      const startPosition: DragPosition = {
+      const startPosition: UseDragPosition = {
         x: e.clientX - prevX,
         y: e.clientY - prevY,
       }
@@ -230,7 +241,7 @@ export const useDrag = <T extends HTMLElement = HTMLElement>(
         y = getNearestScale(y, stepSize.y)
       }
 
-      const newPosition: DragPosition = {x, y}
+      const newPosition: UseDragPosition = {x, y}
       onMove?.(target, newPosition)
       setTransform(newPosition, {
         skipCalulateStep: true,
@@ -334,7 +345,7 @@ export const useDrag = <T extends HTMLElement = HTMLElement>(
   }, [target, opts.addBrowserHintStyles])
 
   return {
-    target,
+    targetRef: target,
     position,
     setPosition: setTransform,
   }
