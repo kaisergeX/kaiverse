@@ -29,17 +29,26 @@ import {useDrag} from '@kaiverse/k/hooks'
   </TabItem>
 </Tabs>
 
-## Update Position
+## Direction
 
-`UseDragSetPosition`
+Available options: `'vertical'`, `'horizontal'`, `'both'`.<br/>
+Default: `'both'`.
+
+<Demo path="useDrag/direction" client:visible />
+
+```tsx title="direction.tsx"
+useDrag({direction: ...})
+```
 
 ## Step
 
-Doc updating...
+Move the target element by a fixed amount of pixels. The `stepSize` option can be a `number` for both directions or an object `{x: number, y: number}`.
 
-## Direction
+<Demo path="useDrag/step" client:visible />
 
-Doc updating...
+```tsx title="stepSize.tsx"
+useDrag({stepSize: ...})
+```
 
 ## Limit
 
@@ -51,7 +60,6 @@ Limit the draggable area by using the `limit` or `relativeLimit` option.
 
 ```tsx title="limit.tsx"
 useDrag({
-  // ..., other options
   limit: {...}
 })
 ```
@@ -87,27 +95,55 @@ Confused? Let's put it another way:
 
 ```tsx title="relative-limit.tsx"
 useDrag({
-  // ..., other options
   relativeLimit: '...',
 })
 ```
 
-### `decelerationEffect`
+## `decelerationEffect`
 
 Allow dragging over the limit, and enable deceleration effect. After releasing (`pointercancel` or `pointerup` event), the target element will move back to the nearest limit position.
 
-<Aside>Only available when `limit` or `relativeLimit` is provided.</Aside>
+<Aside>`decelerationEffect` only available when `limit` or `relativeLimit` is provided.</Aside>
 
-Playground updating...
+Try dragging the element over the limit area.
+
+<Demo path="useDrag/deceleration-effect" client:visible />
+
+```tsx title="deceleration-effect.tsx"
+useDrag({
+  decelerationEffect: true,
+})
+```
 
 ## Special Types
 
 | Name                   | Type                                                                                 | Description              |
 | :--------------------- | :----------------------------------------------------------------------------------- | :----------------------- |
 | `UseDragPosition`      | `{x: number; y: number}`                                                             | Position parameters      |
-| `UseDragSetPosition`   | See [Update Position](#update-position) section                                      | Update position.         |
+| `UseDragSetPosition`   | See [`setPosition` Options](#setposition-options) section                            | Update position.         |
 | `UseDragRelativeLimit` | `"client-size"` \| `"client-no-padding"` \| `"offset-size"` \| `"offset-no-padding"` | `relativeLimit` options. |
 | `UseDragOptions`       | See [`useDrag` Options](#useDrag-options) below                                      | All `useDrag` options.   |
+
+## `setPosition` Options
+
+| Name                        | Type               | Default | Description                                                                                                                                                                                                                                                           |
+| :-------------------------- | :----------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `transition`                | `string` \| `true` | —       | CSS transition for the position change.                                                                                                                                                                                                                               |
+| `skipCalulateStep`          | `boolean`          | `false` | If `stepSize` > 0 and you wanna manually update the position, consider set this option to `true` to skip the default calculation. See [`transition`](#transition) section for more info.                                                                              |
+| `shouldUpdatePositionState` | `boolean`          | `false` | Enable this flag to allow updating the returned `position` state and manually handle the transform animation, please note that your component will re-render.<br/>By default, the hook will transform the target element for you, and your component won't re-render. |
+
+### `transition`
+
+Apply the transition to the target element **once**, for that specific position update - `setPosition` only.
+
+<Aside>
+  This hook will transform the target element by using CSS
+  [translate](https://developer.mozilla.org/docs/Web/CSS/translate) if the browser supports it,
+  otherwise `transform`. <br />
+  Default transition: `{translate | transform} 500ms cubic-bezier(0.32, 0.72, 0, 1)`.
+</Aside>
+
+If you set `transition` to `true`, it will apply the default transition. You can also provide a custom transition style by passing a string value.
 
 ## `useDrag` Options
 

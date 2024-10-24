@@ -28,6 +28,25 @@
   .playground {
     @apply outline-base-300 border-base-300 rounded-lg bg-base-100;
   }
+
+  .bg-grid {
+    --_grid-edge-color: rgba(0, 0, 0, 0.1);
+    background: linear-gradient(
+        90deg,
+        transparent 49.5%,
+        var(--_grid-edge-color) 50%,
+        var(--_grid-edge-color) 51.5%,
+        transparent 52%
+      ),
+      linear-gradient(
+        transparent 49.5%,
+        var(--_grid-edge-color) 50%,
+        var(--_grid-edge-color) 51.5%,
+        transparent 52%
+      );
+
+    @apply dark:[--_grid-edge-color:rgba(200,200,200,0.1)] bg-[length:50px_50px];
+  }
 }
 
 @layer utilities {
