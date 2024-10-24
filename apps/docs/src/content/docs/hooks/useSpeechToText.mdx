@@ -1,0 +1,70 @@
+---
+title: useSpeechToText
+description: Speech to text hook. Powered by the Web Speech API for speech recognition.
+---
+
+import {Aside, Card, Code, Tabs, TabItem, Badge} from '@astrojs/starlight/components'
+import UseSpeechToTextCode from '@/demo/useSpeechToText/usage?raw'
+import Demo from '@/demo'
+
+Speech to text hook. Powered by the [Web Speech API](https://developer.mozilla.org/docs/Web/API/Web_Speech_API) for
+speech recognition.
+
+<Badge text="Experimental" variant="danger" /> DO NOT use this hook in production. <br />
+Web Speech API may not be supported by all browsers. [Browser
+compatibility](https://developer.mozilla.org/docs/Web/API/Web_Speech_API#browser_compatibility).
+
+## Import
+
+```js
+import {useSpeechToText} from '@kaiverse/k/hooks'
+```
+
+## Usage
+
+<Tabs>
+  <TabItem label="Playground">
+    <Demo path="useSpeechToText/usage" client:only="react" />
+  </TabItem>
+  <TabItem label="Source code">
+    <Code title="usage.tsx" lang="tsx" code={UseSpeechToTextCode} />
+  </TabItem>
+</Tabs>
+
+## Type Definition
+
+```ts
+function useSpeechToText(options: UseSpeechToTextOptions): {
+  isSpeechAPIAvailable: boolean
+  isListening: boolean
+  startListening: () => void
+  stopListening: () => void
+  transcript: string
+}
+```
+
+## Special Types
+
+| Name                       | Type                                                            | Description                                                                                                                                                                                                                                   |
+| :------------------------- | :-------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `UseSpeechToTextErrorCode` | `SpeechRecognitionErrorCode`                                    | Possible error codes that can be returned by the Web Speech API. Enum: <a href='https://wicg.github.io/speech-api/#enumdef-speechrecognitionerrorcode' target='_blank' rel='noopener noreferrer'><code>SpeechRecognitionErrorCode</code></a>. |
+| `UseSpeechToTextOptions`   | See [`useSpeechToText` Options](#useSpeechToText-options) below | `useSpeechToText` options.                                                                                                                                                                                                                    |
+
+## `useSpeechToText` Options
+
+| Name        | Type                                           | Default                                                                                          | Description                                                                                                                                                                                                                       |
+| :---------- | :--------------------------------------------- | :----------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `lang`      | `string`                                       | HTML [`lang` attribute](https://developer.mozilla.orgdocs/Web/HTML/Global_attributes/lang) value | Language of the speech.<br/>If not specified, and the HTML `lang` attribute isn't set either then the user agent's language setting will be used. [Read more](https://developer.mozilla.org/docs/Web/API/SpeechRecognition/lang). |
+| `onStart`   | `() => void`                                   | —                                                                                                | Callback function that is called when the speech recognition service has begun listening to incoming audio.                                                                                                                       |
+| `onUnMatch` | `(event: SpeechRecognitionEvent) => void`      | —                                                                                                | Fired when the speech recognition service returns a final result with no significant recognition.                                                                                                                                 |
+| `onError`   | `(event: SpeechRecognitionErrorEvent) => void` | —                                                                                                | Fired when a speech recognition error occurs.                                                                                                                                                                                     |
+
+## Return Types
+
+| Name                   | Type         | Description                                           |
+| :--------------------- | :----------- | :---------------------------------------------------- |
+| `isSpeechAPIAvailable` | `boolean`    | Flag to check if the Web Speech API is available.     |
+| `isListening`          | `boolean`    | Is the service is listening to incoming audio or not. |
+| `startListening`       | `() => void` | Turn on microphone and start listening.               |
+| `stopListening`        | `() => void` | Turn off microphone and stop listening.               |
+| `transcript`           | `string`     | The result of the speech recognition.                 |

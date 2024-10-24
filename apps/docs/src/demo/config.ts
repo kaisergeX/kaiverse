@@ -31,4 +31,6 @@ export const demoModules = {
   'useDrag/fixed-limit': lazy(() => import('./useDrag/fixed-limit')),
   'useDrag/relative-limit': lazy(() => import('./useDrag/relative-limit')),
   'useDrag/deceleration-effect': lazy(() => import('./useDrag/deceleration-effect')),
+
+  'useSpeechToText/usage': lazy(() => import('./useSpeechToText/usage')),
 } as const

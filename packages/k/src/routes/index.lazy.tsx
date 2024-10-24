@@ -23,13 +23,22 @@ function Homepage() {
               Terminal UI component that allows users to interact with the terminal-like interface.
             </p>
           </Link>
+          <Link to="/slide-action" className="card">
+            <h3 className="gradient-maple">SlideAction</h3>
+            <p>A component that requires user to swipe to confirm an action.</p>
+          </Link>
         </div>
       </section>
       <section className="p-4 space-y-4">
         <h2>Hooks</h2>
-        <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(16rem,_1fr))]">
+        <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(18rem,_1fr))]">
           <Link to="/use-drag" className="card">
-            <h3 className="gradient-maple">useDrag</h3>
+            <h3 className="gradient-fire">useDrag</h3>
+            <p>Feature-rich Drag element hook.</p>
+          </Link>
+          <Link to="/speech-to-text" className="card">
+            <h3 className="gradient-nature">useSpeechToText</h3>
+            <p>Hook to use the Web Speech API for speech recognition.</p>
           </Link>
         </div>
       </section>

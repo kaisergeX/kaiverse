@@ -9,3 +9,5 @@ export type {
   UseDragRelativeLimit,
   UseDragSetPosition,
 } from './useDrag'
+export {useSpeechToText} from './useSpeechToText'
+export type {UseSpeechToTextErrorCode, UseSpeechToTextOptions} from './useSpeechToText'

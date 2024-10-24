@@ -65,6 +65,7 @@
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
+    "@tabler/icons-react": "^3.20.0",
     "@tanstack/react-router": "^1.76.1",
     "@tanstack/router-plugin": "^1.76.0",
     "@types/react": "^18.3.3",

@@ -117,20 +117,20 @@ useDrag({
 
 ## Special Types
 
-| Name                   | Type                                                                                 | Description              |
-| :--------------------- | :----------------------------------------------------------------------------------- | :----------------------- |
-| `UseDragPosition`      | `{x: number; y: number}`                                                             | Position parameters      |
-| `UseDragSetPosition`   | See [`setPosition` Options](#setposition-options) section                            | Update position.         |
-| `UseDragRelativeLimit` | `"client-size"` \| `"client-no-padding"` \| `"offset-size"` \| `"offset-no-padding"` | `relativeLimit` options. |
-| `UseDragOptions`       | See [`useDrag` Options](#useDrag-options) below                                      | All `useDrag` options.   |
+| Name                   | Type                                                                                                                       | Description              |
+| :--------------------- | :------------------------------------------------------------------------------------------------------------------------- | :----------------------- |
+| `UseDragPosition`      | `{x: number; y: number}`                                                                                                   | Position parameters      |
+| `UseDragSetPosition`   | `{position: UseDragPosition, options?: ...}`<br/>`options` type: See [`setPosition` Options](#setposition-options) section | Update position.         |
+| `UseDragRelativeLimit` | `"client-size"` \| `"client-no-padding"` \| `"offset-size"` \| `"offset-no-padding"`                                       | `relativeLimit` options. |
+| `UseDragOptions`       | See [`useDrag` Options](#useDrag-options) below                                                                            | All `useDrag` options.   |
 
 ## `setPosition` Options
 
-| Name                        | Type               | Default | Description                                                                                                                                                                                                                                                           |
-| :-------------------------- | :----------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `transition`                | `string` \| `true` | —       | CSS transition for the position change.                                                                                                                                                                                                                               |
-| `skipCalulateStep`          | `boolean`          | `false` | If `stepSize` > 0 and you wanna manually update the position, consider set this option to `true` to skip the default calculation. See [`transition`](#transition) section for more info.                                                                              |
-| `shouldUpdatePositionState` | `boolean`          | `false` | Enable this flag to allow updating the returned `position` state and manually handle the transform animation, please note that your component will re-render.<br/>By default, the hook will transform the target element for you, and your component won't re-render. |
+| Name                        | Type               | Default | Description                                                                                                                                                                                                                                                          |
+| :-------------------------- | :----------------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `transition`                | `string` \| `true` | —       | CSS transition for the position change. See [`transition`](#transition) section for more info.                                                                                                                                                                       |
+| `skipCalulateStep`          | `boolean`          | `false` | If `stepSize` > 0 and you wanna manually update the position, consider set this option to `true` to skip the default calculation.                                                                                                                                    |
+| `shouldUpdatePositionState` | `boolean`          | `false` | Enable this flag to allow updating the returned `position` state and manually handle the transform animation, please note that your component will be re-rendered.<br/>By default, the hook will handle the calculation for you, and your component won't re-render. |
 
 ### `transition`
 
