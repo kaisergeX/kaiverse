@@ -1,5 +1,18 @@
 # docs
 
+## 0.3.0
+
+### Minor Changes
+
+- 02200d9: Add `useSpeechToText` hooks and doc page
+- 3e10909: `useDrag`: add `relativeLimit` option & doc page
+
+### Patch Changes
+
+- Updated dependencies [02200d9]
+- Updated dependencies [3e10909]
+  - @kaiverse/k@0.3.0
+
 ## 0.2.0
 
 ### Minor Changes
