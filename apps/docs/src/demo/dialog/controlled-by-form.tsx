@@ -44,7 +44,7 @@ export default function DialogControlledByForm() {
             method="dialog"
             onSubmit={handleFormSubmit}
           >
-            <h3 className="sticky inset-x-0 top-0 bg-[canvas]">Drawer Form</h3>
+            <h3 className="sticky sticky-bg inset-x-0 top-0">Drawer Form</h3>
             <p>
               In this form example, all inputs are uncontrolled input.
               <br />
