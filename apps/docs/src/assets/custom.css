@@ -7,6 +7,25 @@
     --sl-font: 'Nunito Variable', sans-serif;
     --sl-sidebar-width: 15rem;
     --sl-content-width: 60rem;
+    --sl-color-black: var(--fallback-b1, oklch(var(--b1) / var(--tw-bg-opacity)));
+  }
+
+  /* Light mode colors. */
+  :root[data-theme='light'] {
+    --sl-color-accent-low: #b0deff;
+    --sl-color-accent: #0073aa;
+    --sl-color-accent-high: #003653;
+    --sl-color-white: #121a1c;
+    --sl-color-gray-1: #182a2f;
+    --sl-color-gray-2: #2a3b41;
+    --sl-color-gray-3: #495c62;
+    --sl-color-gray-4: #7b8f96;
+    --sl-color-gray-5: #bac4c8;
+    --sl-color-gray-6: #e7eff2;
+    --sl-color-gray-7: #f3f7f9;
+    --sl-color-black: #ffffff;
+
+    --rounded-btn: 0.5rem;
   }
 
   .btn,
@@ -15,12 +34,14 @@
     @apply border-solid;
   }
 
-  .k-dialog {
-    margin: revert;
+  code,
+  .card,
+  .starlight-aside {
+    @apply rounded;
+  }
 
-    &:where(.k-dialog--non-modal) {
-      border-width: revert;
-    }
+  code {
+    @apply [overflow-wrap:revert];
   }
 }
 
@@ -97,41 +118,22 @@
   }
 }
 
-/* Light mode colors. */
-:root[data-theme='light'] {
-  --sl-color-accent-low: #b0deff;
-  --sl-color-accent: #0073aa;
-  --sl-color-accent-high: #003653;
-  --sl-color-white: #121a1c;
-  --sl-color-gray-1: #182a2f;
-  --sl-color-gray-2: #2a3b41;
-  --sl-color-gray-3: #495c62;
-  --sl-color-gray-4: #7b8f96;
-  --sl-color-gray-5: #bac4c8;
-  --sl-color-gray-6: #e7eff2;
-  --sl-color-gray-7: #f3f7f9;
-  --sl-color-black: #ffffff;
-
-  --rounded-btn: 0.5rem;
-}
-
 @view-transition {
   navigation: auto;
 }
 
 :where(.not-content) {
   button {
-    margin: revert-layer;
+    @apply m-[revert-layer];
   }
 }
 
-code {
-  overflow-wrap: revert;
-  border-radius: 4px;
-}
+.k-dialog {
+  @apply m-[revert] dark:bg-zinc-800;
 
-.card {
-  border-radius: 0.25rem;
+  &:where(.k-dialog--non-modal) {
+    @apply border-[length:revert];
+  }
 }
 
 .sl-markdown-content {

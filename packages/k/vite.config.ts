@@ -9,10 +9,13 @@ import {extname, relative, resolve} from 'path'
 import {fileURLToPath, URL} from 'url'
 import {glob} from 'glob'
 
+// build lib mode
+const isProduction = process.env.NODE_ENV === 'production'
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    TanStackRouterVite(),
+    !isProduction && TanStackRouterVite(),
     react(),
     libInjectCss(),
     dts({tsconfigPath: resolve(__dirname, 'tsconfig.lib.json')}),
