@@ -7,7 +7,6 @@
     --sl-font: 'Nunito Variable', sans-serif;
     --sl-sidebar-width: 15rem;
     --sl-content-width: 60rem;
-    --sl-color-black: var(--fallback-b1, oklch(var(--b1) / var(--tw-bg-opacity)));
   }
 
   /* Light mode colors. */
@@ -26,6 +25,10 @@
     --sl-color-black: #ffffff;
 
     --rounded-btn: 0.5rem;
+  }
+
+  [data-has-sidebar] .page {
+    @apply dark:bg-base-300;
   }
 
   .btn,
@@ -71,6 +74,10 @@
 }
 
 @layer utilities {
+  .sticky-bg {
+    @apply bg-[canvas] dark:bg-zinc-800;
+  }
+
   .text-gradient {
     background-clip: text;
     -webkit-background-clip: text;

@@ -34,7 +34,7 @@ export default function WithoutCompoundComponents() {
             id="form-dialog-without-compound"
             method="dialog"
           >
-            <h3 className="sticky inset-x-0 top-0 bg-[canvas]">Drawer Form</h3>
+            <h3 className="sticky inset-x-0 top-0 sticky-bg">Drawer Form</h3>
             <p>
               In this form example, all inputs are uncontrolled input.
               <br />

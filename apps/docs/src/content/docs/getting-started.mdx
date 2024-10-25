@@ -5,6 +5,7 @@ title: Getting Started
 import {Tabs, TabItem, Aside, Code} from '@astrojs/starlight/components'
 import AstroUsage from '@/demo/astro-usage.astro'
 import AstroUsageCode from '@/demo/astro-usage.astro?raw'
+import {BASE_URL} from '@/content/config'
 
 `@kaiverse/k` is a collection of powerful utilities, custom React hooks, and fully featured "uncommon" React components.
 
@@ -55,7 +56,7 @@ I highly recommend <a href="https://ui.shadcn.com/" target="_blank" rel="noopene
 All `@kaiverse/k/ui` components already have `'use client';` directive at the top of the file.
 
 <Aside type="caution">
-  Some components like [Dialog](/components/dialog) have associated compound components. Compound
+  Some components like <a href={`${BASE_URL}/components/dialog`}>`<Dialog>`</a> have associated compound components. Compound
   components cannot be used in server components. Instead of `Component.X` syntax, use `ComponentX`
   or add `'use client'` directive to the top of your pages/layouts/components.
 </Aside>

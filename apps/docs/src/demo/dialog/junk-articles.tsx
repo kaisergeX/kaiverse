@@ -2,7 +2,7 @@ export default function JunkArticle() {
   return (
     <>
       <section className="mt-8">
-        <h3 className="sticky inset-x-0 top-0 py-4 bg-[canvas]">
+        <h3 className="sticky inset-x-0 top-0 py-4 sticky-bg">
           <span className="text-gradient gradient-fall">
             Section 2: Very long content here, scroll down ↓ for more
           </span>
@@ -15,7 +15,7 @@ export default function JunkArticle() {
       </section>
 
       <section>
-        <h3 className="sticky inset-x-0 top-0 py-4 bg-[canvas]">
+        <h3 className="sticky inset-x-0 top-0 py-4 sticky-bg">
           <span className="text-gradient gradient-maple">Section 3: No idea</span>
         </h3>
         <p className="h-[40vh]">
@@ -26,7 +26,7 @@ export default function JunkArticle() {
       </section>
 
       <section>
-        <h3 className="sticky inset-x-0 top-0 py-4 bg-[canvas]">
+        <h3 className="sticky inset-x-0 top-0 py-4 sticky-bg">
           <span className="text-gradient gradient-fire">Section 4: Ok there are no contents</span>
         </h3>
         <p className="h-[40vh]">
