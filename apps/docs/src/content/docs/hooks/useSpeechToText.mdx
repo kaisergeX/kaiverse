@@ -26,7 +26,43 @@ import {useSpeechToText} from '@kaiverse/k/hooks'
   <TabItem label="Playground">
     <Demo path="useSpeechToText/usage" client:only="react" />
   </TabItem>
-  <TabItem label="Source code">
+  <TabItem label="Example usage code">
+
+```tsx title="example.tsx"
+import {useSpeechToText} from '@kaiverse/k/hooks'
+
+const [transcriptHistory, setTranscriptHistory] = useState('')
+const {isSpeechAPIAvailable, isListening, startListening, stopListening} = useSpeechToText({
+  lang: 'en',
+  onTranscriptChange: setTranscriptHistory,
+  onStart: () => console.log('Start listening'),
+  onUnMatch: () => console.error('Cannot recognize speech.'),
+  onError: (event) => console.error(event.error),
+})
+
+if (!isSpeechAPIAvailable) {
+  return <div>Browser doesn't support the Web Speech API</div>
+}
+
+return (
+  <div>
+    <button type="button" onClick={startListening}>
+      Turn on mic
+    </button>
+    <button type="button" onClick={stopListening}>
+      Stop
+    </button>
+    <p>
+      {isListening ? 'Listening...' : 'Not listening'}
+      <br />
+      {transcriptHistory}
+    </p>
+  </div>
+)
+```
+
+  </TabItem>
+  <TabItem label="Playground source code">
     <Code title="usage.tsx" lang="tsx" code={UseSpeechToTextCode} />
   </TabItem>
 </Tabs>

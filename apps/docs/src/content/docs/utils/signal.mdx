@@ -1,0 +1,189 @@
+---
+title: signal
+description: A lightweight, simple reactive system for your Javascript application. Zero dependencies, TypeScript fully supported.
+---
+
+import {Aside, Tabs, TabItem} from '@astrojs/starlight/components'
+
+A lightweight, simple reactive system for your Javascript application.
+Zero dependencies, TypeScript fully supported.
+
+<Aside title="Not available" type="caution">
+
+This is an independent package <a href="https://jsr.io/@kaiverse/signal" target="_blank" rel="noopener">`@kaiverse/signal`</a>, and not included in this library anymore.
+
+</Aside>
+
+<Aside>
+  [JS Signals proposal](https://github.com/tc39/proposal-signals) is currently in Stage 1. This
+  package is planned to be deprecated when the proposal is included in the JS standard and widely
+  supported.
+</Aside>
+
+## Version
+
+[![npm](https://img.shields.io/npm/v/@kaiverse/signal)](https://www.npmjs.com/package/@kaiverse/signal)
+
+[![JSR](https://jsr.io/badges/@kaiverse/signal)](https://jsr.io/@kaiverse/signal)
+
+## Installation
+
+### Via NPM
+
+<Tabs syncKey="pkg">
+<TabItem label="pnpm">
+
+```sh
+pnpm add @kaiverse/signal
+```
+
+</TabItem>
+
+<TabItem label="npm">
+
+```sh
+npm i @kaiverse/signal
+```
+
+</TabItem>
+</Tabs>
+
+### Via JSR
+
+<Tabs syncKey="pkg">
+<TabItem label="Deno">
+
+```sh
+deno add @kaiverse/signal
+```
+
+</TabItem>
+
+<TabItem label="pnpm">
+
+```sh
+pnpm dlx jsr add @kaiverse/signal
+```
+
+</TabItem>
+
+<TabItem label="npm">
+
+```sh
+npx jsr add @kaiverse/signal
+```
+
+</TabItem>
+</Tabs>
+
+### Via CDN
+
+```
+unpkg.com/@kaiverse/signal
+```
+
+## Compatibility
+
+Signal is a [`Proxy`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Proxy) object at its core, please check [compatibility section](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Proxy#browser_compatibility).
+
+## Documentation
+
+[Functions & Types](https://jsr.io/@kaiverse/signal/doc)
+
+## Example
+
+[Playground source code](https://github.com/kaisergeX/signal-proxy/blob/main/packages/signal/src/playground/index.ts)
+
+### 🔗Signal Proxy
+
+````js
+/**
+ * HTML setup:
+ * ```html
+ * <p id="fetch-result"></p>
+ * <button type="button" onclick="fetchNextUser()">Get next user</button>
+ * ```
+ */
+
+import {signalProxy} from '@kaiverse/signal'
+
+const resultElement = document.getElementById('fetch-result')
+
+const userSignal = signalProxy({userId: 123, reqCount: 0}, async (key, newValue) => {
+  // Do something when any userSignal's prop value changes
+  console.log(`[userSignal updated] key: ${key}, value: ${newValue}`)
+
+  if (key === 'userId') {
+    // Do something on `userId` changes only
+    const userId = newValue
+    const response = await fetch(`${basePath}/user/${userId}`)
+    const userData = await response.json()
+    const totalReqCount = userSignal.reqCount + 1
+    userSignal.reqCount = totalReqCount
+
+    if (resultElement)
+      resultElement.innerHTML = `Name: ${userData.name}<br/>Total requests: ${totalReqCount}`
+  }
+})
+
+function fetchNextUser() {
+  userSignal.userId++
+}
+````
+
+### 🚦Signal utilities
+
+If you have experience with SolidJS or ReactJS, you'll find these utility functions very familiar.
+
+```js
+import {createComputed, createEffect, createSignal} from '@kaiverse/signal'
+
+const [count, setCount] = createSignal(0)
+
+setInterval(() => {
+  setCount((c) => c + 1) // or setCount(count() + 1)
+}, 1000)
+
+createEffect(() => {
+  // log the count signal's value to the console every 1 second
+  console.log('count =', count())
+})
+
+const doubled = createComputed(() => count() * 2)
+
+createEffect(() => {
+  // log the doubled signal's value to the console every 1 second
+  console.log('[computed] doubled =', doubled())
+})
+```
+
+## Framework ports?
+
+This package is built for vanilla JS/TS applications.
+
+However, below are implementations to adapt with some frameworks's reactive systems.
+
+### React
+
+[React signal hooks](https://github.com/kaisergeX/signal-proxy/blob/main/apps/playground/src/hooks/react-signal.ts) implementation. Lack of testing. **DO NOT** use in production.
+
+<small>
+  Those hooks work, but its lack of testing. An alternative approach may be better. Please feel free
+  to open PRs. Your contributions are welcomed and appreciated.
+</small>
+
+[React playground](https://codesandbox.io/p/devbox/kaiverse-signal-react-port-c7sp3v) (codesandbox) - [source code](https://github.com/kaisergeX/signal-proxy/blob/main/apps/playground/src/routes/signal/route.lazy.tsx)
+
+### React Server Components/Functions
+
+Compatible.
+
+### Astro
+
+Compatible. No additional setup required.
+
+You can use it in the [component script](https://docs.astro.build/basics/astro-components/#the-component-script) section for server signals, and/or the [`<script>`](https://docs.astro.build/guides/client-side-scripts/#using-script-in-astro) tag for client signals.
+
+### SolidJS, VueJS
+
+... Just use their "signal" APIs.

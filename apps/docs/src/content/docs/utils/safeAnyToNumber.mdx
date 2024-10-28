@@ -1,0 +1,83 @@
+---
+title: safeAnyToNumber
+description: Safely convert any value to a number.
+---
+
+import {Aside, Tabs, TabItem, Code} from '@astrojs/starlight/components'
+import safeAnyToNumberDemoCode from '@/demo/utils/safeAnyToNumber?raw'
+import Demo from '@/demo'
+
+Safely convert any value to a number.
+
+## Type definition
+
+```ts
+function safeAnyToNumber<T = unknown>(
+  inputVal: Exclude<T, (...args: never) => unknown>,
+  fallbackNum?: number,
+) {
+  result: number
+  success: boolean
+}
+```
+
+<Aside>Attention should be paid if `inputVal` is an array.</Aside>
+
+<Tabs>
+<TabItem label="Result">
+
+```js
+[] => {result: 0, success: true} // same result with inputVal = [null] or [undefined]
+[12] => {result: 12, success: true}
+['12'] => {result: 12, success: true}
+['12', '13'] => {result: fallbackNum, success: false}
+'[12]' => {result: fallbackNum, success: false}
+
+[true] => {result: fallbackNum, success: false} // same result with inputVal = [false]
+
+[BigInt(9007199254740991)] => {result: 9007199254740991, success: true}
+[BigInt(9007199254740991000000)] => {result: 9.007199254740991e+21, success: true}
+['BigInt(9007199254740991)'] => {result: fallbackNum, success: false}
+'[BigInt(9007199254740991)]' => {result: fallbackNum, success: false}
+```
+
+</TabItem>
+<TabItem label="Source code">
+
+```ts
+const inputs = [
+  [],
+  [12],
+  ['12'],
+  ['12', '13'],
+  '[12]',
+  [true],
+  [BigInt(9007199254740991)],
+  [BigInt(9007199254740991000000)],
+  ['BigInt(9007199254740991)'],
+  '[BigInt(9007199254740991)]',
+]
+inputs.forEach((inputVal) => console.log(safeAnyToNumber(inputVal)))
+```
+
+</TabItem>
+</Tabs>
+
+## Fallback
+
+Default fallback number is `0`.
+
+## Example
+
+Convert string to number:
+
+Try typing any string (eg: `123.e5`, `0b1010`, `a123`) in the input field below.
+
+<Tabs>
+  <TabItem label="Playground">
+    <Demo path="utils/safeAnyToNumber" client:load />
+  </TabItem>
+  <TabItem label="Source code">
+    <Code lang="tsx" title="safeAnyToNumber.tsx" code={safeAnyToNumberDemoCode} />
+  </TabItem>
+</Tabs>

@@ -1,0 +1,57 @@
+---
+title: DOM element styles
+description: Manipulate DOM styles with ease.
+---
+
+import {Aside, Tabs, TabItem, Code} from '@astrojs/starlight/components'
+import domStylesDemoCode from '@/demo/utils/dom-styles?raw'
+import Demo from '@/demo'
+
+Manipulate DOM styles with ease.
+
+<Tabs>
+  <TabItem label="Playground">
+    <Demo path="utils/dom-styles" client:load />
+  </TabItem>
+  <TabItem label="Source code">
+    <Code lang="tsx" title="dom-styles.tsx" code={domStylesDemoCode} />
+  </TabItem>
+</Tabs>
+
+## `updateElementStyles`
+
+Update styles of an element.
+
+### Type definition
+
+```ts
+function updateElementStyles(
+  element: Element | HTMLElement | null,
+  styles: CustomStyles,
+  options?: UpdateStyleOptions,
+): void
+```
+
+| Name                 | Type                                                     | Description                                                                                                             |
+| :------------------- | :------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------- |
+| `CustomStyles`       | `{[key: string]: string \| number \| undefined \| null}` | Styles to be updated.<br/>Key is CSS property name and should be a kebab-case string (eg: `{'border-radius': '1rem'}`). |
+| `UpdateStyleOptions` | `{ignoreNilValue?: boolean; cache?: boolean \| "once"}`  | `updateElementStyles`'s options                                                                                         |
+
+### Options
+
+| Name             | Type                  | Default | Description                                                                                                                                                                                             |
+| :--------------- | :-------------------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `ignoreNilValue` | `boolean`             | `false` | If `true`, it will ignore updatiing the properties with `undefined` or `null` values.                                                                                                                   |
+| `cache`          | `boolean` \| `"once"` | `false` | Cache the original styles.<br/>Only cache value of provided properties that have been updated (depending on `ignoreNilValue` option).<br/>If set to `"once"`, it won't override existing cached styles. |
+
+## `resetElementStyles`
+
+Reset styles of an element.
+
+Depending on provided `properties`, if the original styles have been cached, it will restore the original styles, otherwise, it will be removed from the current styles.
+
+### Type definition
+
+```ts
+function resetElementStyles(element: Element | HTMLElement | null, properties?: string[]): void
+```

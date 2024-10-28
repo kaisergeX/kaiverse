@@ -38,6 +38,10 @@ export default defineConfig({
           label: 'Hooks',
           autogenerate: {directory: 'hooks'},
         },
+        {
+          label: 'Utilities',
+          autogenerate: {directory: 'utils'},
+        },
       ],
       expressiveCode: {
         styleOverrides: {borderRadius: '0.25rem'},
