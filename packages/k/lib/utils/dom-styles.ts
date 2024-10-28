@@ -49,7 +49,7 @@ export function updateElementStyles(
  * Reset the element's styles.
  *
  * Depending on provided `properties`, if the original styles have been cached,
- * it will restore the original styles, otherwise, it will remove the current styles.
+ * it will restore the original styles, otherwise, it will be removed from the current styles.
  */
 export function resetElementStyles(
   element: Element | HTMLElement | null,

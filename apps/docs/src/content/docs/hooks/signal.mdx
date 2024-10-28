@@ -1,0 +1,21 @@
+---
+title: signal
+description: A collection of hooks that allow us to use `@kaiverse/signal` in React components.
+---
+
+import {BASE_URL} from '@/content/config'
+import {Aside} from '@astrojs/starlight/components'
+
+<Aside title="Not available" type="caution">
+
+These hooks are separate to an independent package <a href="https://jsr.io/@kaiverse/signal" target="_blank" rel="noopener">`@kaiverse/signal`</a>, and not included in this library anymore.
+
+</Aside>
+
+A collection of hooks that allow us to use <a href={`${BASE_URL}/utils/signal`}>`signal` features</a> inside React components.
+
+Includes:
+
+- `useSignal` - create a `Signal`.
+- `useSignalEffect` - register a `Signal` effect.
+- `useComputed` - create a computed value from `Signal`(s).

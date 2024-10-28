@@ -1,6 +1,9 @@
 import {lazy} from 'react'
 
 export const demoModules = {
+  'utils/safeAnyToNumber': lazy(() => import('./utils/safeAnyToNumber')),
+  'utils/dom-styles': lazy(() => import('./utils/dom-styles')),
+
   'dialog/basic': lazy(() => import('./dialog/basic')),
   'dialog/controlled-by-form': lazy(() => import('./dialog/controlled-by-form')),
   'dialog/without-compound': lazy(() => import('./dialog/without-compound')),
