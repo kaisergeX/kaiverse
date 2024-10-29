@@ -1,0 +1,80 @@
+---
+title: Others
+description: Mini/Small/Atomic utilities.
+---
+
+import {Code, Aside} from '@astrojs/starlight/components'
+
+```js
+import {...} from '@kaiverse/k/utils'
+```
+
+## Primitives
+
+### `classNames`
+
+Merge classname(s).
+
+```ts
+let condition1 = true,
+  condition2 = true
+classNames('flex', condition1 && 'flex-col gap-4', condition2 ? 'p-4' : 'p-2') // 'flex flex-col gap-4 p-4'
+
+condition1 = false
+classNames('flex', condition1 && 'flex-col gap-4', condition2 ? 'p-4' : 'p-2') // 'flex p-4'
+```
+
+### `clamp`
+
+Clamp a number between a minimum and maximum value.
+
+```ts
+clamp(5, [10, 15]) // 5
+clamp(16, [10, 15]) // 15
+clamp(9, [10, 15]) // 10
+```
+
+### `exponential`
+
+Convert a number to exponential notation.
+
+```ts
+exponential(12.78915, 2) => "1.28e+1"
+exponential(75.396, 3) => "7.540e+1"
+exponential(75.396) => "7.5396e+1"
+exponential(75.396, null|0) => "8e+1"
+exponential(0.0075396) => "7.5396e-3"
+exponential(0.0075396, null|0) => "8e-3"
+exponential("sthNaN", any) => "NaN"
+```
+
+## Array
+
+### `sortMixedArrAsc`
+
+_Mixed_ types array ascending sorting.
+
+- This function supports all _Primitive_ types, it aims to handle _MIXED_ types of array elements sorting.
+- Single type array sorting works fine too (eg: `number[]`, `string[]`, etc..). But we should just write a `array.sort` instead.
+- `symbol` is not supported.
+- Sort descending? Use `sortMixedArrAsc(...).reverse()`.
+
+#### Type definition
+
+```ts
+function sortMixedArrAsc(inputArr: SortableMixedArr, mutate?: boolean): SortableMixedArr
+```
+
+| Parameter  | Type               | Default  | Description                         |
+| :--------- | :----------------- | :------- | :---------------------------------- |
+| `inputArr` | `SortableMixedArr` | Required | a mixed typed array.                |
+| `mutate`   | `boolean`          | `false`  | Should the origin array be mutated? |
+
+<Aside>Sort order: `number` → `string` → `boolean` → `object` → `nullish` → `empty`</Aside>
+
+<Code
+  lang="ts"
+  code={`const inputArr = [3, undefined, 'rob', null, ' peter ', ['test'], false, 'a', 43, true, 0, null, 100, { a: 'obj' }, 1, -222, empty, false]
+sortMixedArrAsc(inputArr) // [-222, 0, 1, 3, 43, 100, "a", " peter ", "rob", true, false, false, ["test"], { "a": "obj" }, null, null, undefined, empty]
+`}
+/>
