@@ -19,8 +19,34 @@
   filter: drop-shadow(0 0 3rem var(--overlay-blurple));
 }
 
+.scroll-driven {
+  @apply will-change-transform animate-[linear_var(--scroll-driven-animation)_forwards] [animation-timeline:--section-showcase] [animation-range:contain_0%_contain_100%];
+}
+
+.scroll-driven-x {
+  --scroll-driven-animation: driven-x;
+  @apply scroll-driven;
+}
+
+.scroll-driven-x-reverse {
+  --scroll-driven-animation: driven-x-reverse;
+  @apply scroll-driven;
+}
+
 @media (prefers-reduced-transparency: no-preference) {
   :is([data-has-hero], [data-has-sidebar]) .page > :where(.header) {
     @apply backdrop-blur-lg bg-transparent border-b-transparent;
+  }
+}
+
+@keyframes driven-x {
+  to {
+    transform: translateX(calc(-100% + 100vw));
+  }
+}
+
+@keyframes driven-x-reverse {
+  to {
+    transform: translateX(calc(100% - 100vw));
   }
 }

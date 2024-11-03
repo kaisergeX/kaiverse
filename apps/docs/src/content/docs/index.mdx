@@ -6,7 +6,7 @@ hero:
   title: Build website faster with better DX
   tagline: Collection of powerful utilities, uncommon React components, and hooks.
   image:
-    file: ../../assets/houston.webp
+    file: ../../assets/stack-star.svg
   actions:
     - text: Getting Started
       link: /kaiverse/getting-started
@@ -14,7 +14,42 @@ hero:
 ---
 
 import {Card, CardGrid} from '@astrojs/starlight/components'
+import UseDebouncedStateDemo from '@/demo/useDebouncedState/immediateUpdate'
+import DialogLandingShow from '@/demo/dialog/landing-show'
+import SliderActionLandingShow from '@/demo/slide-action/landing-show'
+import UseDragLandingShow from '@/demo/useDrag/landing-show'
 import Demo from '@/demo'
+import {BASE_URL} from '../config'
+
+<section className="not-content hidden supports-[animation-timeline:scroll()]:block h-[200vh] overflow-visible [view-timeline-name:--section-showcase] [view-timeline-axis:block]">
+  <div className="sticky h-dvh top-20 w-full overflow-x-hidden space-y-6 *:gap-8 [&_a]:font-semibold">
+    <div className="scroll-driven-x flex px-4">
+      <Demo className="w-full !my-0" path="terminal/usage" client:load />
+      <div className="w-1/2">
+        <a href={`${BASE_URL}/hooks/usedebouncedstate`}>useDebouncedState</a> hook
+        <UseDebouncedStateDemo client:load />
+      </div>
+      <div className="whitespace-nowrap">
+        <a href={`${BASE_URL}/components/dialog`}>{'<Dialog>'}</a> component
+        <DialogLandingShow client:load />
+      </div>
+    </div>
+    <div className="h-1/3 scroll-driven-x-reverse flex flex-row-reverse gap-4">
+      <div>
+        <a href={`${BASE_URL}/hooks/usedrag`}>useDrag</a>
+        <UseDragLandingShow client:load />
+      </div>
+      <SliderActionLandingShow client:load />
+    </div>
+    <div className="h-1/5 scroll-driven-x flex gap-4 items-center">
+      <p>
+        <em className="w-full font-bold text-xl text-gradient gradient-star-dusk">
+          And more components, hooks, and utilities ✨
+        </em>
+      </p>
+    </div>
+  </div>
+</section>
 
 <CardGrid stagger>
   <Card title="Components" icon="seti:react">
@@ -31,5 +66,3 @@ import Demo from '@/demo'
     Stay tuned for more updates.
   </Card>
 </CardGrid>
-
-<Demo path="terminal/usage" client:load />
