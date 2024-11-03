@@ -26,8 +26,9 @@ export default function NonModalDialog() {
         </Dialog.Header>
         <Dialog.Content>
           <a
-            href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#accessibility:~:text=A%20non%2Dmodal%20dialog%20does%20not%20dismiss%20via%20the%20Esc%20key%20by%20default"
+            href="https://developer.mozilla.org/docs/Web/HTML/Element/dialog#accessibility:~:text=A%20non%2Dmodal%20dialog%20does%20not%20dismiss%20via%20the%20Esc%20key%20by%20default"
             target="_blank"
+            rel="noreferrer noopener"
           >
             Read more
           </a>{' '}

@@ -71,6 +71,15 @@
 
     @apply dark:[--_grid-edge-color:rgba(200,200,200,0.1)] bg-[length:50px_50px];
   }
+
+  .iphone-mockup {
+    @apply relative px-4 pt-20 aspect-[1/2] w-full max-w-80 bg-[#22c1c3] text-center border-solid border-[10px] border-black rounded-[36px];
+    background: linear-gradient(321deg, rgba(34, 193, 195, 0.8) 0%, rgba(253, 187, 45, 0.8) 100%);
+
+    &::before {
+      @apply content-[''] absolute top-2 inset-x-0 mx-auto h-6 w-20 rounded-full bg-black;
+    }
+  }
 }
 
 @layer utilities {
@@ -115,6 +124,11 @@
     &.gradient-fire {
       color: #ff4000;
       background-image: linear-gradient(45deg, #ff4000 50%, #ff5700 25%, #ff6e00 64%, #ff8500 76%);
+    }
+
+    &.gradient-star-dusk {
+      color: #3a506b;
+      background-image: linear-gradient(315deg, #3a506b 62%, #5a708c 10%, #7a8f9b 10%);
     }
   }
 
