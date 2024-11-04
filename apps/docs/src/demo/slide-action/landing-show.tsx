@@ -1,9 +1,13 @@
 import {SlideAction} from '@kaiverse/k/ui'
+import {classNames} from '@kaiverse/k/utils'
+import {useState} from 'react'
 
 export default function SliderActionLandingShow() {
+  const [turnedOff, setTurnedOff] = useState(false)
+
   return (
     <div className="not-content w-80 overflow-clip rounded-br-xl rounded-bl-xl">
-      <div className="iphone-mockup mx-auto">
+      <div className={classNames('iphone-mockup mx-auto', turnedOff ? 'turnedOff' : '')}>
         <SlideAction
           className="border-none bg-[rgba(61,127,118,0.5)]"
           classNames={{label: 'font-bold text-lg'}}
@@ -28,7 +32,13 @@ export default function SliderActionLandingShow() {
             </svg>
           }
           labelType="slide"
-          onSwipeEnd={(reset) => setTimeout(reset, 1000)}
+          onSwipeEnd={(reset) => {
+            setTurnedOff(true)
+            setTimeout(() => {
+              reset()
+              setTurnedOff(false)
+            }, 2000)
+          }}
         >
           Slide to power off
         </SlideAction>

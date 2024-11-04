@@ -1,0 +1,75 @@
+---
+title: useDisclosure
+description: Hook to handle disclosure state
+---
+
+import UsageDemo from '@/demo/useDebouncedState/usage'
+import ImmediateDemo from '@/demo/useDebouncedState/immediateUpdate'
+import ControlledDetailsDemo from '@/demo/useDisclosure/controlled-details'
+import ControlledDetailsDemoCode from '@/demo/useDisclosure/controlled-details?raw'
+import {Code, Tabs, TabItem} from '@astrojs/starlight/components'
+
+Hook to handle disclosure state.
+
+## Import
+
+```js
+import {useDisclosure} from '@kaiverse/k/hooks'
+```
+
+## Usage
+
+`useDisclosure` hook returns `open`, `close`, and `toggle` helpers that can be handy for managing controlled `<dialog>`, `<details>`, and other disclosure components.
+
+## Examples
+
+### Controlled `<details>` element
+
+<Tabs>
+  <TabItem label="Playground">
+    <div className="not-content">
+      <ControlledDetailsDemo client:load />
+    </div>
+  </TabItem>
+  <TabItem label="Source code">
+    <Code title="usage.tsx" lang="tsx" code={ControlledDetailsDemoCode} />
+  </TabItem>
+</Tabs>
+
+### `<Dialog>` element
+
+```tsx title="use-disclosure.tsx"
+import {useDisclosure} from '@kaiverse/k/hooks'
+import {Dialog} from '@kaiverse/k/components'
+
+const [opened, {open, close}] = useDisclosure(false)
+
+<button type="button" onClick={open}>
+  Open Dialog
+</button>
+
+<Dialog open={opened} onClose={close}>
+  ...
+</Dialog>
+```
+
+## Callbacks
+
+- `onOpen`: will be called when the disclosure state is set to `true`.
+- `onClose`: will be called when the disclosure state is set to `false`.
+
+```tsx title="use-disclosure-callbacks.tsx"
+useDisclosure(false, {
+  onOpen: () => {...},
+  onClose: () => {...},
+})
+```
+
+## Type definition
+
+```ts
+function useDisclosure(
+  defaultOpened?: boolean,
+  callbacks?: {onOpen?: () => void; onClose?: () => void},
+): Readonly<[boolean, {open: () => void; close: () => void; toggle: () => void}]>
+```

@@ -1,21 +1,17 @@
+import {useDisclosure} from '@kaiverse/k/hooks'
 import {Dialog} from '@kaiverse/k/ui'
 import {useState} from 'react'
 
 export default function OffsetDialog() {
-  const [openDialog, setOpenDialog] = useState(false)
+  const [opened, {open, close}] = useDisclosure(false)
   const [offset, setOffset] = useState(16)
 
   return (
     <>
-      <button className="btn btn-neutral" type="button" onClick={() => setOpenDialog(true)}>
+      <button className="btn btn-neutral" type="button" onClick={open}>
         Open Dialog
       </button>
-      <Dialog
-        open={openDialog}
-        variant="drawer"
-        offset={offset}
-        onClose={() => setOpenDialog(false)}
-      >
+      <Dialog open={opened} variant="drawer" offset={offset} onClose={close}>
         <Dialog.Header>
           <Dialog.CloseButton />
         </Dialog.Header>
@@ -26,7 +22,7 @@ export default function OffsetDialog() {
           Try dragging the range slider below.
           <label className="form-control mt-4">
             <p>
-              Offset: <strong>{offset}</strong>
+              Offset: <strong>{offset}</strong> (px)
             </p>
             <input
               className="range range-sm"
@@ -40,7 +36,7 @@ export default function OffsetDialog() {
           </label>
         </Dialog.Content>
         <footer className="p-4">
-          <button className="btn btn-secondary" type="button" onClick={() => setOpenDialog(false)}>
+          <button className="btn btn-secondary" type="button" onClick={close}>
             Close
           </button>
         </footer>

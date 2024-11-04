@@ -1,19 +1,19 @@
+import {useDisclosure} from '@kaiverse/k/hooks'
 import {Dialog} from '@kaiverse/k/ui'
-import {useState} from 'react'
 
 export default function BackdropStyling() {
-  const [openDialog, setOpenDialog] = useState(false)
+  const [opened, {open, close}] = useDisclosure(false)
 
   return (
     <>
-      <button className="btn btn-neutral" type="button" onClick={() => setOpenDialog(true)}>
+      <button className="btn btn-neutral" type="button" onClick={open}>
         Open styled drawer
       </button>
       <Dialog
         className="bg-base-100/90"
-        open={openDialog}
+        open={opened}
         variant="drawer"
-        onClose={() => setOpenDialog(false)}
+        onClose={close}
         backdropProps={{
           blur: 1,
           opacity: 0.5,
@@ -27,11 +27,7 @@ export default function BackdropStyling() {
           We can use <code>backdropProps</code> to style the Dialog's backdrop.
         </Dialog.Content>
         <footer className="p-2 bg-[radial-gradient(circle,rgba(34,193,195,0.4)_0%,rgba(253,187,45,0.2)_100%)] dark:bg-base-100">
-          <button
-            className="btn btn-secondary btn-sm"
-            type="button"
-            onClick={() => setOpenDialog(false)}
-          >
+          <button className="btn btn-secondary btn-sm" type="button" onClick={close}>
             Close
           </button>
         </footer>

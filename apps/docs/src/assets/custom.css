@@ -73,11 +73,16 @@
   }
 
   .iphone-mockup {
-    @apply relative px-4 pt-20 aspect-[1/2] w-full max-w-80 bg-[#22c1c3] text-center border-solid border-[10px] border-black rounded-[36px];
+    @apply relative px-4 pt-20 aspect-[1/2] w-full max-w-80 bg-[#22c1c3] text-center border-solid border-[10px] border-black rounded-[36px] transition-colors duration-500;
     background: linear-gradient(321deg, rgba(34, 193, 195, 0.8) 0%, rgba(253, 187, 45, 0.8) 100%);
 
     &::before {
       @apply content-[''] absolute top-2 inset-x-0 mx-auto h-6 w-20 rounded-full bg-black;
+    }
+
+    &.turnedOff {
+      background: #000;
+      @apply *:hidden;
     }
   }
 }
