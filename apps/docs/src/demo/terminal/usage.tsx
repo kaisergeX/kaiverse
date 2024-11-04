@@ -3,6 +3,7 @@ import {Terminal} from '@kaiverse/k/ui'
 export default function TerminalUsageDemo() {
   return (
     <Terminal
+      className="max-h-[30dvh]"
       title="Terminal"
       greeting={
         <p>
@@ -24,7 +25,6 @@ L\n\n`}
           return 'skip_default'
         }
       }}
-      style={{maxHeight: '30dvh'}}
     />
   )
 }

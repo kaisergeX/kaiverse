@@ -31,12 +31,7 @@ export default function WithoutCompoundComponents() {
             method="dialog"
           >
             <h3 className="sticky inset-x-0 top-0 sticky-bg">Drawer Form</h3>
-            <p>
-              In this form example, all inputs are uncontrolled input.
-              <br />
-              Check the "Keep form value" checkbox to persist the form value after submitting and
-              closing the Dialog.
-            </p>
+            <p>In this form example, all inputs are uncontrolled input.</p>
             <label className="form-control w-full max-w-xs">
               <span className="label label-text">Keyword</span>
               <input

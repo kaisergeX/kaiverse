@@ -8,7 +8,7 @@ import Demo from '@/demo'
 import controlledByFormCode from '@/demo/dialog/controlled-by-form?raw'
 import withoutCompoundCode from '@/demo/dialog/without-compound?raw'
 
-Display overlay area on top of a page and slides in from the side. Build on top of the native HTML [`<dialog/>`](https://developer.mozilla.org/docs/Web/HTML/Element/dialog) element.
+Display overlay area on top of a page, represents a modal or non-modal dialog box.<br/> Build on top of the native HTML [`<dialog/>`](https://developer.mozilla.org/docs/Web/HTML/Element/dialog) element.
 
 ```js
 import {Dialog} from '@kaiverse/k/ui'
@@ -64,7 +64,7 @@ Also as a result, the `onClose` event will be fired.
 
 <Aside title='Combination - Controlled by React state' type='tip'>
 If you use a React state to control the `open` state of `<Dialog>`, even though the dialog is closed by the form method, remember to set that state to `false` via the `onClose` event.
-<br/>The dialog can't and shouldn't manipulate outside React state(s) by itself.
+<br/>The `<Dialog>` component can't and shouldn't directly manipulate outside/parent React state(s) by itself.
 </Aside>
 
 Let use the [`drawer` variant](#drawer) for this example.
@@ -92,7 +92,7 @@ Let use the [`drawer` variant](#drawer) for this example.
   These components are opt-in, you can get rid of all the compound components and use your own.
 </Aside>
 
-For instance, here is a drawer with the same UI as the previous "Controlled by form" example that doesn't use any compound components.
+For instance, here is a drawer with similar UI as the previous "Controlled by form" example that doesn't use any compound components.
 
 <Tabs>
   <TabItem label="Playground">
@@ -109,7 +109,6 @@ For instance, here is a drawer with the same UI as the previous "Controlled by f
 
 <Aside type="caution">
   Compound components cannot be used in server components. Instead of Dialog.XXX syntax, use DialogXXX (eg: `<DialogHeader>`) or add `'use client'` directive to the top of your pages/layouts/components.
-  <br/>If you don't use compound components, then no need to add `'use client'`.
 </Aside>
 
 <Tabs>
@@ -163,7 +162,7 @@ A Dialog that slides in from the side of the screen.
 
 #### Position
 
-Position of the drawer. It only available when variant is set to drawer.
+Position of the drawer. It only available when variant is set to `'drawer'`.
 
 <Demo path="dialog/drawer" client:visible />
 

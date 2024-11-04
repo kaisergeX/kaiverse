@@ -32,6 +32,7 @@
   }
 
   .btn,
+  .checkbox,
   .border,
   [class*='border-'] {
     @apply border-solid;
