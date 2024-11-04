@@ -57,7 +57,7 @@ type UnCachedOptions<T extends HTMLElement = HTMLElement> = {
   /**
    * Limit dragging distance relatively to the **direct** parent element. Will be ignored if `limit` is provided.
    *
-   * `relativeLimit` does't observe the parent element's size changes, you will need to update the `limit` manually (eg: via {@link https://developer.mozilla.org/docs/Web/API/Resize_Observer_API Resize Observer API}).
+   * `relativeLimit` doesn't observe the parent element's size changes, you will need to update the `limit` manually (eg: via {@link https://developer.mozilla.org/docs/Web/API/Resize_Observer_API Resize Observer API}).
    * ___
    * Limit the dragging distance by:
    * - `"client"`: [Recommended] parent element's client size (includes padding but excludes borders, margins). **DO NOT** use this option when parent is an inline element.

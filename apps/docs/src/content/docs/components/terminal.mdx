@@ -4,6 +4,7 @@ description: Terminal UI component that allows users to interact with the termin
 ---
 
 import {Aside, Code, Tabs, TabItem} from '@astrojs/starlight/components'
+import UsageDemoCode from '@/demo/terminal/usage.tsx?raw'
 import Demo from '@/demo'
 
 Terminal UI component that allows users to interact with the terminal-like interface.
@@ -18,11 +19,14 @@ import {Terminal} from '@kaiverse/k/ui'
 
 Try command `hello` and then `clear` in the terminal below:
 
-<Demo path="terminal/usage" client:load />
-
-```jsx title="your-component.tsx"
-<Terminal title="..." greeting="..." />
-```
+<Tabs>
+  <TabItem label="Playground">
+    <Demo path="terminal/usage" client:load />
+  </TabItem>
+  <TabItem label="Source code">
+    <Code code={UsageDemoCode} />
+  </TabItem>
+</Tabs>
 
 ## Handle Command
 
@@ -96,7 +100,7 @@ Prints a `ReactNode` to Terminal history section.
       `object`, `array`. If you wanna show a list of elements in only one call, wrap it with an
       element (eg: `<>{contents}</>`).
     </li>
-    <li>HTML element: `iframe`, `object`, `embed`, `html`.</li>
+    <li>HTML element: `<iframe>`, `<object>`, `<embed>`, `<html>`.</li>
   </ul>
 </Aside>
 

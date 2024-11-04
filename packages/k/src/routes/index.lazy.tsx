@@ -13,8 +13,8 @@ function Homepage() {
           <Link to="/dialog" className="card">
             <h3 className="gradient-leaf">Dialog</h3>
             <p>
-              Display overlay area on top of a page and slides in from the side. Build on top of the
-              native HTML {`<dialog />`} element.
+              Display overlay area on top of a page. Build on top of the native HTML {`<dialog />`}{' '}
+              element.
             </p>
           </Link>
           <Link to="/terminal" className="card">
