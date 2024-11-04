@@ -1,5 +1,12 @@
 # @kaiverse/k
 
+## 0.4.0
+
+### Minor Changes
+
+- f2313b9: add `useDisclosure` hook
+- 2c89e66: add some utility functions
+
 ## 0.3.0
 
 ### Minor Changes

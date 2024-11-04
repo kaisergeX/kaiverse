@@ -1,5 +1,17 @@
 # docs
 
+## 0.4.0
+
+### Minor Changes
+
+- f2313b9: add `useDisclosure` hook
+
+### Patch Changes
+
+- Updated dependencies [f2313b9]
+- Updated dependencies [2c89e66]
+  - @kaiverse/k@0.4.0
+
 ## 0.3.0
 
 ### Minor Changes
