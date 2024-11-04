@@ -1,26 +1,27 @@
+import {useDisclosure} from '@kaiverse/k/hooks'
 import {Dialog} from '@kaiverse/k/ui'
 import {classNames} from '@kaiverse/k/utils'
 import {useState} from 'react'
 
 export default function NonModalDialog() {
-  const [openDialog, setOpenDialog] = useState(false)
+  const [opened, {close, toggle}] = useDisclosure(false)
   const [count, setCount] = useState(0)
 
   return (
     <>
       <button
-        className={classNames('btn mr-4', openDialog ? 'btn-secondary' : 'btn-neutral')}
+        className={classNames('btn mr-4', opened ? 'btn-secondary' : 'btn-neutral')}
         type="button"
-        onClick={() => setOpenDialog(!openDialog)}
+        onClick={toggle}
       >
-        {openDialog ? 'Close' : 'Open'} Dialog
+        {opened ? 'Close' : 'Open'} Dialog
       </button>
 
       <button className="btn btn-outline" type="button" onClick={() => setCount(count + 1)}>
         Count++
       </button>
 
-      <Dialog open={openDialog} dialogMode="non-modal" onClose={() => setOpenDialog(false)}>
+      <Dialog open={opened} dialogMode="non-modal" onClose={close}>
         <Dialog.Header>
           <h2>Non-modal Dialog</h2>
         </Dialog.Header>
@@ -37,7 +38,7 @@ export default function NonModalDialog() {
           related accessibility considerations.
         </Dialog.Content>
         <footer className="p-4">
-          <button className="btn btn-secondary" type="button" onClick={() => setOpenDialog(false)}>
+          <button className="btn btn-secondary" type="button" onClick={close}>
             Close
           </button>
         </footer>

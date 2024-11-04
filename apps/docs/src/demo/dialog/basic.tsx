@@ -1,15 +1,15 @@
+import {useDisclosure} from '@kaiverse/k/hooks'
 import {Dialog} from '@kaiverse/k/ui'
-import {useState} from 'react'
 
 export default function BasicDialog() {
-  const [openDialog, setOpenDialog] = useState(false)
+  const [opened, {open, close}] = useDisclosure(false)
 
   return (
     <>
-      <button className="btn btn-neutral" type="button" onClick={() => setOpenDialog(true)}>
+      <button className="btn btn-neutral" type="button" onClick={open}>
         Open Dialog
       </button>
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+      <Dialog open={opened} onClose={close}>
         <Dialog.Header>
           <Dialog.Title>Dialog header</Dialog.Title>
           <Dialog.CloseButton />
@@ -18,7 +18,7 @@ export default function BasicDialog() {
           Dialog content <br /> Lorem ipsum, dolor sit amet consectetur adipisicing elit.
         </Dialog.Content>
         <Dialog.Footer>
-          <button className="btn btn-secondary" type="button" onClick={() => setOpenDialog(false)}>
+          <button className="btn btn-secondary" type="button" onClick={close}>
             Close
           </button>
           Dialog Footer

@@ -1,9 +1,10 @@
 import {Dialog} from '@kaiverse/k/ui'
 import {useState, type FormEventHandler} from 'react'
+import {useDisclosure} from '@kaiverse/k/hooks'
 import JunkArticle from './junk-articles'
 
 export default function DialogControlledByForm() {
-  const [openDrawer, setOpenDrawer] = useState(false)
+  const [opened, {open, close}] = useDisclosure(false)
   const [keyword, setKeyword] = useState('') // just for display form value
 
   const handleFormSubmit: FormEventHandler<HTMLFormElement> = (e) => {
@@ -17,7 +18,7 @@ export default function DialogControlledByForm() {
 
   return (
     <>
-      <button className="btn btn-neutral" type="button" onClick={() => setOpenDrawer(true)}>
+      <button className="btn btn-neutral" type="button" onClick={open}>
         Open Drawer
       </button>
       <section className="my-4">
@@ -27,12 +28,7 @@ export default function DialogControlledByForm() {
         </pre>
       </section>
 
-      <Dialog
-        open={openDrawer}
-        variant="drawer"
-        offset="1.5rem"
-        onClose={() => setOpenDrawer(false)}
-      >
+      <Dialog open={opened} variant="drawer" offset="1.5rem" onClose={close}>
         <Dialog.Header>
           <Dialog.Title>Drawer controlled by form</Dialog.Title>
           <Dialog.CloseButton />
@@ -74,7 +70,7 @@ export default function DialogControlledByForm() {
             className="btn btn-neutral btn-outline"
             form="form-manipulate-drawer"
             type="reset"
-            onClick={() => setOpenDrawer(false)} // remove this line if you only want to reset the form value
+            onClick={close} // remove this line if you only want to reset the form value
           >
             Cancel
           </button>

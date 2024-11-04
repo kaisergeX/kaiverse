@@ -1,30 +1,26 @@
+import {useDisclosure} from '@kaiverse/k/hooks'
 import {Dialog} from '@kaiverse/k/ui'
-import {useState} from 'react'
 import JunkArticle from './junk-articles'
 import {IconX} from '../icon'
 
 export default function WithoutCompoundComponents() {
-  const [openDrawer, setOpenDrawer] = useState(false)
+  const [opened, {open, close}] = useDisclosure(false)
 
   return (
     <>
-      <button className="btn btn-neutral" type="button" onClick={() => setOpenDrawer(true)}>
+      <button className="btn btn-neutral" type="button" onClick={open}>
         Open Drawer
       </button>
       <Dialog
         className="[&[open]]:flex flex-col"
-        open={openDrawer}
+        open={opened}
         variant="drawer"
         offset="1.5rem"
-        onClose={() => setOpenDrawer(false)}
+        onClose={close}
       >
         <header className="p-4 flex items-center justify-between gap-4">
           <h2>Drawer controlled by form</h2>
-          <button
-            className="btn btn-ghost btn-circle btn-sm"
-            type="button"
-            onClick={() => setOpenDrawer(false)}
-          >
+          <button className="btn btn-ghost btn-circle btn-sm" type="button" onClick={close}>
             <IconX />
           </button>
         </header>
@@ -59,7 +55,7 @@ export default function WithoutCompoundComponents() {
             className="btn btn-neutral btn-outline"
             form="form-dialog-without-compound"
             type="reset"
-            onClick={() => setOpenDrawer(false)} // remove this line if you only want to reset the form value
+            onClick={close} // remove this line if you only want to reset the form value
           >
             Cancel
           </button>

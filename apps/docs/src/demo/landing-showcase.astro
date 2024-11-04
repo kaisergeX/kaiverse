@@ -1,0 +1,48 @@
+---
+import {BASE_URL} from '@/content/config'
+import Demo from '.'
+import DialogLandingShow from './dialog/landing-show'
+import SliderActionLandingShow from './slide-action/landing-show'
+import UseDragLandingShow from './useDrag/landing-show'
+import UseDebouncedStateDemo from './useDebouncedState/immediateUpdate'
+import {IconExternalLink} from '@tabler/icons-react'
+---
+
+<section
+  class="not-content hidden max-sm:hidden supports-[animation-timeline:scroll()]:block h-[200vh] overflow-visible [view-timeline-name:--section-showcase] [view-timeline-axis:block]"
+>
+  <div class="sticky h-dvh top-20 w-full overflow-x-hidden space-y-6 *:gap-8 [&_a]:font-semibold">
+    <div class="scroll-driven-x flex px-4">
+      <Demo className="w-full !my-0" path="terminal/usage" client:load />
+      <div class="w-1/2">
+        <a class="no-underline text-primary-content" href={`${BASE_URL}/hooks/usedebouncedstate`}>
+          <span class="text-gradient gradient-fall">useDebouncedState</span> hook
+          <IconExternalLink className="size-4" />
+        </a>
+        <UseDebouncedStateDemo client:load />
+      </div>
+      <div class="whitespace-nowrap">
+        <a class="no-underline text-primary-content" href={`${BASE_URL}/components/dialog`}>
+          <span class="text-gradient gradient-leaf">{'<Dialog>'}</span> component
+          <IconExternalLink className="size-4" />
+        </a>
+        <DialogLandingShow client:load />
+      </div>
+    </div>
+    <div class="h-1/3 scroll-driven-x-reverse flex flex-row-reverse gap-4">
+      <div>
+        <a class="no-underline text-primary-content" href={`${BASE_URL}/hooks/usedrag`}>
+          <span class="text-gradient gradient-leaf">useDrag</span> hook
+          <IconExternalLink className="size-4" />
+        </a>
+        <UseDragLandingShow client:load />
+      </div>
+      <SliderActionLandingShow client:load />
+    </div>
+    <div class="h-1/5 w-[70vw] scroll-driven-x flex gap-4 items-center">
+      <em class="font-bold text-xl text-gradient gradient-star-dusk">
+        And more components, hooks, and utilities ✨
+      </em>
+    </div>
+  </div>
+</section>
