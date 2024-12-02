@@ -48,7 +48,7 @@
 
 @layer components {
   .k-button-base {
-    @apply inline-flex items-center gap-2 rounded-md border px-2.5 py-2 align-top text-sm font-semibold leading-normal shadow-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900 sm:px-3.5 sm:py-2.5 dark:focus-visible:outline-zinc-400 cursor-pointer;
+    @apply inline-flex cursor-pointer items-center gap-2 rounded-md border px-2.5 py-2 align-top text-sm font-semibold leading-normal shadow-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900 sm:px-3.5 sm:py-2.5 dark:focus-visible:outline-zinc-400;
   }
 
   .k-button-base:disabled {
@@ -63,8 +63,32 @@
     @apply k-button-base border-zinc-200 bg-transparent text-inherit hover:border-zinc-900 hover:text-inherit dark:border-zinc-600 dark:hover:border-zinc-200;
   }
 
+  .k-sudoku {
+    --k-sudoku-theme: 148, 163, 184;
+    --k-sudoku-border-color: rgba(var(--k-sudoku-theme), 0.2);
+    --k-sudoku-subgrid-border-color: rgba(var(--k-sudoku-theme), 0.6);
+
+    @apply grid w-fit grid-cols-9;
+  }
+
+  .k-sudoku-cell {
+    @apply block size-[2em] rounded-none border border-[--k-sudoku-border-color] text-center text-[length:inherit] text-inherit transition-colors *:select-none;
+
+    &:where(:nth-child(n + 19):nth-child(-n + 27), :nth-child(n + 46):nth-child(-n + 54)) {
+      @apply border-b-2 border-b-[--k-sudoku-subgrid-border-color];
+    }
+
+    &:where(
+        :nth-child(3n):not(:nth-child(9n)),
+        :nth-child(27):nth-child(54),
+        :nth-child(73):nth-child(81)
+      ) {
+      @apply border-r-2 border-r-[--k-sudoku-subgrid-border-color];
+    }
+  }
+
   .card {
-    @apply border-4 border-slate-300 border-solid rounded-2xl px-4 py-6 no-underline text-inherit hover:bg-slate-100 hover:border-slate-200 hover:[&>p]:text-inherit transition-colors duration-500 [&>h3]:text-gradient [&>h3]:text-3xl [&>h3]:font-extrabold;
+    @apply [&>h3]:text-gradient rounded-2xl border-4 border-solid border-slate-300 px-4 py-6 text-inherit no-underline transition-colors duration-500 hover:border-slate-200 hover:bg-slate-100 [&>h3]:text-3xl [&>h3]:font-extrabold hover:[&>p]:text-inherit;
   }
 }
 

@@ -1,5 +1,5 @@
-export function classNames(...classes: (string | undefined)[]) {
-  return classes.filter(Boolean).join(' ')
+export function classNames(...classes: (string | boolean | null | undefined)[]): string {
+  return classes.filter((c) => typeof c === 'string').join(' ')
 }
 
 export function clamp(value: number, [min, max]: [number, number]): number {

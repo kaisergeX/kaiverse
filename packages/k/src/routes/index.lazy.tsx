@@ -29,6 +29,7 @@ function Homepage() {
           </Link>
         </div>
       </section>
+
       <section className="p-4 space-y-4">
         <h2>Hooks</h2>
         <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(18rem,_1fr))]">
@@ -39,6 +40,18 @@ function Homepage() {
           <Link to="/speech-to-text" className="card">
             <h3 className="gradient-nature">useSpeechToText</h3>
             <p>Hook to use the Web Speech API for speech recognition.</p>
+          </Link>
+        </div>
+      </section>
+
+      <section className="p-4 space-y-4">
+        <h2>Games</h2>
+        <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(18rem,_1fr))]">
+          <Link to="/sudoku" className="card">
+            <h3 className="gradient-leaf">Sudoku</h3>
+            <p>
+              The popular Japanese puzzle game Sudoku is based on the logical placement of numbers.
+            </p>
           </Link>
         </div>
       </section>
