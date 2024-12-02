@@ -48,6 +48,39 @@ exponential(0.0075396, null|0) => "8e-3"
 exponential("sthNaN", any) => "NaN"
 ```
 
+### `digitalRoot`
+
+Calculate the digital root of a number.
+
+Example: `digitalRoot(86) => 5` because `8 + 6 = 14` and `1 + 4 = 5`.
+
+#### Type definition
+
+```ts
+function digitalRoot(input: number | bigint): number
+```
+
+<Aside>
+
+If `input` is:
+
+- an unsafe integer (that could be lost precision) → the result might be inaccurate. Passing a BigInt instead.<br/>You can use [`Number.isSafeInteger`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number/isSafeInteger) to check.
+- a float → returns the digital root of the integer part only.
+- a BigInt → converts to a number and returns the digital root.
+
+</Aside>
+
+```ts
+digitalRoot(0) => 0
+digitalRoot(1) => 1
+digitalRoot(86) => 5
+digitalRoot(999) => 9
+digitalRoot(-999) => 9
+digitalRoot(987654321987654321n) => 9
+digitalRoot(-987654321987654321n) => 9
+digitalRoot(86.75) => 5 // floor to 86 before calculation
+```
+
 ## Array
 
 ### `sortMixedArrAsc`
