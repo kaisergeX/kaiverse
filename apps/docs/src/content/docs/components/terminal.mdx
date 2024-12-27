@@ -122,7 +122,7 @@ The `greeting` prop accept a `ReactNode`.
 
 ```jsx title="greetings.tsx"
 <Terminal
-  title="¯\_(ツ)_/¯"
+  windowTitle="¯\_(ツ)_/¯"
   greeting={<img width="120" height="120" src="https://i.redd.it/fktuppkre7p51.gif" />}
 />
 ```
@@ -181,7 +181,7 @@ See `TerminalStylingSelectors` in the [Special Types](#special-types) section be
 | :------------------ | :--------------------------------------------------------------------- | :------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `classNames`        | `Partial<Record<TerminalStylingSelectors, string>>`                    | —                                      | Applies className to related selector element.                                                                                                                                                      |
 | `styles`            | `Partial<Record<TerminalStylingSelectors, CSSProperties>>`             | —                                      | Applies inline styles to related selector element.                                                                                                                                                  |
-| `title`             | `string`                                                               | —                                      | Terminal window title.                                                                                                                                                                              |
+| `windowTitle`       | `string`                                                               | —                                      | Terminal window title.                                                                                                                                                                              |
 | `greeting`          | `ReactNode`                                                            | —                                      | Greating section. It will be printed on top of terminal's history section.                                                                                                                          |
 | `theme`             | `'macos'` \| `'window'`                                                | `'macos'`                              |                                                                                                                                                                                                     |
 | `commandPrefix`     | `string`                                                               | `'$'` (`'>'` if `theme` is `'window'`) |                                                                                                                                                                                                     |

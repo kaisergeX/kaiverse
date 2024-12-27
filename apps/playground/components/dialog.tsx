@@ -3,7 +3,7 @@ import {Dialog, DialogCloseButton, DialogContent, DialogHeader, DialogTitle} fro
 export default function DialogWrapper() {
   return (
     <>
-      <Dialog open offset={32} variant="drawer">
+      <Dialog offset={32} variant="drawer">
         <DialogHeader>
           <DialogTitle>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam exercitationem officiis

@@ -14,7 +14,7 @@ export const useSpeechToText = ({
   // const SpeechRecognitionEvent = window.SpeechRecognitionEvent || window.webkitSpeechRecognitionEvent;
 
   const isSpeechAPIAvailable = typeof window !== 'undefined' && !!SpeechRecognition
-  const recognition = useRef<SpeechRecognition>()
+  const recognition = useRef<SpeechRecognition>(undefined)
   const [isListening, setIsListening] = useState(false)
   const [transcript, setTranscript] = useState('')
 

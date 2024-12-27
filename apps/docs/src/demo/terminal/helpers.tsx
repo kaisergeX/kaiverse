@@ -9,6 +9,12 @@ export default function TerminalHelpers() {
       <Terminal
         className="max-h-[40dvh]"
         ref={terminalRef}
+        // ref={(ref) => {
+        //   ref?.println('Hello from ref')
+        //   if (ref) {
+        //     ref.ariaDescription = '123123'
+        //   }
+        // }}
         greeting={
           <p>
             Helpers that ship with the <code className="italic">commandHandler</code> prop:

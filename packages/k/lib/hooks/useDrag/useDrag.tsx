@@ -28,20 +28,16 @@ const TRANSFORM_TIMING_FN = 'cubic-bezier(0.32, 0.72, 0, 1)'
  * ___
  * Initialize position is always at `{x: 0, y: 0}`; `limit` and all position change will be related to this point.
  */
-export const useDrag = <T extends HTMLElement = HTMLElement>(
-  useDragOptions: UseDragOptions<T> = {},
-): UseDragReturnsType<T> => {
-  const {
-    targetRef: customTargetRef,
-    onStart,
-    onMove,
-    onEnd,
-    limit: fixedLimit,
-    relativeLimit,
-    stepSize: unprocessedStep = 0,
-    ...primitiveFlags
-  } = useDragOptions
-
+export const useDrag = <T extends HTMLElement = HTMLElement>({
+  targetRef: customTargetRef,
+  onStart,
+  onMove,
+  onEnd,
+  limit: fixedLimit,
+  relativeLimit,
+  stepSize: unprocessedStep = 0,
+  ...primitiveFlags
+}: UseDragOptions<T> = {}): UseDragReturnsType<T> => {
   // Only process primitive options
   const opts = useMemo<UseDragFlags>(() => {
     const processingOptions: UseDragFlags = {

@@ -1,14 +1,7 @@
 'use client'
 
-import {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  type FormEventHandler,
-} from 'react'
-import {classNames} from '#utils'
+import {useCallback, useEffect, useImperativeHandle, useRef, type FormEventHandler} from 'react'
+import {classNames, refFactory} from '#utils'
 import {TERMINAL_CTRLS, TERMINAL_CLASSES, TERMINAL_COMMANDS} from './constants'
 import type {TerminalProps, TerminalRef} from './types'
 import useTerminalHistory from './useTerminalHistory'
@@ -17,10 +10,10 @@ import {DISPLAY_NAME_PREFIX} from '../constants'
 import classes from './terminal.module.css'
 
 /** Terminal UI component that allows users to interact with the terminal-like interface. */
-const Terminal = forwardRef<TerminalRef, TerminalProps>((props, ref) => {
+const Terminal = refFactory<TerminalRef, TerminalProps>((props, ref) => {
   const {
     className,
-    title,
+    windowTitle,
     greeting = '',
     commandPrefix = props.theme === 'window' ? '>' : '$',
     commandHandler,
@@ -32,6 +25,7 @@ const Terminal = forwardRef<TerminalRef, TerminalProps>((props, ref) => {
     ...htmlDivAttributes
   } = props
 
+  const terminalRef = useRef<HTMLDivElement>(null)
   const terminalHistoryRef = useRef<HTMLDivElement>(null)
   const terminalInput = useRef<HTMLInputElement>(null)
   const {renderHistories, helpers} = useTerminalHistory()
@@ -101,11 +95,18 @@ const Terminal = forwardRef<TerminalRef, TerminalProps>((props, ref) => {
     return () => window.cancelAnimationFrame(frameId)
   }, [renderHistories])
 
-  useImperativeHandle(ref, () => helpers)
+  useImperativeHandle(ref, () => {
+    return Object.defineProperties(
+      terminalRef.current,
+      // ensure exposed helpers are read-only by showing an TypeError (to console) when other dev try to modify them (on 'use strict' mode)
+      Object.getOwnPropertyDescriptors(helpers),
+    ) as TerminalRef
+  }, [helpers])
 
   return (
     <div
       {...htmlDivAttributes}
+      ref={terminalRef}
       className={classNames(
         TERMINAL_CLASSES.ROOT,
         `${TERMINAL_CLASSES.ROOT}--${theme}`,
@@ -116,7 +117,7 @@ const Terminal = forwardRef<TerminalRef, TerminalProps>((props, ref) => {
       onClick={() => terminalInput.current?.focus()}
     >
       <header
-        title={title}
+        title={windowTitle}
         className={classNames(
           TERMINAL_CLASSES.HEADER,
           classes.terminalHeader,
@@ -137,7 +138,7 @@ const Terminal = forwardRef<TerminalRef, TerminalProps>((props, ref) => {
             </button>
           </div>
         )}
-        {title ? <h2>{title}</h2> : null}
+        {windowTitle ? <h2>{windowTitle}</h2> : null}
       </header>
       <div
         ref={terminalHistoryRef}

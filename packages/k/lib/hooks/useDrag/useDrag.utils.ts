@@ -1,6 +1,7 @@
 import {clamp} from '#utils'
-import {useEffect, useState, type RefObject} from 'react'
+import {useEffect, useState} from 'react'
 import type {UseDragOptions, UseDragPosition} from './useDrag.types'
+import type {NullableRefObject} from '#types'
 
 export const getNearestScale = (value: number, stepSize: number) => {
   if (stepSize === 0 || stepSize === 1) {
@@ -88,7 +89,7 @@ export const getDeceleratedPosition = (
 }
 
 export const useRelativeLimit = <T extends HTMLElement = HTMLElement>(
-  dragElementRef: RefObject<T>,
+  dragElementRef: NullableRefObject<T>,
   relativeLimit: UseDragOptions<T>['relativeLimit'],
 ): UseDragOptions<T>['limit'] => {
   const [limit, setLimit] = useState<UseDragOptions<T>['limit']>()
