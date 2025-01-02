@@ -20,8 +20,30 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+@layer components {
+  .k-button-base {
+    @apply inline-flex items-center gap-2 rounded-md border px-2.5 py-2 align-top text-sm font-semibold leading-normal shadow-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900 sm:px-3.5 sm:py-2.5 dark:focus-visible:outline-zinc-400 cursor-pointer;
+  }
+
+  .k-button-base:disabled {
+    @apply k-disabled;
+  }
+
+  .k-button {
+    @apply k-button-base border-zinc-900 bg-zinc-900 text-white hover:bg-transparent hover:text-zinc-900 focus-visible:hover:border-transparent dark:border-transparent dark:bg-zinc-300 dark:text-black hover:dark:bg-zinc-100;
+  }
+
+  .k-button-secondary {
+    @apply k-button-base border-zinc-200 bg-transparent text-inherit hover:border-zinc-900 hover:text-inherit dark:border-zinc-600 dark:hover:border-zinc-200;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .k-disabled {
+    @apply pointer-events-none cursor-not-allowed opacity-50;
   }
 }

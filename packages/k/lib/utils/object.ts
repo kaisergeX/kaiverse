@@ -3,7 +3,7 @@ import type {ObjectAny} from '#types'
 /**
  * Remove 1st level properties from an object without mutating the original object.
  * ___
- * **Note**: This function uses [`structuredClone`](https://developer.mozilla.org/docs/Web/API/Window/structuredClone#browser_compatibility) if available, otherwise it uses `Object.assign` to clone the original object.
+ * **Note**: To clone the original object, this function uses [`structuredClone`](https://developer.mozilla.org/docs/Web/API/Window/structuredClone#browser_compatibility) if available, otherwise it uses `Object.assign`.
  *
  * @param obj - The object to remove properties from.
  * @param keys - The keys to remove from the object.
