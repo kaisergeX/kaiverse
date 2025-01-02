@@ -10,7 +10,7 @@ import {DISPLAY_NAME_PREFIX} from '../constants'
 import classes from './terminal.module.css'
 
 /** Terminal UI component that allows users to interact with the terminal-like interface. */
-const Terminal = refFactory<TerminalRef, TerminalProps>((props, ref) => {
+export const Terminal = refFactory<TerminalRef, TerminalProps>((props, ref) => {
   const {
     className,
     windowTitle,
@@ -181,4 +181,3 @@ const Terminal = refFactory<TerminalRef, TerminalProps>((props, ref) => {
 })
 
 Terminal.displayName = `${DISPLAY_NAME_PREFIX}/Terminal`
-export default Terminal

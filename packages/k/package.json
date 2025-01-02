@@ -29,7 +29,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -p ./tsconfig.lib.json && vite build",
-    "lint": "tsc -p ./tsconfig.app.json --noEmit && eslint . --report-unused-disable-directives --max-warnings 0 && prettier --check \"{src,lib}/**/*.{ts,tsx,css}\"",
+    "lint": "tsc -p ./tsconfig.lib.json --noEmit && eslint . --report-unused-disable-directives --max-warnings 0 && prettier --check \"lib/**/*.{ts,tsx,css}\"",
+    "lint:dev": "tsc -p ./tsconfig.lib.json --noEmit && tsc -p ./tsconfig.app.json --noEmit && eslint . --report-unused-disable-directives --max-warnings 0 && prettier --check \"{src,lib}/**/*.{ts,tsx,css}\"",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "preview": "vite preview"
   },
