@@ -1,5 +1,17 @@
 # docs
 
+## 0.5.0
+
+### Minor Changes
+
+- 1bd1402: add `digitalRoot` utility function
+
+### Patch Changes
+
+- Updated dependencies [1bd1402]
+- Updated dependencies [43f260d]
+  - @kaiverse/k@0.5.0
+
 ## 0.4.0
 
 ### Minor Changes
