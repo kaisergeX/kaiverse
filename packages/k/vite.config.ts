@@ -20,6 +20,22 @@ export default defineConfig({
     libInjectCss(),
     dts({tsconfigPath: resolve(__dirname, 'tsconfig.lib.json')}),
     preserveDirectives(),
+    {
+      // libInjectCss (with preserveDirectives) adds the css import to the top of the file
+      // this custom plugin moves 'use client' directive to the top of the file after the css import.
+      enforce: 'post',
+      name: 'hoist-directive',
+      generateBundle(_, bundle) {
+        for (const chunk of Object.values(bundle)) {
+          if (chunk.type !== 'chunk' || !chunk.code.includes('use client')) {
+            continue
+          }
+
+          chunk.code = chunk.code.replace(/['"]use client['"];/, '')
+          chunk.code = `'use client';\n${chunk.code}`
+        }
+      },
+    },
   ],
   server: {
     open: true,

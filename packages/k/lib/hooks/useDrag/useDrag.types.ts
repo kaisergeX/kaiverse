@@ -1,3 +1,4 @@
+import type {NullableRefObject} from '#types'
 import type {RefObject} from 'react'
 
 export type UseDragPosition = {x: number; y: number}
@@ -74,7 +75,7 @@ type UnCachedOptions<T extends HTMLElement = HTMLElement> = {
    */
   stepSize?: number | UseDragPosition
   onStart?: (
-    target: RefObject<T>,
+    target: NullableRefObject<T>,
     position: UseDragPosition,
     setPosition: UseDragSetPosition,
   ) => void
@@ -83,8 +84,12 @@ type UnCachedOptions<T extends HTMLElement = HTMLElement> = {
    *
    * Recommend passing a memorized function or a function from the parent of the component that contains draggable element.
    */
-  onMove?: (target: RefObject<T>, position: UseDragPosition) => void
-  onEnd?: (target: RefObject<T>, position: UseDragPosition, setPosition: UseDragSetPosition) => void
+  onMove?: (target: NullableRefObject<T>, position: UseDragPosition) => void
+  onEnd?: (
+    target: NullableRefObject<T>,
+    position: UseDragPosition,
+    setPosition: UseDragSetPosition,
+  ) => void
 }
 
 export type UseDragFlags = {
@@ -152,7 +157,7 @@ export type UseDragReturnsType<T extends HTMLElement = HTMLElement> = Readonly<{
    * Target element ref.
    * @returns a RefObject of `null` when `options.targetRef` is provided or the target element is not found.
    */
-  targetRef: RefObject<T>
+  targetRef: NullableRefObject<T>
   /** Position state {x, y} */
   position: UseDragPosition
   /**

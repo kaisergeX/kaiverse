@@ -1,16 +1,40 @@
-import {Terminal} from '#components'
+import {Terminal, type TerminalRef} from '#components'
 import {createLazyFileRoute} from '@tanstack/react-router'
+import {useRef} from 'react'
 
 export const Route = createLazyFileRoute('/terminal')({
   component: TerminalPage,
 })
 
 function TerminalPage() {
+  const terminalRef = useRef<TerminalRef>(null)
+  // const [_, forceRerender] = useReducer((s) => s + 1, 0)
+
   return (
     <div className="container mx-auto [&>section]:h-[40dvh] space-y-4">
+      <button
+        className="k-button"
+        type="button"
+        onClick={() => {
+          if (terminalRef.current) {
+            terminalRef.current.ariaDescription = '12345'
+            terminalRef.current.println('Hello, world!')
+            // terminalRef.current.println = () => {}
+          }
+        }}
+      >
+        Test
+      </button>
       <section>
         <Terminal
-          title="Terminal (macos)"
+          ref={terminalRef}
+          // ref={(ref) => {
+          //   if (ref) {
+          //     ref.ariaDescription = '1234'
+          //     ref.println('Hello, world!')
+          //   }
+          // }}
+          windowTitle="Terminal (macos)"
           greeting="Welcome to Terminal UI Demo!"
           commandHandler={(command, {printNode, println}) => {
             println(command)
@@ -34,7 +58,7 @@ L\n`}
       </section>
       <section>
         <Terminal
-          title="Terminal (window)"
+          windowTitle="Terminal (window)"
           greeting={`T
 E  __      __        __                    
 R /  \\    /  \\ ____ |  |   ____  ____   _____   ____  

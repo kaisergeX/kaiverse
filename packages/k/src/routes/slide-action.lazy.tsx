@@ -1,6 +1,6 @@
-import {SlideAction} from '#components'
+import {SlideAction, type SlideActionRef} from '#components'
 import {createLazyFileRoute} from '@tanstack/react-router'
-import {useState} from 'react'
+import {useRef, useState} from 'react'
 
 export const Route = createLazyFileRoute('/slide-action')({
   component: SlideActionPage,
@@ -20,9 +20,23 @@ const slideColors = [
 
 export default function SlideActionPage() {
   const [themeColor, setThemeColor] = useState(slideColors[0])
+  const slideActionRef = useRef<SlideActionRef>(null)
 
   return (
     <div className="space-y-4">
+      <section className="space-y-2">
+        <SlideAction ref={slideActionRef} onChange={console.log} />
+        <button
+          className="k-button"
+          type="button"
+          onClick={() => slideActionRef.current?.resetState()}
+        >
+          Reset above SlideAction
+        </button>
+      </section>
+
+      <hr />
+
       <div className="flex flex-wrap items-center gap-2">
         {slideColors.map((color) => (
           <button

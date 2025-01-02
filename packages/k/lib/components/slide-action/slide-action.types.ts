@@ -1,5 +1,6 @@
 import type {UseDragOptions} from '#hooks'
-import type {CSSProperties, HTMLAttributes, ReactNode, RefObject} from 'react'
+import type {NullableRefObject} from '#types'
+import type {CSSProperties, HTMLAttributes, ReactElement} from 'react'
 
 type SlideActionStylingSelectors = 'dragger' | 'label' | 'progress'
 
@@ -12,7 +13,7 @@ type Props = {
    * It is NOT recommended to use this prop, as the `classNames` prop is more flexible and has better performance.
    */
   styles?: Partial<Record<SlideActionStylingSelectors, CSSProperties>>
-  icon?: ReactNode
+  icon?: ReactElement
   label?: string
   /**
    * Component theme color, value for `--k-slide-action-theme` CSS variable.
@@ -69,7 +70,19 @@ type Props = {
 export type SlideActionOnSwipeEnd = NonNullable<Props['onSwipeEnd']>
 export type SlideActionOnChange = NonNullable<Props['onChange']>
 
-export type SlideActionProps = Props & Omit<HTMLAttributes<HTMLDivElement>, keyof Props>
+type SlideActionAttrs<T> = Omit<T, keyof Props>
+
+export type SlideActionProps = Props & SlideActionAttrs<HTMLAttributes<HTMLDivElement>>
+
+export type SlideActionRef = SlideActionAttrs<HTMLDivElement> &
+  Readonly<{
+    /**
+     * Reset the component status.
+     *
+     * As a result, the `onChange` callback will be fired (with `isSuccess` is `false`).
+     */
+    resetState: () => void
+  }>
 
 export type SlideDraggerParams = {
   draggerWidth: number
@@ -77,7 +90,7 @@ export type SlideDraggerParams = {
 }
 
 export type SlideDraggerProps = {
-  slideRef: RefObject<HTMLDivElement>
+  slideRef: NullableRefObject<HTMLDivElement>
   onDrag?: (
     slideDraggerInfo: SlideDraggerParams,
     ...params: Parameters<NonNullable<UseDragOptions['onMove']>>
@@ -88,5 +101,3 @@ export type SlideDraggerProps = {
   ) => void
   disableDrag?: boolean
 }
-
-export type SlideActionRef = HTMLDivElement & {resetState: () => void}

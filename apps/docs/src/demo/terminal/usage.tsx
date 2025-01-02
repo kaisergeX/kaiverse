@@ -4,7 +4,7 @@ export default function TerminalUsageDemo() {
   return (
     <Terminal
       className="max-h-[30dvh]"
-      title="Terminal"
+      windowTitle="Terminal"
       greeting={
         <p>
           {`T

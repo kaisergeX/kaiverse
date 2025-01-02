@@ -1,14 +1,8 @@
 'use client'
 
-import {
-  forwardRef,
-  useCallback,
-  useEffect,
-  type MouseEventHandler,
-  type ReactEventHandler,
-} from 'react'
+import {useCallback, useEffect, type MouseEventHandler, type ReactEventHandler} from 'react'
 import {useDOMRef} from '#hooks'
-import {classNames, isDOMAvailable, updateElementStyles} from '#utils'
+import {classNames, isDOMAvailable, refFactory, updateElementStyles} from '#utils'
 import {DialogHeader} from './dialog-header'
 import {DialogTitle} from './dialog-title'
 import {DialogCloseButton} from './dialog-close-btn'
@@ -20,7 +14,7 @@ import {DIALOG_CLASSES, DIALOG_CSS_VARIABLES, DIALOG_DISPLAY_NAME} from './const
 import {useBackdropStyling} from './hooks'
 import classes from './styles/dialog.module.css'
 
-const DialogRoot = forwardRef<HTMLDialogElement, DialogProps>((props, ref) => {
+const DialogRoot = refFactory<HTMLDialogElement, DialogProps>((props, ref) => {
   const {
     variant = 'default',
     position = 'right',
@@ -38,6 +32,7 @@ const DialogRoot = forwardRef<HTMLDialogElement, DialogProps>((props, ref) => {
     children,
     ...htmlDialogAttributes
   } = props
+
   const dialogRef = useDOMRef(ref)
 
   const handleCloseDialog = useCallback(
@@ -129,6 +124,10 @@ const DialogRoot = forwardRef<HTMLDialogElement, DialogProps>((props, ref) => {
 
 DialogRoot.displayName = DIALOG_DISPLAY_NAME.ROOT
 
+/**
+ * Display overlay area on top of a page, represents a modal or non-modal dialog box.
+ * Build on top of the native HTML [`<dialog/>`](https://developer.mozilla.org/docs/Web/HTML/Element/dialog) element.
+ */
 export const Dialog = Object.assign(DialogRoot, {
   Header: DialogHeader,
   Title: DialogTitle,

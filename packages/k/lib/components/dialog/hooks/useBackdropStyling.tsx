@@ -1,10 +1,11 @@
-import {useEffect, useMemo, type RefObject} from 'react'
+import {useEffect, useMemo} from 'react'
 import {DIALOG_CSS_VARIABLES} from '../constants'
 import type {DialogProps} from '../types'
 import {isDOMAvailable, updateElementStyles} from '#utils'
+import type {NullableRefObject} from '#types'
 
 export const useBackdropStyling = (
-  dialogRef: RefObject<HTMLDialogElement>,
+  dialogRef: NullableRefObject<HTMLDialogElement>,
   backdropProps: DialogProps['backdropProps'],
 ) => {
   const {backdropStyles, customStyles} = useMemo(() => {

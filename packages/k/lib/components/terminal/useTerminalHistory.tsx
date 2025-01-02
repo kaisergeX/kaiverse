@@ -45,8 +45,8 @@ export default function useTerminalHistory(): UseTerminalHistoryReturnType {
 
   const clearHistory = useCallback(() => setTerminalHistory([]), [])
 
-  const helpers = useMemo<TerminalHelpers>(
-    () => ({println, printNode, clearHistory}),
+  const helpers = useMemo(
+    () => Object.freeze({println, printNode, clearHistory}),
     [clearHistory, printNode, println],
   )
 

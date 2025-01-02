@@ -12,10 +12,10 @@ export function useDebouncedState<T = unknown>(
   updateFirstChange = false,
 ): Readonly<[T, Dispatch<SetStateAction<T>>]> {
   const [value, setValue] = useState(defaultValue)
-  const timeoutRef = useRef<number>()
+  const timeoutRef = useRef<number>(null)
   const updateFirstChangeRef = useRef(true)
 
-  const clearTimeout = () => window.clearTimeout(timeoutRef.current)
+  const clearTimeout = () => window.clearTimeout(timeoutRef.current!)
 
   useEffect(() => clearTimeout, [])
 

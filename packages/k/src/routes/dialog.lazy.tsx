@@ -14,7 +14,15 @@ function DialogPage() {
       <button className="k-button" type="button" onClick={() => setOpenDialog(true)}>
         Open Dialog
       </button>
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+      <Dialog
+        // ref={(ref) => {
+        //   if (ref) {
+        //     ref.ariaDescription = '1234'
+        //   }
+        // }}
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
+      >
         <Dialog.Header>
           <Dialog.Title className="text-gradient gradient-leaf">Dialog header</Dialog.Title>
           <Dialog.CloseButton />

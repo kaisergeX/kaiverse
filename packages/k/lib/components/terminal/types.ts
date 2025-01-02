@@ -29,10 +29,7 @@ type Props = {
    * It is NOT recommended to use this prop, as the `classNames` prop is more flexible and has better performance.
    */
   styles?: Partial<Record<TerminalStylingSelectors, CSSProperties>>
-  // /** @default 'macos' */
-  // theme?: 'macos' | 'window'
-
-  title?: string
+  windowTitle?: string
   greeting?: ReactNode
   /**
    * By default, the prefix is:
@@ -57,6 +54,6 @@ type Props = {
   hideWindowCtrls?: boolean
 }
 
-export type TerminalProps = Props & Omit<HTMLAttributes<HTMLDivElement>, keyof Props | 'onClick'>
-
-export type TerminalRef = TerminalProps & TerminalHelpers
+type TerminalAttrs<T> = Omit<T, keyof Props | 'onClick'>
+export type TerminalProps = TerminalAttrs<HTMLAttributes<HTMLDivElement>> & Props
+export type TerminalRef = TerminalAttrs<HTMLDivElement> & TerminalHelpers

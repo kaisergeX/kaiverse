@@ -1,6 +1,6 @@
 'use client'
 
-import {forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState} from 'react'
+import {useCallback, useEffect, useImperativeHandle, useRef, useState} from 'react'
 import SlideActionDefaultIcon from './slide-action-icon'
 import {
   SLIDER_ACTION_CLASSES,
@@ -9,8 +9,8 @@ import {
 } from './slide-action.const'
 import type {SlideActionProps, SlideActionRef, SlideDraggerProps} from './slide-action.types'
 import {useSlideActionDragger} from './hooks'
-import {useDOMRef, useLazyEffect} from '#hooks'
-import {isDOMAvailable, classNames} from '#utils'
+import {useLazyEffect} from '#hooks'
+import {isDOMAvailable, classNames, refFactory} from '#utils'
 import {DISPLAY_NAME_PREFIX} from '../constants'
 import classes from './slide-action.module.css'
 
@@ -27,7 +27,7 @@ const isValidColorVariable = (color: string): boolean => {
  *
  * Usually use for important actions, such as purchase order, turn off privacy setting, delete something, etc...
  */
-export const SlideAction = forwardRef<SlideActionRef, SlideActionProps>(
+export const SlideAction = refFactory<SlideActionRef, SlideActionProps>(
   (
     {
       className,
@@ -48,7 +48,7 @@ export const SlideAction = forwardRef<SlideActionRef, SlideActionProps>(
     },
     ref,
   ) => {
-    const slideRef = useDOMRef<HTMLDivElement>(ref)
+    const slideRef = useRef<HTMLDivElement>(null)
     const slideBgRef = useRef<HTMLDivElement>(null)
     const slideLabelRef = useRef<HTMLDivElement>(null)
     const [disableDrag, setDisableDrag] = useState(false)
@@ -135,10 +135,13 @@ export const SlideAction = forwardRef<SlideActionRef, SlideActionProps>(
       setDraggerPosition({x: 0, y: 0}, {transition: true})
     }, [resetState, setDraggerPosition])
 
-    useImperativeHandle(ref, () => ({
-      ...slideRef.current!,
-      resetState: exposedResetHandler,
-    }))
+    useImperativeHandle(ref, () => {
+      return Object.defineProperties(
+        slideRef.current,
+        // ensure exposed `resetState` is read-only by showing an TypeError (to console) when other dev try to modify them (on 'use strict' mode)
+        Object.getOwnPropertyDescriptors(Object.freeze({resetState: exposedResetHandler})),
+      ) as SlideActionRef
+    }, [exposedResetHandler])
 
     useLazyEffect(() => {
       onChange?.(slideStatus)
@@ -158,7 +161,6 @@ export const SlideAction = forwardRef<SlideActionRef, SlideActionProps>(
 
     return (
       <div
-        ref={slideRef}
         className={classNames(
           SLIDER_ACTION_CLASSES.ROOT,
           classes.slideAction,
@@ -167,6 +169,7 @@ export const SlideAction = forwardRef<SlideActionRef, SlideActionProps>(
         )}
         // data-color={color} // attr(data-color) is not widely supported yet, using inline style for now
         {...htmlDivAttributes}
+        ref={slideRef}
       >
         <div
           ref={slideBgRef}

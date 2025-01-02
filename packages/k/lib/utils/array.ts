@@ -1,4 +1,4 @@
-import type {SortableMixedArr} from '../types'
+import type {SortableMixedArr} from '#types'
 import {isNullist} from './common'
 
 /**
