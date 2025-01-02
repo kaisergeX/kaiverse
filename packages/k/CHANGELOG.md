@@ -1,5 +1,12 @@
 # @kaiverse/k
 
+## 0.5.0
+
+### Minor Changes
+
+- 1bd1402: add `digitalRoot` utility function
+- 43f260d: Support React 19 and ensure backward compatibility with React 18. (utils) add `objRemoveProperties` function.
+
 ## 0.4.0
 
 ### Minor Changes
