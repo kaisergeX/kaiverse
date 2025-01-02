@@ -18,7 +18,7 @@ export default defineConfig({
     starlight({
       title: 'Kaiverse',
       social: {
-        github: 'https://github.com/kaisergeX/kaiverse',
+        github: 'https://github.com/kaisergeX/kaiverse/tree/main/packages/k#readme',
       },
       customCss: [
         './src/assets/custom.css',
