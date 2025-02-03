@@ -4,11 +4,12 @@ description: A lightweight, simple reactive system for your Javascript applicati
 ---
 
 import {Aside, Tabs, TabItem} from '@astrojs/starlight/components'
+import {BASE_URL} from '@/content/config'
 
 A lightweight, simple reactive system for your Javascript application.
 Zero dependencies, TypeScript fully supported.
 
-<Aside title="Not available" type="caution">
+<Aside title="Independent package" type="caution">
 
 This is an independent package <a href="https://jsr.io/@kaiverse/signal" target="_blank" rel="noopener">`@kaiverse/signal`</a>, and not included in this library anymore.
 
@@ -157,33 +158,30 @@ createEffect(() => {
 })
 ```
 
-## Framework ports?
+## Framework compatibility
 
 This package is built for vanilla JS/TS applications.
 
 However, below are implementations to adapt with some frameworks's reactive systems.
 
-### React
-
-[React signal hooks](https://github.com/kaisergeX/signal-proxy/blob/main/apps/playground/src/hooks/react-signal.ts) implementation. Lack of testing. **DO NOT** use in production.
-
-<small>
-  Those hooks work, but its lack of testing. An alternative approach may be better. Please feel free
-  to open PRs. Your contributions are welcomed and appreciated.
-</small>
-
-[React playground](https://codesandbox.io/p/devbox/kaiverse-signal-react-port-c7sp3v) (codesandbox) - [source code](https://github.com/kaisergeX/signal-proxy/blob/main/apps/playground/src/routes/signal/route.lazy.tsx)
-
 ### React Server Components/Functions
 
 Compatible.
 
+### React
+
+[Experimental] [`@kaiverse/signal-react`](https://jsr.io/@kaiverse/signal-react)
+
+Docs: <a href={`${BASE_URL}/hooks/signal`}>`Hooks/signal`</a>
+
+Playground: [source code](https://github.com/kaisergeX/signal-proxy/blob/main/apps/playground/src/routes/signal/route.lazy.tsx)
+
 ### Astro
 
-Compatible. No additional setup required.
+Compatible.
 
 You can use it in the [component script](https://docs.astro.build/basics/astro-components/#the-component-script) section for server signals, and/or the [`<script>`](https://docs.astro.build/guides/client-side-scripts/#using-script-in-astro) tag for client signals.
 
 ### SolidJS, VueJS
 
-... Just use their "signal" APIs.
+... Just use their "Signals" APIs.
