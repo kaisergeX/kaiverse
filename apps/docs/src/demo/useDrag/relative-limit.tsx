@@ -1,8 +1,8 @@
-import {useDrag, type UseDragRelativeLimit} from '@kaiverse/k/hooks'
+import {useDrag, type DragHookRelativeLimit} from '@kaiverse/k/hooks'
 import {useState} from 'react'
 
 export default function DragRelativeLimit() {
-  const [relativeLimit, setRelativeLimit] = useState<UseDragRelativeLimit>('client-size')
+  const [relativeLimit, setRelativeLimit] = useState<DragHookRelativeLimit>('client-size')
   const {targetRef, setPosition} = useDrag<HTMLDivElement>({relativeLimit})
 
   const showWarning = relativeLimit.startsWith('offset')
@@ -16,7 +16,7 @@ export default function DragRelativeLimit() {
           value={relativeLimit}
           onChange={(e) => {
             setPosition({x: 0, y: 0})
-            setRelativeLimit(e.target.value as UseDragRelativeLimit)
+            setRelativeLimit(e.target.value as DragHookRelativeLimit)
           }}
         >
           <option value="client-size">"client-size"</option>

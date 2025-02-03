@@ -1,6 +1,6 @@
 export {useSpeechToText} from './useSpeechToText'
 export type {
-  UseSpeechToTextErrorCode,
-  UseSpeechToTextOptions,
-  UseSpeechToTextReturn,
+  SpeechToTextHookErrorCode,
+  SpeechToTextHookOptions,
+  SpeechToTextHookReturn,
 } from './useSpeechToText.types'

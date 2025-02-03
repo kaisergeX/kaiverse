@@ -1,7 +1,7 @@
 export {useDrag} from './useDrag'
 export type {
-  UseDragOptions,
-  UseDragPosition,
-  UseDragRelativeLimit,
-  UseDragSetPosition,
+  DragHookOptions,
+  DragHookPosition,
+  DragHookRelativeLimit,
+  DragHookSetPosition,
 } from './useDrag.types'

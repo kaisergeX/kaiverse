@@ -5,10 +5,14 @@ export {useDisclosure} from './useDisclosure'
 export {useLazyEffect} from './useLazyEffect'
 export {useDrag} from './useDrag'
 export type {
-  UseDragOptions,
-  UseDragPosition,
-  UseDragRelativeLimit,
-  UseDragSetPosition,
+  DragHookOptions,
+  DragHookPosition,
+  DragHookRelativeLimit,
+  DragHookSetPosition,
 } from './useDrag'
 export {useSpeechToText} from './useSpeechToText'
-export type {UseSpeechToTextErrorCode, UseSpeechToTextOptions} from './useSpeechToText'
+export type {
+  SpeechToTextHookErrorCode,
+  SpeechToTextHookOptions,
+  SpeechToTextHookReturn,
+} from './useSpeechToText'

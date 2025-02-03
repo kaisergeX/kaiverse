@@ -1,15 +1,15 @@
 import type {NullableRefObject} from '#types'
 import type {RefObject} from 'react'
 
-export type UseDragPosition = {x: number; y: number}
-export type UseDragRelativeLimit =
+export type DragHookPosition = {x: number; y: number}
+export type DragHookRelativeLimit =
   | 'client-size'
   | 'client-no-padding'
   | 'offset-size'
   | 'offset-no-padding'
 
-export type UseDragSetPosition = (
-  position: UseDragPosition,
+export type DragHookSetPosition = (
+  position: DragHookPosition,
   options?: {
     /**
      * CSS transition for the position change.
@@ -68,31 +68,31 @@ type UnCachedOptions<T extends HTMLElement = HTMLElement> = {
    *
    * @default undefined // no limit
    */
-  relativeLimit?: UseDragRelativeLimit
+  relativeLimit?: DragHookRelativeLimit
   /**
    * Position step size
    * @default 0
    */
-  stepSize?: number | UseDragPosition
+  stepSize?: number | DragHookPosition
   onStart?: (
     target: NullableRefObject<T>,
-    position: UseDragPosition,
-    setPosition: UseDragSetPosition,
+    position: DragHookPosition,
+    setPosition: DragHookSetPosition,
   ) => void
   /**
    * Callback function that triggers when users dragging the HTML element.
    *
    * Recommend passing a memorized function or a function from the parent of the component that contains draggable element.
    */
-  onMove?: (target: NullableRefObject<T>, position: UseDragPosition) => void
+  onMove?: (target: NullableRefObject<T>, position: DragHookPosition) => void
   onEnd?: (
     target: NullableRefObject<T>,
-    position: UseDragPosition,
-    setPosition: UseDragSetPosition,
+    position: DragHookPosition,
+    setPosition: DragHookSetPosition,
   ) => void
 }
 
-export type UseDragFlags = {
+export type DragHookFlags = {
   /**
    * Listen touch events
    * ___
@@ -151,15 +151,16 @@ export type UseDragFlags = {
   disabled?: boolean
 }
 
-export type UseDragOptions<T extends HTMLElement = HTMLElement> = UseDragFlags & UnCachedOptions<T>
-export type UseDragReturnsType<T extends HTMLElement = HTMLElement> = Readonly<{
+export type DragHookOptions<T extends HTMLElement = HTMLElement> = DragHookFlags &
+  UnCachedOptions<T>
+export type DragHookReturn<T extends HTMLElement = HTMLElement> = Readonly<{
   /**
    * Target element ref.
    * @returns a RefObject of `null` when `options.targetRef` is provided or the target element is not found.
    */
   targetRef: NullableRefObject<T>
   /** Position state {x, y} */
-  position: UseDragPosition
+  position: DragHookPosition
   /**
    * Update element position relative to the initial position.
    * By default, this won't rerender component and the hook will transform the target element for you.
@@ -167,5 +168,5 @@ export type UseDragReturnsType<T extends HTMLElement = HTMLElement> = Readonly<{
    * Enable {@link SetPosition `shouldUpdatePositionState`} option to allow updating the returned `position` state and then you can manually handle the transform animation.
    * Please note that, your component will rerender on `position` state changes.
    */
-  setPosition: UseDragSetPosition
+  setPosition: DragHookSetPosition
 }>

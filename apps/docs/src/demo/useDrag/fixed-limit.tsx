@@ -1,6 +1,6 @@
-import {useDrag, type UseDragOptions} from '@kaiverse/k/hooks'
+import {useDrag, type DragHookOptions} from '@kaiverse/k/hooks'
 
-const limit: UseDragOptions['limit'] = {x: {min: 0, max: 200}, y: {min: 0, max: 100}}
+const limit: DragHookOptions['limit'] = {x: {min: 0, max: 200}, y: {min: 0, max: 100}}
 
 export default function DragFixedLimit() {
   const {targetRef} = useDrag<HTMLDivElement>({limit})

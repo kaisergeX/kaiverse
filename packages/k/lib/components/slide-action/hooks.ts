@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useMemo, useState} from 'react'
 import type {SlideDraggerParams, SlideDraggerProps} from './slide-action.types'
-import {useDrag, type UseDragOptions} from '#hooks'
+import {useDrag, type DragHookOptions} from '#hooks'
 import {isDOMAvailable} from '#utils'
 
 export const useSlideActionDragger = ({
@@ -31,12 +31,12 @@ export const useSlideActionDragger = ({
     [slideDraggerInfo.maxSlideDistance],
   )
 
-  const processedOnDrag = useCallback<NonNullable<UseDragOptions['onMove']>>(
+  const processedOnDrag = useCallback<NonNullable<DragHookOptions['onMove']>>(
     (...params) => onDrag?.(slideDraggerInfo, ...params),
     [onDrag, slideDraggerInfo],
   )
 
-  const processedOnDragEnd = useCallback<NonNullable<UseDragOptions['onEnd']>>(
+  const processedOnDragEnd = useCallback<NonNullable<DragHookOptions['onEnd']>>(
     (...params) => onDragEnd?.(slideDraggerInfo, ...params),
     [onDragEnd, slideDraggerInfo],
   )

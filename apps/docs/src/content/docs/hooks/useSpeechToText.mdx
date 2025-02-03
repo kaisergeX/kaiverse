@@ -70,7 +70,7 @@ return (
 ## Type Definition
 
 ```ts
-function useSpeechToText(options: UseSpeechToTextOptions): {
+function useSpeechToText(options: SpeechToTextHookOptions): {
   isSpeechAPIAvailable: boolean
   isListening: boolean
   startListening: () => void
@@ -81,10 +81,10 @@ function useSpeechToText(options: UseSpeechToTextOptions): {
 
 ## Special Types
 
-| Name                       | Type                                                            | Description                                                                                                                                                                                                                                   |
-| :------------------------- | :-------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `UseSpeechToTextErrorCode` | `SpeechRecognitionErrorCode`                                    | Possible error codes that can be returned by the Web Speech API. Enum: <a href='https://wicg.github.io/speech-api/#enumdef-speechrecognitionerrorcode' target='_blank' rel='noopener noreferrer'><code>SpeechRecognitionErrorCode</code></a>. |
-| `UseSpeechToTextOptions`   | See [`useSpeechToText` Options](#useSpeechToText-options) below | `useSpeechToText` options.                                                                                                                                                                                                                    |
+| Name                        | Type                                                            | Description                                                                                                                                                                                                                                   |
+| :-------------------------- | :-------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `SpeechToTextHookErrorCode` | `SpeechRecognitionErrorCode`                                    | Possible error codes that can be returned by the Web Speech API. Enum: <a href='https://wicg.github.io/speech-api/#enumdef-speechrecognitionerrorcode' target='_blank' rel='noopener noreferrer'><code>SpeechRecognitionErrorCode</code></a>. |
+| `SpeechToTextHookOptions`   | See [`useSpeechToText` Options](#useSpeechToText-options) below | `useSpeechToText` options.                                                                                                                                                                                                                    |
 
 ## `useSpeechToText` Options
 

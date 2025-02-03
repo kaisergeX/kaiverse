@@ -1,5 +1,5 @@
 import {useRef, useState, useCallback, useEffect} from 'react'
-import type {UseSpeechToTextOptions, UseSpeechToTextReturn} from './useSpeechToText.types'
+import type {SpeechToTextHookOptions, SpeechToTextHookReturn} from './useSpeechToText.types'
 
 /** [Experimental] Hook to use the [Web Speech API](https://developer.mozilla.org/docs/Web/API/Web_Speech_API) for speech recognition. */
 export const useSpeechToText = ({
@@ -8,7 +8,7 @@ export const useSpeechToText = ({
   onUnMatch,
   onError,
   onTranscriptChange,
-}: UseSpeechToTextOptions): UseSpeechToTextReturn => {
+}: SpeechToTextHookOptions): SpeechToTextHookReturn => {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
   // const SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList;
   // const SpeechRecognitionEvent = window.SpeechRecognitionEvent || window.webkitSpeechRecognitionEvent;

@@ -1,4 +1,4 @@
-import {useSpeechToText, type UseSpeechToTextErrorCode} from '#hooks'
+import {useSpeechToText, type SpeechToTextHookErrorCode} from '#hooks'
 import {IconCheck, IconCopy, IconMicrophone, IconMicrophoneOff} from '@tabler/icons-react'
 import {createLazyFileRoute} from '@tanstack/react-router'
 import {useCallback, useRef, type MouseEventHandler} from 'react'
@@ -7,7 +7,7 @@ export const Route = createLazyFileRoute('/speech-to-text')({
   component: SpeechToTextPage,
 })
 
-const SPEECH_ERROR_MAPPING: Partial<Record<UseSpeechToTextErrorCode, string>> = {
+const SPEECH_ERROR_MAPPING: Partial<Record<SpeechToTextHookErrorCode, string>> = {
   'audio-capture': 'Cannot detect your microphone! Please check your bluetooth/cable connection.',
   'no-speech': 'No speech',
   'language-not-supported': 'Language not supported',
@@ -43,7 +43,7 @@ function SpeechToTextPage() {
       onUnMatch: () => writeErr('Cannot recognize speech.'),
       onError: (event) =>
         writeErr(
-          `Error occurred in recognition: ${SPEECH_ERROR_MAPPING[event.error as UseSpeechToTextErrorCode] || event.error}`,
+          `Error occurred in recognition: ${SPEECH_ERROR_MAPPING[event.error as SpeechToTextHookErrorCode] || event.error}`,
         ),
     })
 
