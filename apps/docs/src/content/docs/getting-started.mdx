@@ -147,3 +147,21 @@ Please note that there is some runtime cost to this.
     ],
   });`}
 />
+
+## Integration
+
+### TailwindCSS
+
+Since `@kaiverse/k/ui` component CSS rules are applied within `k-*` layer. If you are facing issues with TailwindCSS styles overriding `@kaiverse/k/ui` styles,
+try wrapping Tailwind base (or only preflight) styles with `@layer` directive.
+
+<Code
+  title="globals.css"
+  ins={[1, 3]}
+  lang="css"
+  code={`@layer tailwind {
+    @tailwind base;
+  }
+  @tailwind components;
+  @tailwind utilities;`}
+/>

@@ -4,18 +4,144 @@ description: A collection of hooks that allow us to use `@kaiverse/signal` in Re
 ---
 
 import {BASE_URL} from '@/content/config'
-import {Aside} from '@astrojs/starlight/components'
+import {Aside, Tabs, TabItem} from '@astrojs/starlight/components'
 
-<Aside title="Not available" type="caution">
+<Aside title="Independent package" type="caution">
 
-These hooks are separate to an independent package <a href="https://jsr.io/@kaiverse/signal" target="_blank" rel="noopener">`@kaiverse/signal`</a>, and not included in this library anymore.
+These hooks are separate to an independent package <a href="https://jsr.io/@kaiverse/signal-react" target="_blank" rel="noopener">`@kaiverse/signal-react`</a>, and not included in this library anymore.
 
 </Aside>
+
+```js
+import {useSignal, useSyncSignal, useSignalEffect, useComputed} from '@kaiverse/signal-react'
+```
 
 A collection of hooks that allow us to use <a href={`${BASE_URL}/utils/signal`}>`signal` features</a> inside React components.
 
 Includes:
 
 - `useSignal` - create a `Signal`.
+- `useSyncSignal` - create a `Signal`. Integrated with `useSyncExternalStore`.
 - `useSignalEffect` - register a `Signal` effect.
 - `useComputed` - create a computed value from `Signal`(s).
+
+## Installation
+
+No need to install the core package `@kaiverse/signal` separately.
+
+<Tabs syncKey="pkg">
+<TabItem label="pnpm">
+
+```sh
+pnpm add @kaiverse/signal-react
+```
+
+</TabItem>
+
+<TabItem label="npm">
+
+```sh
+npm i @kaiverse/signal-react
+```
+
+</TabItem>
+
+<TabItem label="Yarn">
+
+```sh
+yarn add @kaiverse/signal-react
+```
+
+</TabItem>
+</Tabs>
+
+## `useSignal`
+
+Create a `Signal` inside React component.
+`useSignal` uses `useReducer` and returns a snapshot of Signal. It works better with concurrent rendering but has temporary tearing issue.
+
+Consider using [`useSyncSignal`](#usesyncsignal) which uses `useSyncExternalStore` that solves tearing issues, but doesn't work well with concurrent rendering. It's a trade-off, choose wisely.
+
+Read more about [the tearing issue](https://github.com/reactwg/react-18/discussions/69).
+
+## `useSyncSignal`
+
+Create a `Signal` inside React component.
+`useSyncSignal` is integrated with `useSyncExternalStore` (`uSES`) which is a recommended way to use "external stores" in React.
+
+`useSyncSignal` works well in most cases. However, `uSES` doesn't work with concurrent rendering. `useSyncSignal`'s setter wrapped with `startTransition` won't behave as expected.
+Suspend a render based on a store value returned by `uSES` will trigger the nearest `Suspense` fallback instead of showing the old UI.
+Read more: [useSyncExternalStore](https://react.dev/reference/react/useSyncExternalStore#:~:text=It%E2%80%99s%20not%20recommended%20to%20suspend%20a%20render%20based%20on%20a%20store%20value%20returned%20by%20useSyncExternalStore)
+
+[`useSignal`](#usesignal), on the other hand, doesn't use `uSES`. It returns a snapshot of Signal and uses `useReducer` to perform a re-render on Signal changes.
+As a result, It works better with concurrent rendering but suffers from temporary tearing issue.
+
+It's a trade-off after all. Choose the one that fits your use case.
+
+## `useSignalEffect`
+
+Signal effect inside React component. It accepts a imperative function that will run whenever dependencies change. Dependencies are Signals that are used inside the Effect itself.
+
+`useSignalEffect` can track either global Signal(s) or local (both inside or outside component) Signal(s) or all of them together.
+
+```tsx title="use-signal-effect-example.tsx"
+import {createSignal, useSignalEffect} from '@kaiverse/signal-react'
+
+const [count, setCount] = createSignal(0)
+
+export function UseSignalEffectExample() {
+  useSignalEffect(() => {
+    console.log('count =', count()) // this will run whenever the increment button is clicked
+  })
+
+  return (
+    <button type="button" onClick={() => setCount(count() + 1)}>
+      Increment
+    </button>
+  )
+}
+```
+
+## `useComputed`
+
+Derived signals inside React component.
+
+Usually used to create a computed Signal from Signal(s) or to bind Signal(s), that created outside components, to React reactive system.
+
+<Tabs>
+  <TabItem label="use-computed-example.tsx">
+
+```tsx
+import {useSignal, useComputed} from '@kaiverse/signal-react'
+import {globalCountSignal} from './global-store'
+
+const [globalCount, setGlobalCount] = globalCountSignal
+
+export function UseComputedExample() {
+  const [count, setCount] = useSignal(0)
+  const sum = useComputed(() => count() + globalCount())
+
+  return (
+    <>
+      <button type="button" onClick={() => setCount((c) => c + 1)}>
+        count++
+      </button>
+      <button type="button" onClick={() => setGlobalCount(globalCount() + 2)}>
+        Increase global count
+      </button>
+      Result: {count()} + {globalCount()} = {sum()}
+    </>
+  )
+}
+```
+
+  </TabItem>
+  <TabItem label="global-store.ts">
+
+```ts
+import {createSignal} from '@kaiverse/signal-react'
+export const globalCountSignal = createSignal(0)
+```
+
+  </TabItem>
+</Tabs>

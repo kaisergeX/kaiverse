@@ -16,3 +16,4 @@ export type {
   SpeechToTextHookOptions,
   SpeechToTextHookReturn,
 } from './useSpeechToText'
+export {useAnimateStateChange} from './useAnimateStateChange'

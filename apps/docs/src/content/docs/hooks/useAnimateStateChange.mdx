@@ -1,0 +1,57 @@
+---
+title: useAnimateStateChange
+description: Animate an element when state value change.
+---
+
+import UsageDemo from '@/demo/useAnimateStateChange/usage'
+import useAnimateStateChangeUsage from '@/demo/useAnimateStateChange/usage?raw'
+import {Code, Tabs, TabItem} from '@astrojs/starlight/components'
+
+Animate an element when state value change.
+
+## Import
+
+```js
+import {useAnimateStateChange} from '@kaiverse/k/hooks'
+```
+
+## Usage
+
+`useAnimateStateChange` hook animate an element when state value change.
+
+<Tabs>
+  <TabItem label="Playground">
+    <UsageDemo client:load />
+  </TabItem>
+  <TabItem label="Source code">
+    <Code title="your-component.tsx" lang="tsx" code={useAnimateStateChangeUsage} />
+  </TabItem>
+</Tabs>
+
+## Type definition
+
+```ts
+function useAnimateStateChange<T extends HTMLElement = HTMLElement>({
+  ref,
+  value,
+  keyframes,
+  options,
+  triggerOnMount,
+}: AnimateStateChangeHookOptions<T>): RefObject<T | null>
+```
+
+## Special Types
+
+| Name                            | Type                                                                        | Description                      |
+| :------------------------------ | :-------------------------------------------------------------------------- | :------------------------------- |
+| `AnimateStateChangeHookOptions` | See [`useAnimateStateChange` Options](#useanimatestatechange-options) below | `useAnimateStateChange` options. |
+
+## `useAnimateStateChange` Options
+
+| Name             | Type                                                 | Default  | Description                                                                                                                                                                                                                                                                                                                                                                     |
+| :--------------- | :--------------------------------------------------- | :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `ref`            | `React.RefObject<T \| null>`                         | —        | Target element.<br/>If you don't wanna provide a ref, use this hook's returned `RefObject` to attach to the element.                                                                                                                                                                                                                                                            |
+| `value`          | `unknown`                                            | —        | The animation will be triggered when this value changes.<br/>If `undefined` or not provided, the animation will not be triggered.<br/><sup>_Note_: It uses `Object.is` to compare with the previous value.</sup>                                                                                                                                                                |
+| `triggerOnMount` | `boolean`                                            | `false`  | Whether to trigger the animation when the component is mounted.                                                                                                                                                                                                                                                                                                                 |
+| `keyframes`      | `Keyframe[]` \| `PropertyIndexedKeyframes` \| `null` | Required | Either an array of keyframe objects, or a keyframe object whose properties are arrays of values to iterate over.<br/>`keyframes` should be a constant. DO NOT change it at runtime, as the new one may not be applied.<br/><sup>Read more about [Keyframe Formats](https://developer.mozilla.org/docs/Web/API/Web_Animations_API/Keyframe_Formats).</sup>                       |
+| `options`        | `number` \| `KeyframeAnimationOptions`               | —        | Either an integer representing the animation's duration (in milliseconds), or an Object containing one or more timing properties described in the KeyframeEffect() options parameter and/or [other options](https://developer.mozilla.org/docs/Web/API/Element/animate#options).<br/>`options` should be a constant. DO NOT update it, as the new `options` may not be applied. |
