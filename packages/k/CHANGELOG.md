@@ -1,5 +1,12 @@
 # @kaiverse/k
 
+## 0.6.0
+
+### Minor Changes
+
+- 97503db: Add `useAnimateStateChange` hook and update `signal` docs.
+- 218e75d: `[hooks]`: All type name changed from `Use[name][info]` to `[name]Hook[info]`. Eg: `UseDragOptions` → `DragHookOptions`.
+
 ## 0.5.0
 
 ### Minor Changes
