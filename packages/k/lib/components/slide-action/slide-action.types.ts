@@ -1,4 +1,4 @@
-import type {UseDragOptions} from '#hooks'
+import type {DragHookOptions} from '#hooks'
 import type {NullableRefObject} from '#types'
 import type {CSSProperties, HTMLAttributes, ReactElement} from 'react'
 
@@ -93,11 +93,11 @@ export type SlideDraggerProps = {
   slideRef: NullableRefObject<HTMLDivElement>
   onDrag?: (
     slideDraggerInfo: SlideDraggerParams,
-    ...params: Parameters<NonNullable<UseDragOptions['onMove']>>
+    ...params: Parameters<NonNullable<DragHookOptions['onMove']>>
   ) => void
   onDragEnd?: (
     slideDraggerInfo: SlideDraggerParams,
-    ...params: Parameters<NonNullable<UseDragOptions['onEnd']>>
+    ...params: Parameters<NonNullable<DragHookOptions['onEnd']>>
   ) => void
   disableDrag?: boolean
 }

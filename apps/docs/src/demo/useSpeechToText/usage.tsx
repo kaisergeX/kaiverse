@@ -1,4 +1,4 @@
-import {useSpeechToText, type UseSpeechToTextErrorCode} from '@kaiverse/k/hooks'
+import {useSpeechToText, type SpeechToTextHookErrorCode} from '@kaiverse/k/hooks'
 import {IconMicrophoneOff, IconMicrophone, IconCopy, IconCheck} from '@tabler/icons-react'
 import {useRef, useCallback, type MouseEventHandler, useState} from 'react'
 
@@ -25,7 +25,7 @@ export default function SpeechToTextDemo() {
     onUnMatch: () => writeErr('Cannot recognize speech.'),
     onError: (event) =>
       writeErr(
-        `Error occurred in recognition: ${SPEECH_ERROR_MAPPING[event.error as UseSpeechToTextErrorCode] || event.error}`,
+        `Error occurred in recognition: ${SPEECH_ERROR_MAPPING[event.error as SpeechToTextHookErrorCode] || event.error}`,
       ),
   })
 
@@ -100,7 +100,7 @@ export default function SpeechToTextDemo() {
   )
 }
 
-const SPEECH_ERROR_MAPPING: Partial<Record<UseSpeechToTextErrorCode, string>> = {
+const SPEECH_ERROR_MAPPING: Partial<Record<SpeechToTextHookErrorCode, string>> = {
   'audio-capture': 'Cannot detect your microphone! Please check your bluetooth/cable connection.',
   'no-speech': 'No speech',
   'language-not-supported': 'Language not supported',

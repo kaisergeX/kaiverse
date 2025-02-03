@@ -2,12 +2,12 @@
 
 import {useCallback, useState} from 'react'
 
-type UseDisclosureOptions = Readonly<{
+type DisclosureHookOptions = Readonly<{
   onOpen?: () => void
   onClose?: () => void
 }>
 
-type UseDisclosureReturnsType = Readonly<
+type DisclosureHookReturnsType = Readonly<
   [
     boolean,
     {
@@ -21,8 +21,8 @@ type UseDisclosureReturnsType = Readonly<
 /** Hook to handle disclosure state */
 export function useDisclosure(
   defaultOpened = false,
-  {onOpen, onClose}: UseDisclosureOptions = {},
-): UseDisclosureReturnsType {
+  {onOpen, onClose}: DisclosureHookOptions = {},
+): DisclosureHookReturnsType {
   const [isOpen, setIsOpen] = useState(defaultOpened)
 
   const open = useCallback(() => {

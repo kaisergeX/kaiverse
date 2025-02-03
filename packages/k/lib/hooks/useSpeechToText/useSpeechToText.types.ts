@@ -1,5 +1,5 @@
 // SpeechRecognitionErrorCode https://wicg.github.io/speech-api/#enumdef-speechrecognitionerrorcode
-export type UseSpeechToTextErrorCode =
+export type SpeechToTextHookErrorCode =
   | 'aborted'
   | 'audio-capture'
   | 'bad-grammar'
@@ -9,7 +9,7 @@ export type UseSpeechToTextErrorCode =
   | 'not-allowed'
   | 'service-not-allowed'
 
-export type UseSpeechToTextOptions = {
+export type SpeechToTextHookOptions = {
   /**
    * Language of the speech.
    *
@@ -26,7 +26,7 @@ export type UseSpeechToTextOptions = {
   onTranscriptChange?: (transcript: string) => void
 }
 
-export type UseSpeechToTextReturn = {
+export type SpeechToTextHookReturn = {
   isSpeechAPIAvailable: boolean
   isListening: boolean
   /** Start the speech recognition. Do nothing if the [Web Speech API](https://developer.mozilla.org/docs/Web/API/Web_Speech_API#browser_compatibility) is not available. */

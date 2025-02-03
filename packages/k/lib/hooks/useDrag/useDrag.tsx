@@ -11,11 +11,11 @@ import {
   useRelativeLimit,
 } from './useDrag.utils'
 import type {
-  UseDragOptions,
-  UseDragPosition,
-  UseDragFlags,
-  UseDragReturnsType,
-  UseDragSetPosition,
+  DragHookOptions,
+  DragHookPosition,
+  DragHookFlags,
+  DragHookReturn,
+  DragHookSetPosition,
 } from './useDrag.types'
 
 let initTransition: string | null = null
@@ -37,10 +37,10 @@ export const useDrag = <T extends HTMLElement = HTMLElement>({
   relativeLimit,
   stepSize: unprocessedStep = 0,
   ...primitiveFlags
-}: UseDragOptions<T> = {}): UseDragReturnsType<T> => {
+}: DragHookOptions<T> = {}): DragHookReturn<T> => {
   // Only process primitive options
-  const opts = useMemo<UseDragFlags>(() => {
-    const processingOptions: UseDragFlags = {
+  const opts = useMemo<DragHookFlags>(() => {
+    const processingOptions: DragHookFlags = {
       // the default options
       touch: true,
       mouse: true,
@@ -64,7 +64,7 @@ export const useDrag = <T extends HTMLElement = HTMLElement>({
     return processingOptions
   }, [primitiveFlags])
 
-  const stepSize = useMemo<UseDragPosition>(
+  const stepSize = useMemo<DragHookPosition>(
     () =>
       typeof unprocessedStep === 'object'
         ? unprocessedStep
@@ -78,10 +78,10 @@ export const useDrag = <T extends HTMLElement = HTMLElement>({
   const relativeLimitValues = useRelativeLimit(target, relativeLimit)
   const limit = fixedLimit || relativeLimitValues
 
-  const startXY = useRef<UseDragPosition>({x: 0, y: 0})
-  const prevPosition = useRef<UseDragPosition>({x: 0, y: 0})
+  const startXY = useRef<DragHookPosition>({x: 0, y: 0})
+  const prevPosition = useRef<DragHookPosition>({x: 0, y: 0})
   const dragging = useRef(false)
-  const [position, setPosition] = useDebouncedState<UseDragPosition>(
+  const [position, setPosition] = useDebouncedState<DragHookPosition>(
     {x: 0, y: 0},
     opts.returnedPositionDebounceTime ?? 0,
   )
@@ -91,7 +91,7 @@ export const useDrag = <T extends HTMLElement = HTMLElement>({
     isSupportTranslate ? 'translate' : 'transform'
   } ${TRANSFORM_DURATION}ms ${TRANSFORM_TIMING_FN}`
 
-  const setTransform = useCallback<UseDragSetPosition>(
+  const setTransform = useCallback<DragHookSetPosition>(
     (newPosition, options) => {
       if (!target.current) {
         return
@@ -193,7 +193,7 @@ export const useDrag = <T extends HTMLElement = HTMLElement>({
       const {x: prevX, y: prevY} = prevPosition.current
       dragging.current = true
 
-      const startPosition: UseDragPosition = {
+      const startPosition: DragHookPosition = {
         x: e.clientX - prevX,
         y: e.clientY - prevY,
       }
@@ -237,7 +237,7 @@ export const useDrag = <T extends HTMLElement = HTMLElement>({
         y = getNearestScale(y, stepSize.y)
       }
 
-      const newPosition: UseDragPosition = {x, y}
+      const newPosition: DragHookPosition = {x, y}
       onMove?.(target, newPosition)
       setTransform(newPosition, {
         skipCalulateStep: true,

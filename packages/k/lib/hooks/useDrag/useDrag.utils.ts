@@ -1,6 +1,6 @@
 import {clamp} from '#utils'
 import {useEffect, useState} from 'react'
-import type {UseDragOptions, UseDragPosition} from './useDrag.types'
+import type {DragHookOptions, DragHookPosition} from './useDrag.types'
 import type {NullableRefObject} from '#types'
 
 export const getNearestScale = (value: number, stepSize: number) => {
@@ -14,11 +14,11 @@ export const getNearestScale = (value: number, stepSize: number) => {
 }
 
 export const getImposedLimitPosition = (
-  {x, y}: UseDragPosition,
-  direction: UseDragOptions['direction'] = 'both',
-  limit?: UseDragOptions['limit'],
-): {limittedPosition: UseDragPosition; isLimitExceeded: boolean} => {
-  const limittedPosition: UseDragPosition = {
+  {x, y}: DragHookPosition,
+  direction: DragHookOptions['direction'] = 'both',
+  limit?: DragHookOptions['limit'],
+): {limittedPosition: DragHookPosition; isLimitExceeded: boolean} => {
+  const limittedPosition: DragHookPosition = {
     x:
       direction === 'vertical'
         ? 0
@@ -60,10 +60,10 @@ const getDeceleratedVelocity = (origin: number, limit: number): number => {
 }
 
 export const getDeceleratedPosition = (
-  {x, y}: UseDragPosition,
-  limit?: UseDragOptions['limit'],
-): UseDragPosition => {
-  const result: UseDragPosition = {x, y}
+  {x, y}: DragHookPosition,
+  limit?: DragHookOptions['limit'],
+): DragHookPosition => {
+  const result: DragHookPosition = {x, y}
   const limitMinX = limit?.x?.min
   const limitMaxX = limit?.x?.max
   const limitMinY = limit?.y?.min
@@ -90,9 +90,9 @@ export const getDeceleratedPosition = (
 
 export const useRelativeLimit = <T extends HTMLElement = HTMLElement>(
   dragElementRef: NullableRefObject<T>,
-  relativeLimit: UseDragOptions<T>['relativeLimit'],
-): UseDragOptions<T>['limit'] => {
-  const [limit, setLimit] = useState<UseDragOptions<T>['limit']>()
+  relativeLimit: DragHookOptions<T>['relativeLimit'],
+): DragHookOptions<T>['limit'] => {
+  const [limit, setLimit] = useState<DragHookOptions<T>['limit']>()
 
   useEffect(() => {
     const target = dragElementRef.current
