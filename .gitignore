@@ -57,3 +57,4 @@ lerna-debug.log*
 *.sw?
 
 routeTree.gen.ts
+**/vite.config.{js,ts,mjs,mts,cjs,cts}.timestamp*
