@@ -5,7 +5,16 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
-  {ignores: ['dist', '**/dist', '**/*.d.ts', 'node_modules', '**/routeTree.gen.ts']},
+  {
+    ignores: [
+      'dist',
+      '**/dist',
+      '**/*.d.ts',
+      'node_modules',
+      '**/routeTree.gen.ts',
+      '**/vite.config.*.timestamp*',
+    ],
+  },
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   {
