@@ -7,6 +7,7 @@
     --sl-font: 'Nunito Variable', sans-serif;
     --sl-sidebar-width: 15rem;
     --sl-content-width: 60rem;
+    scrollbar-gutter: stable;
   }
 
   /* Light mode colors. */

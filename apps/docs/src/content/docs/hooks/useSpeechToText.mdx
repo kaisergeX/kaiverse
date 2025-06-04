@@ -31,14 +31,13 @@ import {useSpeechToText} from '@kaiverse/k/hooks'
 ```tsx title="example.tsx"
 import {useSpeechToText} from '@kaiverse/k/hooks'
 
-const [transcriptHistory, setTranscriptHistory] = useState('')
-const {isSpeechAPIAvailable, isListening, startListening, stopListening} = useSpeechToText({
-  lang: 'en',
-  onTranscriptChange: setTranscriptHistory,
-  onStart: () => console.log('Start listening'),
-  onUnMatch: () => console.error('Cannot recognize speech.'),
-  onError: (event) => console.error(event.error),
-})
+const {transcript, isSpeechAPIAvailable, isListening, startListening, stopListening} =
+  useSpeechToText({
+    lang: 'en',
+    onStart: () => console.log('Start listening'),
+    onUnMatch: () => console.error('Cannot recognize speech.'),
+    onError: (event) => console.error(event.error),
+  })
 
 if (!isSpeechAPIAvailable) {
   return <div>Browser doesn't support the Web Speech API</div>
@@ -55,7 +54,7 @@ return (
     <p>
       {isListening ? 'Listening...' : 'Not listening'}
       <br />
-      {transcriptHistory}
+      {transcript}
     </p>
   </div>
 )
@@ -88,12 +87,13 @@ function useSpeechToText(options: SpeechToTextHookOptions): {
 
 ## `useSpeechToText` Options
 
-| Name        | Type                                           | Default                                                                                          | Description                                                                                                                                                                                                                       |
-| :---------- | :--------------------------------------------- | :----------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `lang`      | `string`                                       | HTML [`lang` attribute](https://developer.mozilla.orgdocs/Web/HTML/Global_attributes/lang) value | Language of the speech.<br/>If not specified, and the HTML `lang` attribute isn't set either then the user agent's language setting will be used. [Read more](https://developer.mozilla.org/docs/Web/API/SpeechRecognition/lang). |
-| `onStart`   | `() => void`                                   | —                                                                                                | Callback function that is called when the speech recognition service has begun listening to incoming audio.                                                                                                                       |
-| `onUnMatch` | `(event: SpeechRecognitionEvent) => void`      | —                                                                                                | Fired when the speech recognition service returns a final result with no significant recognition.                                                                                                                                 |
-| `onError`   | `(event: SpeechRecognitionErrorEvent) => void` | —                                                                                                | Fired when a speech recognition error occurs.                                                                                                                                                                                     |
+| Name                 | Type                                           | Default                                                                                          | Description                                                                                                                                                                                                                       |
+| :------------------- | :--------------------------------------------- | :----------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `lang`               | `string`                                       | HTML [`lang` attribute](https://developer.mozilla.orgdocs/Web/HTML/Global_attributes/lang) value | Language of the speech.<br/>If not specified, and the HTML `lang` attribute isn't set either then the user agent's language setting will be used. [Read more](https://developer.mozilla.org/docs/Web/API/SpeechRecognition/lang). |
+| `onStart`            | `() => void`                                   | —                                                                                                | Callback function that is called when the speech recognition service has begun listening to incoming audio.                                                                                                                       |
+| `onUnMatch`          | `(event: SpeechRecognitionEvent) => void`      | —                                                                                                | Fired when the speech recognition service returns a final result with no significant recognition.                                                                                                                                 |
+| `onError`            | `(event: SpeechRecognitionErrorEvent) => void` | —                                                                                                | Fired when a speech recognition error occurs.                                                                                                                                                                                     |
+| `onTranscriptChange` | `(transcript: string) => void`                 | —                                                                                                | Fired when the speech recognition service returns a final result with significant recognition.                                                                                                                                    |
 
 ## Return Types
 
