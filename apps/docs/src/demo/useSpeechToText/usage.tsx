@@ -1,6 +1,6 @@
 import {useSpeechToText, type SpeechToTextHookErrorCode} from '@kaiverse/k/hooks'
-import {IconMicrophoneOff, IconMicrophone, IconCopy, IconCheck} from '@tabler/icons-react'
-import {useRef, useCallback, type MouseEventHandler, useState} from 'react'
+import {IconCheck, IconCopy, IconMicrophone, IconMicrophoneOff} from '@tabler/icons-react'
+import {useCallback, useRef, type MouseEventHandler} from 'react'
 
 export default function SpeechToTextDemo() {
   const speechErrRef = useRef<HTMLParagraphElement>(null)
@@ -14,20 +14,18 @@ export default function SpeechToTextDemo() {
     speechErrRef.current.textContent = err
   }
 
-  const [transcriptHistory, setTranscriptHistory] = useState('')
-
-  const {isSpeechAPIAvailable, isListening, startListening, stopListening} = useSpeechToText({
-    lang: 'en',
-    onTranscriptChange: setTranscriptHistory,
-    onStart: () => {
-      if (speechErrRef.current?.textContent) speechErrRef.current.textContent = null
-    },
-    onUnMatch: () => writeErr('Cannot recognize speech.'),
-    onError: (event) =>
-      writeErr(
-        `Error occurred in recognition: ${SPEECH_ERROR_MAPPING[event.error as SpeechToTextHookErrorCode] || event.error}`,
-      ),
-  })
+  const {transcript, isSpeechAPIAvailable, isListening, startListening, stopListening} =
+    useSpeechToText({
+      lang: 'en',
+      onStart: () => {
+        if (speechErrRef.current?.textContent) speechErrRef.current.textContent = null
+      },
+      onUnMatch: () => writeErr('Cannot recognize speech.'),
+      onError: (event) =>
+        writeErr(
+          `Error occurred in recognition: ${SPEECH_ERROR_MAPPING[event.error as SpeechToTextHookErrorCode] || event.error}`,
+        ),
+    })
 
   const handleCopyClipboard = useCallback<MouseEventHandler<HTMLButtonElement>>((e) => {
     transcriptInputRef.current?.focus()
@@ -80,12 +78,12 @@ export default function SpeechToTextDemo() {
           ref={transcriptInputRef}
           className="block min-h-12 w-full resize-none rounded-md p-2 shadow-sm [field-sizing:content]"
           name="transcript"
-          defaultValue={transcriptHistory}
+          defaultValue={transcript}
           wrap="soft"
           placeholder="The transcript will be displayed here"
           readOnly
         />
-        {!transcriptHistory || (
+        {!transcript || (
           <button
             className="btn btn-ghost btn-outline btn-square btn-sm absolute top-8 right-2 hidden h-fit group-focus-within:block"
             type="button"
