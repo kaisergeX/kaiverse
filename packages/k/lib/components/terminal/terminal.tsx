@@ -1,13 +1,13 @@
 'use client'
 
-import {useCallback, useEffect, useImperativeHandle, useRef, type FormEventHandler} from 'react'
 import {classNames, refFactory} from '#utils'
-import {TERMINAL_CTRLS, TERMINAL_CLASSES, TERMINAL_COMMANDS} from './constants'
-import type {TerminalProps, TerminalRef} from './types'
-import useTerminalHistory from './useTerminalHistory'
-import {CloseIcon, MaximizeIcon, MinimizeIcon} from './icons'
+import {useCallback, useEffect, useImperativeHandle, useRef, type SubmitEventHandler} from 'react'
 import {DISPLAY_NAME_PREFIX} from '../constants'
+import {TERMINAL_CLASSES, TERMINAL_COMMANDS, TERMINAL_CTRLS} from './constants'
+import {CloseIcon, MaximizeIcon, MinimizeIcon} from './icons'
+import {useTerminalHistory} from './internals/hooks'
 import classes from './terminal.module.css'
+import type {TerminalProps, TerminalRef} from './types'
 
 /** Terminal UI component that allows users to interact with the terminal-like interface. */
 export const Terminal = refFactory<TerminalRef, TerminalProps>((props, ref) => {
@@ -30,7 +30,7 @@ export const Terminal = refFactory<TerminalRef, TerminalProps>((props, ref) => {
   const terminalInput = useRef<HTMLInputElement>(null)
   const {renderHistories, helpers} = useTerminalHistory()
 
-  const handleInput = useCallback<FormEventHandler<HTMLFormElement>>(
+  const handleInput = useCallback<SubmitEventHandler<HTMLFormElement>>(
     (e) => {
       e.preventDefault()
 

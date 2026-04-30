@@ -3,6 +3,7 @@ import {useEffect, useState} from 'react'
 import type {DragHookOptions, DragHookPosition} from './useDrag.types'
 import type {NullableRefObject} from '#types'
 
+/** @internal */
 export const getNearestScale = (value: number, stepSize: number) => {
   if (stepSize === 0 || stepSize === 1) {
     return value
@@ -13,6 +14,7 @@ export const getNearestScale = (value: number, stepSize: number) => {
   return value - prevStep > nextStep - value ? nextStep : prevStep
 }
 
+/** @internal */
 export const getImposedLimitPosition = (
   {x, y}: DragHookPosition,
   direction: DragHookOptions['direction'] = 'both',
@@ -46,8 +48,13 @@ const getDecelerationFactor = (originVelocity: number): number =>
 
 /**
  * Decelerate after the origin velocity is over the limit.
- * @example getDeceleratedVelocity(10, 100) // 11
+ * The deceleration effect will be more significant when the origin velocity is higher.
  *
+ * @example
+ * getDeceleratedVelocity(100, 100) // 100
+ * getDeceleratedVelocity(120, 100) // ~108
+ * getDeceleratedVelocity(150, 100) // ~115
+ * getDeceleratedVelocity(200, 100) // ~121
  */
 const getDeceleratedVelocity = (origin: number, limit: number): number => {
   const decelerationFactor = getDecelerationFactor(origin - limit)
@@ -59,6 +66,10 @@ const getDeceleratedVelocity = (origin: number, limit: number): number => {
   return Math.max(limit + Math.min(decelerationFactor * -1, 0), origin)
 }
 
+/**
+ * Get the position after applying deceleration effect when the position is over the limit.
+ * The deceleration effect will be more significant when the position is farther from the limit.
+ */
 export const getDeceleratedPosition = (
   {x, y}: DragHookPosition,
   limit?: DragHookOptions['limit'],
@@ -88,6 +99,11 @@ export const getDeceleratedPosition = (
   return result
 }
 
+/**
+ * Get reactive relative limit according to the position of the target element and its parent element.
+ *
+ * This hook does NOT observer the parent's size change.
+ */
 export const useRelativeLimit = <T extends HTMLElement = HTMLElement>(
   dragElementRef: NullableRefObject<T>,
   relativeLimit: DragHookOptions<T>['relativeLimit'],

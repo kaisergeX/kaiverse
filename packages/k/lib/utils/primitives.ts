@@ -1,4 +1,6 @@
-export function classNames(...classes: (string | undefined)[]) {
+import type {Nullish} from '#types'
+
+export function classNames(...classes: (string | Nullish)[]) {
   return classes.filter(Boolean).join(' ')
 }
 

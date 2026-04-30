@@ -7,7 +7,7 @@ import {
   type ReactNode,
   type JSX,
 } from 'react'
-import type {PrintlnFn, PrintNodeFn, TerminalHelpers} from './types'
+import type {PrintlnFn, PrintNodeFn, TerminalHelpers} from '../types'
 
 function addCommandToHistory(histories: ReactNode[], pushedHistory: ReactNode) {
   return histories.concat(pushedHistory)
@@ -28,7 +28,7 @@ type UseTerminalHistoryReturnType = {
   helpers: TerminalHelpers
 }
 
-export default function useTerminalHistory(): UseTerminalHistoryReturnType {
+export function useTerminalHistory(): UseTerminalHistoryReturnType {
   const [terminalHistory, setTerminalHistory] = useState<ReactNode[]>([])
 
   const println = useCallback<PrintlnFn>((input) => {

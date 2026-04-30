@@ -1,11 +1,11 @@
-@layer k-default, k-keyframes;
+@layer k-components.default, k-components.keyframes;
 
 body:has(.dialog[open].modal) {
   scrollbar-gutter: stable;
   overflow: hidden;
 }
 
-@layer k-default {
+@layer k-components.default {
   .dialog,
   .dialogHeader,
   .dialogContent {
@@ -115,7 +115,7 @@ body:has(.dialog[open].modal) {
   }
 }
 
-@layer k-keyframes {
+@layer k-components.keyframes {
   @keyframes slideInLeft {
     from {
       transform: translateX(-100%);

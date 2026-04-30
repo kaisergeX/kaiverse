@@ -5,3 +5,4 @@ export type {
   DragHookRelativeLimit,
   DragHookSetPosition,
 } from './useDrag.types'
+export {getDeceleratedPosition, useRelativeLimit} from './useDrag.utils'

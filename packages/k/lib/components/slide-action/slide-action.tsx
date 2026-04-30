@@ -1,14 +1,14 @@
 'use client'
 
 import {useCallback, useEffect, useImperativeHandle, useRef, useState} from 'react'
-import SlideActionDefaultIcon from './slide-action-icon'
+import SlideActionDefaultIcon from './icons/slide-action-icon'
 import {
   SLIDER_ACTION_CLASSES,
   SLIDER_ACTION_REDUCE_OPACITY,
   SLIDER_ACTION_THEME_VARIABLE,
-} from './slide-action.const'
+} from './internals/slide-action.const'
 import type {SlideActionProps, SlideActionRef, SlideDraggerProps} from './slide-action.types'
-import {useSlideActionDragger} from './hooks'
+import {useSlideActionDragger} from './internals/hooks'
 import {useLazyEffect} from '#hooks'
 import {isDOMAvailable, classNames, refFactory} from '#utils'
 import {DISPLAY_NAME_PREFIX} from '../constants'

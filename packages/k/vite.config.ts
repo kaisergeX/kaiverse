@@ -1,13 +1,14 @@
-import {defineConfig} from 'vite'
-import react from '@vitejs/plugin-react-swc'
-import {libInjectCss} from 'vite-plugin-lib-inject-css'
-import preserveDirectives from 'rollup-preserve-directives'
-import dts from 'vite-plugin-dts'
-import {tanstackRouter} from '@tanstack/router-plugin/vite'
 import tailwindcss from '@tailwindcss/vite'
-import {extname, relative, resolve} from 'path'
-import {fileURLToPath, URL} from 'url'
+import {tanstackRouter} from '@tanstack/router-plugin/vite'
+import react from '@vitejs/plugin-react-swc'
 import {glob} from 'glob'
+import {extname, relative, resolve} from 'path'
+import preserveDirectives from 'rollup-preserve-directives'
+import {fileURLToPath, URL} from 'url'
+import {defineConfig} from 'vite'
+import dts from 'unplugin-dts/vite'
+import {libInjectCss} from 'vite-plugin-lib-inject-css'
+import cssLayersPlugin from './plugins/css-layers-transform'
 
 // build lib mode
 const isProduction = process.env.NODE_ENV === 'production'
@@ -23,7 +24,7 @@ export default defineConfig({
     react(),
     !isProduction && tailwindcss(),
     libInjectCss(),
-    dts({tsconfigPath: resolve(__dirname, 'tsconfig.lib.json')}),
+    dts({tsconfigPath: resolve(__dirname, 'tsconfig.lib.json'), exclude: ['lib/components/*/{hooks,icons,internals}']}),
     preserveDirectives(),
     {
       // libInjectCss (with preserveDirectives) adds the css import to the top of the file
@@ -42,6 +43,11 @@ export default defineConfig({
       },
     },
   ],
+  css: {
+    postcss: {
+      plugins: [cssLayersPlugin()],
+    },
+  },
   server: {
     open: true,
   },
@@ -61,9 +67,13 @@ export default defineConfig({
       input: Object.fromEntries(
         // https://rollupjs.org/configuration-options/#input
         glob
-          .sync('lib/**/*.{ts,tsx}', {
-            ignore: ['lib/**/*.d.ts', 'lib/**/*types.ts'],
-          })
+          .sync([
+            'lib/index.ts',
+            'lib/components/*/index.ts',
+            'lib/components/index.ts',
+            'lib/hooks/index.ts',
+            'lib/utils/index.ts',
+          ])
           .map((file) => [
             // 1. The name of the entry point
             // lib/nested/foo.js becomes nested/foo
@@ -74,8 +84,9 @@ export default defineConfig({
           ]),
       ),
       output: {
-        assetFileNames: 'assets/[name][extname]',
+        assetFileNames: 'assets/[name]-[hash][extname]',
         entryFileNames: '[name].js',
+        chunkFileNames: 'chunks/[name]-[hash].js',
       },
     },
   },

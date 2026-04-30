@@ -1,8 +1,8 @@
 @import url(../shared.module.css);
 
-@layer k-default, k-variant;
+@layer default, variant;
 
-@layer k-default {
+@layer default {
   .terminal {
     composes: k-bg-reverse;
 
@@ -89,7 +89,7 @@
   }
 }
 
-@layer k-variant {
+@layer variant {
   .terminal:where(.macos) {
     gap: 0.5rem;
 
