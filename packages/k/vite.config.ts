@@ -3,8 +3,8 @@ import react from '@vitejs/plugin-react-swc'
 import {libInjectCss} from 'vite-plugin-lib-inject-css'
 import preserveDirectives from 'rollup-preserve-directives'
 import dts from 'vite-plugin-dts'
-import {TanStackRouterVite} from '@tanstack/router-plugin/vite'
-
+import {tanstackRouter} from '@tanstack/router-plugin/vite'
+import tailwindcss from '@tailwindcss/vite'
 import {extname, relative, resolve} from 'path'
 import {fileURLToPath, URL} from 'url'
 import {glob} from 'glob'
@@ -15,8 +15,13 @@ const isProduction = process.env.NODE_ENV === 'production'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    !isProduction && TanStackRouterVite(),
+    !isProduction &&
+      tanstackRouter({
+        target: 'react',
+        autoCodeSplitting: true,
+      }),
     react(),
+    !isProduction && tailwindcss(),
     libInjectCss(),
     dts({tsconfigPath: resolve(__dirname, 'tsconfig.lib.json')}),
     preserveDirectives(),

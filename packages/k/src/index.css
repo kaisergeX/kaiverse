@@ -1,19 +1,92 @@
 /* @import 'tailwindcss/theme' layer(tailwind);
 @import 'tailwindcss/utilities' layer(tailwind); */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss' ;
+
+@utility k-button-base {
+  @apply inline-flex items-center gap-2 rounded-md border px-2.5 py-2 align-top text-sm font-semibold leading-normal shadow-xs transition-colors focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900 sm:px-3.5 sm:py-2.5 dark:focus-visible:outline-zinc-400 cursor-pointer;
+
+  &:disabled {
+    @apply k-disabled;
+  }
+}
+
+@utility k-button {
+  @apply k-button-base border-zinc-900 bg-zinc-900 text-white hover:bg-transparent hover:text-zinc-900 focus-visible:hover:border-transparent dark:border-transparent dark:bg-zinc-300 dark:text-black dark:hover:bg-zinc-100;
+}
+
+@utility k-button-secondary {
+  @apply k-button-base border-zinc-200 bg-transparent text-inherit hover:border-zinc-900 hover:text-inherit dark:border-zinc-600 dark:hover:border-zinc-200;
+}
+
+@utility card {
+  @apply border-4 border-slate-300 rounded-2xl px-4 py-6 no-underline text-inherit hover:bg-slate-100 hover:border-slate-200 [&>p]:hover:text-inherit transition-colors duration-500 [&>h3]:text-gradient [&>h3]:text-3xl [&>h3]:font-extrabold;
+}
+
+@utility k-disabled {
+  @apply pointer-events-none cursor-not-allowed opacity-50;
+}
+
+@utility flex-center {
+  @apply flex items-center justify-center;
+}
+
+@utility flex-center-between {
+  @apply flex items-center justify-between;
+}
+
+@utility text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@utility gradient-fall {
+  color: #f7941d;
+  background-image: linear-gradient(
+    45deg,
+    #f7941d 12%,
+    #d35400 60%,
+    #9e2800 20%,
+    #791800 20%,
+    #550a00 43%
+  );
+}
+
+@utility gradient-leaf {
+  color: #008947;
+  background-image: linear-gradient(
+    225deg,
+    #008947 73%,
+    #009654 37%,
+    #00a361 20%,
+    #00b06e 2%,
+    #00bd7b 79%
+  );
+}
+
+@utility gradient-maple {
+  color: #be4146;
+  background-image: linear-gradient(225deg, #be4146 73%, #d26764 24%, #f2acac 77%);
+}
+
+@utility gradient-fire {
+  color: #ff5700;
+  background-image: linear-gradient(0deg, #ff5700 46%, #ff8500 33%);
+}
+
+@utility gradient-nature {
+  color: #afc95c;
+  background-image: linear-gradient(45deg, #afc95c 20%, #5c8545 21%, #a9452e 50%);
+}
+
+@utility bg-gradient-wave {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradientWave 4s ease infinite;
+}
 
 @layer base {
-  * {
-    @apply box-border;
-  }
-
-  .border,
-  [class*='border-'] {
-    @apply border-solid;
-  }
 
   html {
     font-family: var(
@@ -43,93 +116,6 @@
 
   svg {
     @apply block;
-  }
-}
-
-@layer components {
-  .k-button-base {
-    @apply inline-flex items-center gap-2 rounded-md border px-2.5 py-2 align-top text-sm font-semibold leading-normal shadow-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900 sm:px-3.5 sm:py-2.5 dark:focus-visible:outline-zinc-400 cursor-pointer;
-  }
-
-  .k-button-base:disabled {
-    @apply k-disabled;
-  }
-
-  .k-button {
-    @apply k-button-base border-zinc-900 bg-zinc-900 text-white hover:bg-transparent hover:text-zinc-900 focus-visible:hover:border-transparent dark:border-transparent dark:bg-zinc-300 dark:text-black hover:dark:bg-zinc-100;
-  }
-
-  .k-button-secondary {
-    @apply k-button-base border-zinc-200 bg-transparent text-inherit hover:border-zinc-900 hover:text-inherit dark:border-zinc-600 dark:hover:border-zinc-200;
-  }
-
-  .card {
-    @apply border-4 border-slate-300 border-solid rounded-2xl px-4 py-6 no-underline text-inherit hover:bg-slate-100 hover:border-slate-200 hover:[&>p]:text-inherit transition-colors duration-500 [&>h3]:text-gradient [&>h3]:text-3xl [&>h3]:font-extrabold;
-  }
-}
-
-@layer utilities {
-  .k-disabled {
-    @apply pointer-events-none cursor-not-allowed opacity-50;
-  }
-
-  .flex-center {
-    @apply flex items-center justify-center;
-  }
-
-  .flex-center-between {
-    @apply flex items-center justify-between;
-  }
-
-  .text-gradient {
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .gradient-fall {
-    color: #f7941d;
-    background-image: linear-gradient(
-      45deg,
-      #f7941d 12%,
-      #d35400 60%,
-      #9e2800 20%,
-      #791800 20%,
-      #550a00 43%
-    );
-  }
-
-  .gradient-leaf {
-    color: #008947;
-    background-image: linear-gradient(
-      225deg,
-      #008947 73%,
-      #009654 37%,
-      #00a361 20%,
-      #00b06e 2%,
-      #00bd7b 79%
-    );
-  }
-
-  .gradient-maple {
-    color: #be4146;
-    background-image: linear-gradient(225deg, #be4146 73%, #d26764 24%, #f2acac 77%);
-  }
-
-  .gradient-fire {
-    color: #ff5700;
-    background-image: linear-gradient(0deg, #ff5700 46%, #ff8500 33%);
-  }
-
-  .gradient-nature {
-    color: #afc95c;
-    background-image: linear-gradient(45deg, #afc95c 20%, #5c8545 21%, #a9452e 50%);
-  }
-
-  .bg-gradient-wave {
-    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-    background-size: 400% 400%;
-    animation: gradientWave 4s ease infinite;
   }
 }
 

@@ -1,5 +1,5 @@
 import type {SortableMixedArr} from '#types'
-import {isNullist} from './common'
+import {isNullish} from './common'
 
 /**
  * *MIXED* types array *ASCENDING* sorting
@@ -24,11 +24,11 @@ export const sortMixedArrAsc = (inputArr: SortableMixedArr, mutate = false) =>
   // playground: https://codesandbox.io/s/mixed-array-sortasc-fgkq1d
   (mutate ? inputArr.slice() : inputArr).sort((a, b) => {
     // Nullish is skipped, always on the end of the sorted arrays.
-    if (isNullist(a)) {
+    if (isNullish(a)) {
       return 1
     }
 
-    if (isNullist(b)) {
+    if (isNullish(b)) {
       return -1
     }
 
