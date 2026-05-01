@@ -1,6 +1,9 @@
 import type {DialogHTMLAttributes} from 'react'
 
-type DialogSharedProps = {
+export type DialogBaseProps = Omit<
+  DialogHTMLAttributes<HTMLDialogElement>,
+  keyof CombinedVariantProps | 'tabIndex' | 'autoFocus'
+> & {
   /**
    * @default "modal"
    * @description
@@ -36,6 +39,9 @@ type DialogSharedProps = {
    */
   preventClose?: boolean
   onClose?: () => void
+}
+
+type DialogVariantsSharedProps = {
   /**
    * Change backdrop styles.
    * ___
@@ -75,10 +81,6 @@ type DrawerProps = {
   position?: 'right' | 'bottom' | 'left' | 'top'
 }
 
-type CombinedVariantProps = DialogSharedProps & (DialogDefaultProps | DrawerProps)
+type CombinedVariantProps = DialogVariantsSharedProps & (DialogDefaultProps | DrawerProps)
 
-export type DialogProps = CombinedVariantProps &
-  Omit<
-    DialogHTMLAttributes<HTMLDialogElement>,
-    keyof CombinedVariantProps | 'tabIndex' | 'autoFocus'
-  >
+export type DialogProps = CombinedVariantProps & DialogBaseProps

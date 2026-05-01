@@ -1,8 +1,8 @@
 @import './dialog-shared.module.css';
 
-@layer k-components.default, k-components.variant;
+@layer default, variant;
 
-@layer k-components.default {
+@layer default {
   @media (prefers-reduced-motion: no-preference) {
     .dialog,
     .dialog::backdrop {
@@ -51,7 +51,7 @@
   }
 }
 
-@layer k-components.variant {
+@layer variant {
   .dialog:where(.default) {
     border-radius: 0.5rem;
     /* 
