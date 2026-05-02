@@ -23,12 +23,12 @@ export default function DialogControlledByForm() {
       </button>
       <section className="my-4">
         <strong>Submitted form values:</strong>
-        <pre className="p-2 w-full rounded-lg bg-base-100 whitespace-pre-wrap [overflow-wrap:anywhere]">
+        <pre className="p-2 w-full rounded-lg bg-base-100 whitespace-pre-wrap wrap-anywhere">
           {JSON.stringify({keyword}, null, 2)}
         </pre>
       </section>
 
-      <Dialog open={opened} variant="drawer" offset="1.5rem" onClose={close}>
+      <Dialog open={opened} variant="drawer" offset="1rem" onClose={close}>
         <Dialog.Header>
           <Dialog.Title>Drawer controlled by form</Dialog.Title>
           <Dialog.CloseButton />
@@ -47,8 +47,8 @@ export default function DialogControlledByForm() {
               Check the "Keep form value" checkbox to persist the form value after submitting and
               closing the Dialog.
             </p>
-            <label className="form-control w-full max-w-xs">
-              <span className="label label-text">Keyword</span>
+            <label className="fieldset w-full max-w-xs text-base">
+              <span className="fieldset-legend">Keyword</span>
               <input
                 className="input input-bordered w-full max-w-xs"
                 name="keyword"
@@ -57,9 +57,9 @@ export default function DialogControlledByForm() {
                 autoFocus
               />
             </label>
-            <label className="items-center flex gap-2 cursor-pointer">
-              <span className="label-text">Keep form value:</span>
+            <label className="label text-base-content font-semibold">
               <input className="checkbox" name="keepFormValue" type="checkbox" />
+              Keep form value
             </label>
           </form>
           <JunkArticle /> {/* Just to make the drawer's content long */}
@@ -67,14 +67,14 @@ export default function DialogControlledByForm() {
 
         <Dialog.Footer>
           <button
-            className="btn btn-neutral btn-outline"
+            className="btn btn-outline"
             form="form-manipulate-drawer"
             type="reset"
             onClick={close} // remove this line if you only want to reset the form value
           >
             Cancel
           </button>
-          <button className="btn btn-secondary" form="form-manipulate-drawer" type="submit">
+          <button className="btn btn-success" form="form-manipulate-drawer" type="submit">
             Submit
           </button>
         </Dialog.Footer>

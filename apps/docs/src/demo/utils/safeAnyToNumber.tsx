@@ -13,8 +13,8 @@ export default function SafeAnyToNumberDemo() {
           setConvert(safeAnyToNumber(formData.get('inputValue')))
         }}
       >
-        <label className="form-control w-full max-w-xs">
-          <span className="label label-text">String value</span>
+        <label className="fieldset w-full max-w-xs">
+          <span className="fieldset-legend text-base">String value</span>
           <input
             className="input input-bordered w-full max-w-xs"
             placeholder="Type any string"
@@ -28,7 +28,7 @@ export default function SafeAnyToNumberDemo() {
         </button>
       </form>
       {!convert || (
-        <pre className="bg-base-200 rounded p-4">
+        <pre className="bg-base-200 rounded-sm p-4">
           Converted value: <strong>{convert.result}</strong>
           <br />
           Status:{' '}

@@ -50,6 +50,7 @@ export const DialogRootBase = refFactory<HTMLDialogElement, DialogBaseProps>((pr
 
       onMouseDown?.(e)
       if (!(e.target instanceof HTMLDialogElement) || preventClose) {
+        // @todo play animation to indicate that the dialog is not dismissible, like shaking and should be customizable
         return
       }
 

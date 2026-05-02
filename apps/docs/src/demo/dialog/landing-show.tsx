@@ -5,7 +5,7 @@ export default function DialogLandingShow() {
   const [opened, {open, close}] = useDisclosure(false)
 
   return (
-    <div className="not-content mt-9">
+    <div className="not-content mt-7">
       <button className="btn btn-neutral" type="button" onClick={open}>
         Open Dialog
       </button>

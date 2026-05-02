@@ -75,7 +75,7 @@
   }
 
   .dialog:where(.drawer) {
-    --_k-drawer-offset: calc(var(--k-dialog-offset, 0px) / 2);
+    --_k-drawer-offset: var(--k-dialog-offset, 0px);
 
     height: 100dvh;
     width: 100%;

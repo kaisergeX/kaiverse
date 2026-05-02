@@ -8,15 +8,54 @@ import Demo from '@/demo'
 import controlledByFormCode from '@/demo/dialog/controlled-by-form?raw'
 import withoutCompoundCode from '@/demo/dialog/without-compound?raw'
 
-Display overlay area on top of a page, represents a modal or non-modal dialog box.<br/> Build on top of the native HTML [`<dialog/>`](https://developer.mozilla.org/docs/Web/HTML/Element/dialog) element.
+Display overlay area on top of a page, represents a modal or non-modal dialog box.<br/> Build on top of the native HTML [`<dialog/>`](https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/dialog) element.
 
 ```js
 import {Dialog} from '@kaiverse/k/ui'
 ```
 
-## Basic usage
+## Usage
 
 Some examples of how to use the Dialog component.
+
+### Base
+
+Unstyled Dialog component for fully custom UI.
+
+It only provides the structure, control logic, and accessibility features of a dialog.
+
+<Tabs>
+  <TabItem label="Playground">
+    <Demo path="dialog/base" client:load />
+  </TabItem>
+  <TabItem label="Source code">
+    <Code
+      title="base.tsx"
+      lang="tsx"
+      code={`function BaseDialog() {
+    const [openDialog, setOpenDialog] = useState(false)
+    return (
+      <>
+        <button type="button" onClick={() => setOpenDialog(true)}>
+          Open Base Dialog
+        </button>
+        <DialogBase open={openDialog} onClose={() => setOpenDialog(false)}>
+          <DialogBase.Header>
+            <DialogBase.Title>Dialog header</DialogBase.Title>
+          </DialogBase.Header>
+          <DialogBase.Content>This is a base, unstyled dialog.</DialogBase.Content>
+          <DialogBase.Footer>
+            <button type="button" onClick={() => setOpenDialog(false)}>
+              Close
+            </button>
+          </DialogBase.Footer>
+        </DialogBase>
+      </>
+    )
+  }`}
+    />
+  </TabItem>
+</Tabs>
 
 ### Simple dialog
 
@@ -58,7 +97,7 @@ Some examples of how to use the Dialog component.
 ### Controlled by form
 
 When submitting a `<form>` that is nested within a `<Dialog>`,
-you can close that `<Dialog>` by using [form method](https://developer.mozilla.org/docs/Web/HTML/Element/form#method) `method="dialog"`
+you can close that `<Dialog>` by using [form method](https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/form#method) `method="dialog"`
 or set `formmethod="dialog"` to the `<button>` used to submit the form.<br />
 Also as a result, the `onClose` event will be fired.
 
@@ -86,10 +125,10 @@ Let use the [`drawer` variant](#drawer) for this example.
 - `Dialog.Content` — a wrapper for the main content of the `Dialog`.
 - `Dialog.Footer` — bottom section, usually contains actions.
 
-### Uh... No thanks!
+### No thanks!
 
 <Aside type="tip">
-  These components are opt-in, you can get rid of all the compound components and use your own.
+  These compound components are opt-in, you can use your own.
 </Aside>
 
 For instance, here is a drawer with similar UI as the previous "Controlled by form" example that doesn't use any compound components.
@@ -190,7 +229,7 @@ A Dialog that has no backdrop and also doesn't render on the top-layer. It can N
 
 ## Accessibility
 
-`Dialog` component build on top of the HTML [`<dialog/>`](https://developer.mozilla.org/docs/Web/HTML/Element/dialog) element.
+`Dialog` component build on top of the HTML [`<dialog/>`](https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/dialog) element.
 
 By default, it respects the default accessibility behavior and settings of a `<dialog/>` element.
 You can opt-out some behaviors by using the `preventFocus` and `preventClose` [props](#dialog-props).

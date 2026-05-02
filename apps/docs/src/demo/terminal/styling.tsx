@@ -3,7 +3,7 @@ import {Terminal} from '@kaiverse/k/ui'
 export default function TerminalStyling() {
   return (
     <Terminal
-      className="bg-neutral dark:bg-base-200"
+      className="bg-neutral text-accent dark:bg-base-200"
       classNames={{
         windowHeader:
           'bg-[radial-gradient(circle,rgba(34,193,195,0.4)_0%,rgba(253,187,45,0.2)_100%)] dark:bg-base-100',

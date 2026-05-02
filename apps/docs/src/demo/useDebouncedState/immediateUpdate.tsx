@@ -5,10 +5,10 @@ export default function UseDebouncedStateImmediateUpdate() {
 
   return (
     <>
-      <label className="form-control w-full max-w-xs">
-        <span className="label label-text">Type sth to see the behavior</span>
+      <label className="fieldset max-w-xs">
+        <span className="fieldset-label text-base">Type sth to see the behavior</span>
         <input
-          className="input input-bordered w-full max-w-xs"
+          className="input input-bordered max-w-xs"
           placeholder="200ms debounce"
           type="text"
           defaultValue={value}

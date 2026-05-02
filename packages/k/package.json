@@ -32,8 +32,7 @@
     "lint": "tsc -p ./tsconfig.lib.json --noEmit && eslint . --report-unused-disable-directives --max-warnings 0 && prettier --check \"lib/**/*.{ts,tsx,css}\"",
     "lint:dev": "tsc -p ./tsconfig.lib.json --noEmit && tsc -p ./tsconfig.app.json --noEmit && eslint . --report-unused-disable-directives --max-warnings 0 && prettier --check \"{src,lib}/**/*.{ts,tsx,css}\"",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
-    "preview": "vite preview",
-    "cs": "changeset"
+    "preview": "vite preview"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

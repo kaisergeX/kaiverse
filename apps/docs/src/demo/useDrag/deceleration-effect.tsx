@@ -15,10 +15,10 @@ export default function DecelerationEffect() {
         limit: {JSON.stringify(limit)}
       </pre>
       <h3 className="mt-6 mb-2">Limit box</h3>
-      <div className="outline-2 outline rounded-lg outline-neutral w-[300px] h-[150px]">
+      <div className="outline-2 outline-solid rounded-lg outline-neutral w-75 h-37.5">
         <div
           ref={targetRef}
-          className="rounded-lg inline-block border-2 h-[50px] w-[100px] border-primary bg-primary/50 cursor-move select-none group content-center text-center"
+          className="rounded-lg inline-block border-2 h-12.5 w-25 border-primary bg-primary/50 cursor-move select-none group content-center text-center"
         >
           👋 drag me
         </div>

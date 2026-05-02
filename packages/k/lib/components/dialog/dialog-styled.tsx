@@ -18,7 +18,17 @@ import classes from './styles/dialog.module.css'
 import type {DialogProps} from './types'
 
 const DialogRoot = refFactory<HTMLDialogElement, DialogProps>(
-  ({variant = 'default', position = 'right', backdropProps, offset = 0, ...props}, ref) => {
+  (
+    {
+      variant = 'default',
+      position = 'right',
+      dialogMode = 'modal',
+      backdropProps,
+      offset = 0,
+      ...props
+    },
+    ref,
+  ) => {
     const dialogRef = useDOMRef(ref)
 
     useBackdropStyling(dialogRef, backdropProps)
@@ -32,16 +42,18 @@ const DialogRoot = refFactory<HTMLDialogElement, DialogProps>(
     return (
       <DialogBase
         {...props}
-        ref={ref}
+        ref={dialogRef}
         className={classNames(
           DIALOG_CLASSES.ROOT,
           classes.dialog,
+          `${DIALOG_CLASSES.ROOT}--${dialogMode}`,
+          classes[dialogMode],
           `${DIALOG_CLASSES.ROOT}--${variant}`,
           classes[variant],
-          variant === 'drawer' ? `${DIALOG_CLASSES.ROOT}--${position}` : '',
-          variant === 'drawer' ? classes[position] : '',
+          variant === 'drawer' ? `${DIALOG_CLASSES.ROOT}--${position} ${classes[position]}` : '',
           props.className,
         )}
+        dialogMode={dialogMode}
         data-offset={offset || undefined}
       />
     )

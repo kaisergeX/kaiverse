@@ -7,8 +7,8 @@ export default function DOMStylesDemo() {
   return (
     <>
       <form id="color-form">
-        <label className="form-control w-full max-w-xs">
-          <span className="label label-text">Change background color 🎨</span>
+        <label className="fieldset w-full max-w-xs">
+          <span className="fieldset-label text-base">Change background color 🎨</span>
           <input
             className="input input-bordered w-full max-w-xs"
             name="inputColor"
@@ -22,7 +22,7 @@ export default function DOMStylesDemo() {
       </form>
 
       <h3 className="mt-4">Result box:</h3>
-      <div ref={resultBoxRef} className="h-32 bg-black rounded"></div>
+      <div ref={resultBoxRef} className="h-32 bg-black rounded-sm"></div>
       <button
         className="btn btn-neutral mt-4"
         form="color-form"

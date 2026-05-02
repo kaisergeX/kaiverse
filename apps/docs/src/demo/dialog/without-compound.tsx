@@ -12,7 +12,7 @@ export default function WithoutCompoundComponents() {
         Open Drawer
       </button>
       <Dialog
-        className="[&[open]]:flex flex-col"
+        className="open:flex flex-col"
         open={opened}
         variant="drawer"
         offset="1.5rem"
@@ -32,13 +32,14 @@ export default function WithoutCompoundComponents() {
           >
             <h3 className="sticky inset-x-0 top-0 sticky-bg">Drawer Form</h3>
             <p>In this form example, all inputs are uncontrolled input.</p>
-            <label className="form-control w-full max-w-xs">
-              <span className="label label-text">Keyword</span>
+           
+            <label className="fieldset w-full max-w-xs text-base">
+              <span className="fieldset-legend">Keyword</span>
               <input
                 className="input input-bordered w-full max-w-xs"
                 name="keyword-input"
                 type="text"
-                placeholder="Type something..."
+                placeholder="Type some keyword"
                 autoFocus
               />
             </label>
@@ -47,14 +48,14 @@ export default function WithoutCompoundComponents() {
         </article>
         <footer className="p-4 flex justify-between items-center">
           <button
-            className="btn btn-neutral btn-outline"
+            className="btn btn-outline"
             form="form-dialog-without-compound"
             type="reset"
             onClick={close} // remove this line if you only want to reset the form value
           >
             Cancel
           </button>
-          <button className="btn btn-secondary" form="form-dialog-without-compound" type="submit">
+          <button className="btn btn-success" form="form-dialog-without-compound" type="submit">
             Submit
           </button>
         </footer>

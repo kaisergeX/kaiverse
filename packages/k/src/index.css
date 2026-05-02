@@ -88,32 +88,12 @@
 }
 
 @layer base {
+  :root {
+    scrollbar-gutter: stable;
+  }
+
   html {
-    font-family: var(
-      --default-font-family,
-      ui-sans-serif,
-      system-ui,
-      sans-serif,
-      'Apple Color Emoji',
-      'Segoe UI Emoji',
-      'Segoe UI Symbol',
-      'Noto Color Emoji'
-    );
-
     @apply dark:bg-gray-950 dark:text-gray-50;
-  }
-
-  body {
-    @apply m-0;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply my-0;
   }
 
   svg {
