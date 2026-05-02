@@ -1,13 +1,5 @@
-import {
-  Fragment,
-  isValidElement,
-  useCallback,
-  useMemo,
-  useState,
-  type ReactNode,
-  type JSX,
-} from 'react'
-import type {PrintlnFn, PrintNodeFn, TerminalHelpers} from '../types'
+import {Fragment, isValidElement, useMemo, useState, type JSX, type ReactNode} from 'react'
+import type {TerminalHelpers} from '../types'
 
 function addCommandToHistory(histories: ReactNode[], pushedHistory: ReactNode) {
   return histories.concat(pushedHistory)
@@ -31,23 +23,20 @@ type UseTerminalHistoryReturnType = {
 export function useTerminalHistory(): UseTerminalHistoryReturnType {
   const [terminalHistory, setTerminalHistory] = useState<ReactNode[]>([])
 
-  const println = useCallback<PrintlnFn>((input) => {
-    setTerminalHistory((curr) => addCommandToHistory(curr, `${input}\n`))
-  }, [])
+  const helpers = useMemo<TerminalHelpers>(
+    () =>
+      Object.freeze({
+        println: (input) => setTerminalHistory((curr) => addCommandToHistory(curr, `${input}\n`)),
+        printNode: (node) => {
+          if (isBannedNodeType(node)) {
+            return
+          }
 
-  const printNode = useCallback<PrintNodeFn>((node) => {
-    if (isBannedNodeType(node)) {
-      return
-    }
-
-    setTerminalHistory((curr) => addCommandToHistory(curr, node))
-  }, [])
-
-  const clearHistory = useCallback(() => setTerminalHistory([]), [])
-
-  const helpers = useMemo(
-    () => Object.freeze({println, printNode, clearHistory}),
-    [clearHistory, printNode, println],
+          setTerminalHistory((curr) => addCommandToHistory(curr, node))
+        },
+        clearHistory: () => setTerminalHistory([]),
+      }),
+    [],
   )
 
   const renderHistories = useMemo(

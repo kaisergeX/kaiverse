@@ -36,6 +36,9 @@ function TerminalPage() {
           // }}
           windowTitle="Terminal (macos)"
           greeting="Welcome to Terminal UI Demo!"
+          onClose={() => {
+            console.log('Test')
+          }}
           commandHandler={(command, {printNode, println}) => {
             println(command)
             // printNode(<img src="https://i.redd.it/fktuppkre7p51.gif" />)

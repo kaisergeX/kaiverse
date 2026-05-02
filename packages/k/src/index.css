@@ -1,7 +1,7 @@
 /* @import 'tailwindcss/theme' layer(tailwind);
 @import 'tailwindcss/utilities' layer(tailwind); */
 
-@import 'tailwindcss' ;
+@import 'tailwindcss';
 
 @utility k-button-base {
   @apply inline-flex items-center gap-2 rounded-md border px-2.5 py-2 align-top text-sm font-semibold leading-normal shadow-xs transition-colors focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900 sm:px-3.5 sm:py-2.5 dark:focus-visible:outline-zinc-400 cursor-pointer;
@@ -20,7 +20,8 @@
 }
 
 @utility card {
-  @apply border-4 border-slate-300 rounded-2xl px-4 py-6 no-underline text-inherit hover:bg-slate-100 hover:border-slate-200 [&>p]:hover:text-inherit transition-colors duration-500 [&>h3]:text-gradient [&>h3]:text-3xl [&>h3]:font-extrabold;
+  @apply border-4 border-slate-300 rounded-2xl px-4 py-6 no-underline text-inherit [&>p]:hover:text-inherit transition-colors duration-500 [&>h3]:text-gradient [&>h3]:text-3xl [&>h3]:font-extrabold;
+  @apply hover:bg-slate-100 hover:border-slate-200 dark:hover:bg-gray-800 dark:border-gray-700;
 }
 
 @utility k-disabled {
@@ -87,7 +88,6 @@
 }
 
 @layer base {
-
   html {
     font-family: var(
       --default-font-family,
@@ -99,6 +99,8 @@
       'Segoe UI Symbol',
       'Noto Color Emoji'
     );
+
+    @apply dark:bg-gray-950 dark:text-gray-50;
   }
 
   body {
