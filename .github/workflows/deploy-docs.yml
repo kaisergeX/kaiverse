@@ -37,11 +37,13 @@ jobs:
       - name: Build packages
         run: pnpm build:pkgs
 
-      - name: Install, build, and upload artifacts
-        uses: withastro/action@v6
+      - name: Build docs
+        run: pnpm --filter docs build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
         with:
-          path: ./apps/docs
-          package-manager: pnpm@latest
+          path: ./apps/docs/dist
 
   deploy:
     needs: build
