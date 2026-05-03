@@ -1,4 +1,5 @@
-import {useEffect, useRef, type RefObject} from 'react'
+import type {NullableRefObject} from '#types'
+import {useEffect, useRef} from 'react'
 
 type AnimateStateChangeHookOptions<T extends HTMLElement> = Readonly<{
   /**
@@ -6,7 +7,7 @@ type AnimateStateChangeHookOptions<T extends HTMLElement> = Readonly<{
    * ___
    * If you don't wanna provide a ref, use the hook's returned `RefObject` to attach to the element.
    */
-  ref?: RefObject<T | null>
+  ref?: NullableRefObject<T>
   /**
    * The animation will be triggered when this value changes. It uses `Object.is` to compare with the previous value.
    * ___
@@ -46,7 +47,7 @@ export function useAnimateStateChange<T extends HTMLElement = HTMLElement>({
   keyframes,
   options,
   triggerOnMount = false,
-}: AnimateStateChangeHookOptions<T>): RefObject<T | null> {
+}: AnimateStateChangeHookOptions<T>): NullableRefObject<T> {
   const isMountedRef = useRef(false)
   const internalRef = useRef<T>(null)
   const elementRef = ref ?? internalRef

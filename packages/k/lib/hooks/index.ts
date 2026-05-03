@@ -1,4 +1,5 @@
 export {useAnimateStateChange} from './useAnimateStateChange'
+export {useOnClickOutside} from './useClickOutside'
 export {useDebouncedState} from './useDebouncedState'
 export {useDisclosure} from './useDisclosure'
 export {useDOMRef} from './useDOMRef'
