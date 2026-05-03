@@ -5,8 +5,8 @@ export default function Usage() {
 
   return (
     <>
-      <label className="form-control w-full max-w-xs">
-        <span className="label label-text">Type something to see debounce state update</span>
+      <label className="fieldset max-w-xs">
+        <span className="fieldset-label text-base">Type something to see debounce state update</span>
         <input
           className="input input-bordered w-full max-w-xs"
           placeholder="200ms debounce"

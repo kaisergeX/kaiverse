@@ -35,7 +35,7 @@ function UseDragPage() {
   return (
     <div className="sm:grid grid-cols-2 gap-2">
       <section className="card">
-        <div className="border-orange-200 my-4 rounded-lg border-[16px] bg-orange-50 p-8 h-[30vh]">
+        <div className="border-orange-200 my-4 rounded-lg border-16 bg-orange-50 p-8 h-[30vh]">
           <h2>
             <code>client-size</code>
           </h2>
@@ -47,7 +47,7 @@ function UseDragPage() {
             <div className="group-active:animate-none animate-bounce">😀</div>
           </div>
         </div>
-        <div className="border-orange-200 my-4 rounded-lg border-[16px] bg-orange-50 p-8 h-[30vh]">
+        <div className="border-orange-200 my-4 rounded-lg border-16 bg-orange-50 p-8 h-[30vh]">
           <h2>
             <code>client-no-padding</code>
           </h2>
@@ -87,7 +87,7 @@ function UseDragPage() {
       </section>
 
       <section className="card">
-        <div className="border-orange-200 my-4 rounded-lg border-[16px] bg-orange-50 p-8 h-[30vh]">
+        <div className="border-orange-200 my-4 rounded-lg border-16 bg-orange-50 p-8 h-[30vh]">
           <h2>
             <code>offset-size</code>
           </h2>
@@ -99,7 +99,7 @@ function UseDragPage() {
             <div className="group-active:animate-none animate-bounce">😀</div>
           </div>
         </div>
-        <div className="border-orange-200 my-4 rounded-lg border-[16px] bg-orange-50 p-8 h-[30vh]">
+        <div className="border-orange-200 my-4 rounded-lg border-16 bg-orange-50 p-8 h-[30vh]">
           <h2>
             <code>offset-no-padding</code>
           </h2>

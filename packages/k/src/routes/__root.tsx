@@ -3,7 +3,7 @@ import {createRootRoute, Link, Outlet} from '@tanstack/react-router'
 export const Route = createRootRoute({
   component: () => (
     <>
-      <nav className="sticky top-0 p-4 shadow bg-[canvas] z-10">
+      <nav className="sticky top-0 bg-white dark:bg-gray-950 p-4 shadow-sm z-10">
         <Link className="no-underline" to="/">
           Homepage
         </Link>

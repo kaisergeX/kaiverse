@@ -7,7 +7,7 @@ export default function StylingDemo() {
       classNames={{
         label: 'text-[rgb(225,88,25)] font-bold',
         progress: 'bg-gradient-wave',
-        dragger: 'bg-gradient-to-r from-purple-500 to-pink-500 [&>span]:animate-spin',
+        dragger: 'bg-linear-to-r from-purple-500 to-pink-500 [&>span]:animate-spin',
       }}
       color="rgb(225,88,25)"
       icon={<span>⚽️</span>}

@@ -1,4 +1,5 @@
-import {useRef, useState, useCallback, useEffect} from 'react'
+import {useCallback, useEffect, useRef, useState} from 'react'
+import {useIsomorphicLayoutEffect} from '../useIsomorphicLayoutEffect'
 import type {SpeechToTextHookOptions, SpeechToTextHookReturn} from './useSpeechToText.types'
 
 /** [Experimental] Hook to use the [Web Speech API](https://developer.mozilla.org/docs/Web/API/Web_Speech_API) for speech recognition. */
@@ -13,8 +14,9 @@ export const useSpeechToText = ({
   // const SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList;
   // const SpeechRecognitionEvent = window.SpeechRecognitionEvent || window.webkitSpeechRecognitionEvent;
 
-  const isSpeechAPIAvailable = typeof window !== 'undefined' && !!SpeechRecognition
-  const recognition = useRef<SpeechRecognition>(undefined)
+  const isSpeechAPIAvailable = !!SpeechRecognition
+
+  const recognition = useRef<InstanceType<NonNullable<typeof SpeechRecognition>>>(undefined)
   const [isListening, setIsListening] = useState(false)
   const [transcript, setTranscript] = useState('')
 
@@ -26,7 +28,7 @@ export const useSpeechToText = ({
     recognition.current?.stop()
   }, [])
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (!isSpeechAPIAvailable) {
       return
     }
@@ -60,7 +62,6 @@ export const useSpeechToText = ({
       onError?.(event)
       speechRecognition.stop()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSpeechAPIAvailable, lang, onError, onStart, onUnMatch])
 
   useEffect(() => {

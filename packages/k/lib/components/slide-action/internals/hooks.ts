@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useMemo, useState} from 'react'
-import type {SlideDraggerParams, SlideDraggerProps} from './slide-action.types'
+import type {SlideDraggerParams, SlideDraggerProps} from '../slide-action.types'
 import {useDrag, type DragHookOptions} from '#hooks'
 import {isDOMAvailable} from '#utils'
 

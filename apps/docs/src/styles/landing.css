@@ -1,3 +1,5 @@
+@reference '../styles/global.css';
+
 :root {
   --purple-hsl: 255, 60%, 60%;
   --overlay-blurple: hsla(var(--purple-hsl), 0.2);
@@ -17,10 +19,6 @@
 
 [data-has-hero] .hero > img {
   filter: drop-shadow(0 0 3rem var(--overlay-blurple));
-}
-
-.scroll-driven {
-  @apply will-change-transform animate-[linear_var(--scroll-driven-animation)_forwards] [animation-timeline:--section-showcase] [animation-range:contain_0%_contain_100%];
 }
 
 .scroll-driven-x {

@@ -4,6 +4,7 @@ export const demoModules = {
   'utils/safeAnyToNumber': lazy(() => import('./utils/safeAnyToNumber')),
   'utils/dom-styles': lazy(() => import('./utils/dom-styles')),
 
+  'dialog/base': lazy(() => import('./dialog/base')),
   'dialog/basic': lazy(() => import('./dialog/basic')),
   'dialog/controlled-by-form': lazy(() => import('./dialog/controlled-by-form')),
   'dialog/without-compound': lazy(() => import('./dialog/without-compound')),

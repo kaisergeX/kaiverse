@@ -25,7 +25,7 @@ export default function UseDragDirection() {
         </div>
       </div>
       <button
-        className="btn btn-neutral btn-outline mt-4"
+        className="btn btn-outline mt-4"
         type="button"
         onClick={() => {
           setPositionXAxis({x: 0, y: 0}, {transition: true})

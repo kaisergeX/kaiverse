@@ -1,4 +1,7 @@
 {
   "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "stripInternal": true
+  },
   "include": ["lib"]
 }

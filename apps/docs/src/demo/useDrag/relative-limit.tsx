@@ -9,8 +9,8 @@ export default function DragRelativeLimit() {
 
   return (
     <>
-      <label className="form-control w-fit mb-4">
-        <span className="label-text">Select relativeLimit mode</span>
+      <label className="fieldset w-fit mb-4">
+        <span className="fieldset-legend text-base">Select relativeLimit mode</span>
         <select
           className="select select-bordered select-sm text-base"
           value={relativeLimit}
@@ -28,7 +28,7 @@ export default function DragRelativeLimit() {
 
       <RelativeLimitDesc showWarning={showWarning} />
 
-      <div className="playground p-8 h-[40vh] border-[16px] border-sky-200">
+      <div className="playground p-8 h-[40vh] border-16 border-sky-200">
         <div
           ref={targetRef}
           className="rounded-lg inline-block border-2 border-sky-400 bg-sky-200 dark:bg-sky-800 p-4 cursor-move select-none group"

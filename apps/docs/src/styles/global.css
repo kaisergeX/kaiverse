@@ -1,0 +1,189 @@
+@layer base, starlight, k-components, theme, components, utilities;
+
+@import '@astrojs/starlight-tailwind';
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+@plugin "daisyui" {
+  themes:
+    cupcake --default,
+    dark --prefersdark;
+  exclude: hero, toggle;
+}
+
+@theme {
+  --color-accent-200: #a9d3ca;
+  --color-accent-600: #00786a;
+  --color-accent-900: #003c34;
+  --color-accent-950: #012b25;
+  --color-gray-100: #f5f6f8;
+  --color-gray-200: #ebeef2;
+  --color-gray-300: #bec2c7;
+  --color-gray-400: #858c95;
+  --color-gray-500: #525961;
+  --color-gray-700: #323940;
+  --color-gray-800: #21272f;
+  --color-gray-900: #16181c;
+
+  --font-sans: 'Nunito Variable', sans-serif;
+  --radius-field: 0.5rem;
+}
+
+@utility playground {
+  @apply outline-base-300 border-base-300 rounded-lg bg-base-100;
+}
+
+@utility bg-grid {
+  --_grid-edge-color: rgba(0, 0, 0, 0.1);
+  background:
+    linear-gradient(
+      90deg,
+      transparent 49.5%,
+      var(--_grid-edge-color) 50%,
+      var(--_grid-edge-color) 51.5%,
+      transparent 52%
+    ),
+    linear-gradient(
+      transparent 49.5%,
+      var(--_grid-edge-color) 50%,
+      var(--_grid-edge-color) 51.5%,
+      transparent 52%
+    );
+
+  @apply dark:[--_grid-edge-color:rgba(200,200,200,0.1)] bg-size-[50px_50px];
+}
+
+@utility iphone-mockup {
+  @apply relative px-4 pt-20 aspect-1/2 w-full max-w-80 bg-[#22c1c3] text-center border-solid border-10 border-black rounded-[36px] transition-colors duration-500;
+  background: linear-gradient(321deg, rgba(34, 193, 195, 0.8) 0%, rgba(253, 187, 45, 0.8) 100%);
+
+  &::before {
+    @apply content-[''] absolute top-2 inset-x-0 mx-auto h-6 w-20 rounded-full bg-black;
+  }
+
+  &.turnedOff {
+    background: #000;
+    @apply *:hidden;
+  }
+}
+
+@utility sticky-bg {
+  @apply bg-[canvas] dark:bg-zinc-800;
+}
+
+@utility text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  &.gradient-fall {
+    color: #f7941d;
+    background-image: linear-gradient(
+      45deg,
+      #f7941d 12%,
+      #d35400 60%,
+      #9e2800 20%,
+      #791800 20%,
+      #550a00 43%
+    );
+  }
+
+  &.gradient-leaf {
+    color: #008947;
+    background-image: linear-gradient(
+      45deg,
+      #008947 15%,
+      #009654 19%,
+      #00a361 46%,
+      #00b06e 3%,
+      #00bd7b 37%
+    );
+  }
+
+  &.gradient-maple {
+    color: #be4146;
+    background-image: linear-gradient(45deg, #be4146 45%, #d26764 37%, #f2acac 93%);
+  }
+
+  &.gradient-fire {
+    color: #ff4000;
+    background-image: linear-gradient(45deg, #ff4000 50%, #ff5700 25%, #ff6e00 64%, #ff8500 76%);
+  }
+
+  &.gradient-star-dusk {
+    color: #3a506b;
+    background-image: linear-gradient(315deg, #3a506b 62%, #5a708c 10%, #7a8f9b 10%);
+  }
+}
+
+@utility bg-gradient-wave {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradientWave 4s ease infinite;
+}
+
+@utility scroll-driven {
+  @apply will-change-transform animate-[linear_var(--scroll-driven-animation)_forwards] [animation-timeline:--section-showcase] [animation-range:contain_0%_contain_100%];
+}
+
+@layer base {
+  :root {
+    --sl-font: 'Nunito Variable', sans-serif;
+    --sl-sidebar-width: 15rem;
+    --sl-content-width: 60rem;
+  }
+
+  [data-has-sidebar] .page {
+    @apply dark:bg-base-300;
+  }
+
+  code,
+  .card,
+  .starlight-aside {
+    @apply rounded;
+  }
+
+  code {
+    @apply [overflow-wrap:revert] bg-(--sl-color-bg-inline-code) px-1 py-0.5 text-sm;
+  }
+}
+
+@view-transition {
+  navigation: auto;
+}
+
+:where(.not-content) {
+  button {
+    @apply m-[revert-layer];
+  }
+}
+
+dialog {
+  @apply m-[revert];
+}
+
+.k-dialog {
+  @apply m-[revert] dark:bg-zinc-800;
+
+  &:where(.k-dialog--non-modal) {
+    @apply border-[length:revert];
+  }
+}
+
+.sl-markdown-content {
+  kbd {
+    @apply kbd m-0;
+  }
+}
+
+@keyframes gradientWave {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

@@ -19,8 +19,9 @@ export default function OffsetDialog() {
           You can set the <code>offset</code> prop to adjust the Dialog's position from the edge of
           the viewport.
           <br />
+          <br />
           Try dragging the range slider below.
-          <label className="form-control mt-4">
+          <label className="block mt-4">
             <p>
               Offset: <strong>{offset}</strong> (px)
             </p>

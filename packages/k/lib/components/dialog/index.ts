@@ -1,7 +1,17 @@
-export {Dialog} from './dialog'
-export {DialogHeader} from './dialog-header'
-export {DialogTitle} from './dialog-title'
-export {DialogCloseButton} from './dialog-close-btn'
-export {DialogContent} from './dialog-content'
-export {DialogFooter} from './dialog-footer'
+export {
+  DialogHeaderBase,
+  DialogTitleBase,
+  DialogFooterBase,
+  DialogContentBase,
+  DialogCloseButtonBase,
+  DialogBase,
+} from './dialog-base'
+export {
+  Dialog,
+  DialogHeader,
+  DialogTitle,
+  DialogCloseButton,
+  DialogContent,
+  DialogFooter,
+} from './dialog-styled'
 export type {DialogProps} from './types'

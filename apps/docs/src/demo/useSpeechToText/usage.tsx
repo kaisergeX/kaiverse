@@ -65,7 +65,7 @@ export default function SpeechToTextDemo() {
             </button>
           </div>
         ) : (
-          <button className="btn btn-neutral btn-outline" type="button" onClick={startListening}>
+          <button className="btn btn-outline" type="button" onClick={startListening}>
             <IconMicrophone size={20} /> Turn on mic
           </button>
         )}
@@ -76,7 +76,7 @@ export default function SpeechToTextDemo() {
         Transcript
         <textarea
           ref={transcriptInputRef}
-          className="block min-h-12 w-full resize-none rounded-md p-2 shadow-sm [field-sizing:content]"
+          className="block min-h-12 w-full resize-none rounded-md p-2 shadow-xs field-sizing-content"
           name="transcript"
           defaultValue={transcript}
           wrap="soft"

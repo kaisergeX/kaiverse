@@ -2,8 +2,8 @@ import type {CSSProperties, HTMLAttributes, ReactNode} from 'react'
 
 type TerminalStylingSelectors = 'windowHeader' | 'historySection' | 'commandForm'
 
-export type PrintlnFn = (text: string) => void
-export type PrintNodeFn = (node: ReactNode) => void
+type PrintlnFn = (text: string) => void
+type PrintNodeFn = (node: ReactNode) => void
 export type TerminalHelpers = Readonly<{
   /** Print a string */
   println: PrintlnFn
@@ -50,8 +50,37 @@ type Props = {
   commandHandler?: (command: string, helper: TerminalHelpers) => 'skip_default' | void
   /** @default 'macos' */
   theme?: 'macos' | 'window'
-  /** @default false */
-  hideWindowCtrls?: boolean
+  /**
+   * Whether to hide the window control buttons (close, minimize, maximize).
+   *
+   * You can also specify which button to hide by passing an object with boolean values for each button.
+   * @default false
+   */
+  hideWindowCtrls?:
+    | boolean
+    | {
+        /**
+         * Whether to hide the close button.
+         * @default false
+         */
+        close?: boolean
+        /**
+         * Whether to hide the minimize button.
+         * @default false
+         */
+        minimize?: boolean
+        /**
+         * Whether to hide the maximize button.
+         * @default false
+         */
+        maximize?: boolean
+      }
+  /** Callback fired when the close button is clicked */
+  onClose?: () => void
+  /** Callback fired when the minimize button is clicked */
+  onMinimize?: () => void
+  /** Callback fired when the maximize button is clicked */
+  onMaximize?: () => void
 }
 
 type TerminalAttrs<T> = Omit<T, keyof Props | 'onClick'>

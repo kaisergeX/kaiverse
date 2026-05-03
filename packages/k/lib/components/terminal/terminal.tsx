@@ -1,13 +1,21 @@
 'use client'
 
-import {useCallback, useEffect, useImperativeHandle, useRef, type FormEventHandler} from 'react'
-import {classNames, refFactory} from '#utils'
-import {TERMINAL_CTRLS, TERMINAL_CLASSES, TERMINAL_COMMANDS} from './constants'
-import type {TerminalProps, TerminalRef} from './types'
-import useTerminalHistory from './useTerminalHistory'
-import {CloseIcon, MaximizeIcon, MinimizeIcon} from './icons'
+import {classNames, eventStop, refFactory} from '#utils'
+import {
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  type MouseEventHandler,
+  type SubmitEventHandler,
+} from 'react'
 import {DISPLAY_NAME_PREFIX} from '../constants'
+import {TERMINAL_CLASSES, TERMINAL_COMMANDS, TERMINAL_CTRLS} from './constants'
+import {CloseIcon, MaximizeIcon, MinimizeIcon} from './icons'
+import {useTerminalHistory} from './internals/hooks'
 import classes from './terminal.module.css'
+import type {TerminalProps, TerminalRef} from './types'
 
 /** Terminal UI component that allows users to interact with the terminal-like interface. */
 export const Terminal = refFactory<TerminalRef, TerminalProps>((props, ref) => {
@@ -19,6 +27,9 @@ export const Terminal = refFactory<TerminalRef, TerminalProps>((props, ref) => {
     commandHandler,
     theme = 'macos',
     hideWindowCtrls = false,
+    onClose,
+    onMinimize,
+    onMaximize,
 
     classNames: stylingClassNames,
     styles,
@@ -30,7 +41,17 @@ export const Terminal = refFactory<TerminalRef, TerminalProps>((props, ref) => {
   const terminalInput = useRef<HTMLInputElement>(null)
   const {renderHistories, helpers} = useTerminalHistory()
 
-  const handleInput = useCallback<FormEventHandler<HTMLFormElement>>(
+  const hideCtrls = useMemo<Exclude<NonNullable<TerminalProps['hideWindowCtrls']>, boolean>>(
+    () =>
+      typeof hideWindowCtrls === 'boolean'
+        ? {close: hideWindowCtrls, minimize: hideWindowCtrls, maximize: hideWindowCtrls}
+        : hideWindowCtrls,
+    [hideWindowCtrls],
+  )
+
+  const hideAllCtrls = hideCtrls.close && hideCtrls.minimize && hideCtrls.maximize
+
+  const handleInput = useCallback<SubmitEventHandler<HTMLFormElement>>(
     (e) => {
       e.preventDefault()
 
@@ -60,6 +81,23 @@ export const Terminal = refFactory<TerminalRef, TerminalProps>((props, ref) => {
     },
     [commandHandler, helpers],
   )
+
+  const handleContainerClick = useCallback<MouseEventHandler<HTMLDivElement>>((event) => {
+    const container = event.currentTarget,
+      selection = window.getSelection()
+
+    // skip if user selecting text inside container
+    if (
+      selection &&
+      !selection.isCollapsed &&
+      container.contains(selection.anchorNode) &&
+      container.contains(selection.focusNode)
+    ) {
+      return
+    }
+
+    terminalInput.current?.focus()
+  }, [])
 
   useEffect(() => {
     const inputTarget = terminalInput.current
@@ -97,7 +135,7 @@ export const Terminal = refFactory<TerminalRef, TerminalProps>((props, ref) => {
 
   useImperativeHandle(ref, () => {
     return Object.defineProperties(
-      terminalRef.current,
+      terminalRef.current || {},
       // ensure exposed helpers are read-only by showing an TypeError (to console) when other dev try to modify them (on 'use strict' mode)
       Object.getOwnPropertyDescriptors(helpers),
     ) as TerminalRef
@@ -114,7 +152,7 @@ export const Terminal = refFactory<TerminalRef, TerminalProps>((props, ref) => {
         classes.terminal,
         className,
       )}
-      onClick={() => terminalInput.current?.focus()}
+      onClick={handleContainerClick}
     >
       <header
         title={windowTitle}
@@ -125,20 +163,41 @@ export const Terminal = refFactory<TerminalRef, TerminalProps>((props, ref) => {
         )}
         style={styles?.windowHeader}
       >
-        {hideWindowCtrls || (
+        {hideAllCtrls !== true && (
           <div className={classNames(TERMINAL_CLASSES.WINDOW_CTRLS, classes.windowControls)}>
-            <button className={classes.close} type="button" title="Close">
-              <CloseIcon />
-            </button>
-            <button className={classes.minimize} type="button" title="Minimize">
-              <MinimizeIcon />
-            </button>
-            <button className={classes.maximize} type="button" title="Maximize">
-              <MaximizeIcon />
-            </button>
+            {hideCtrls.close || (
+              <button
+                className={classes.close}
+                type="button"
+                title="Close"
+                onClick={eventStop(onClose)}
+              >
+                <CloseIcon />
+              </button>
+            )}
+            {hideCtrls.minimize || (
+              <button
+                className={classes.minimize}
+                type="button"
+                title="Minimize"
+                onClick={eventStop(onMinimize)}
+              >
+                <MinimizeIcon />
+              </button>
+            )}
+            {hideCtrls.maximize || (
+              <button
+                className={classes.maximize}
+                type="button"
+                title="Maximize"
+                onClick={eventStop(onMaximize)}
+              >
+                <MaximizeIcon />
+              </button>
+            )}
           </div>
         )}
-        {windowTitle ? <h2>{windowTitle}</h2> : null}
+        {windowTitle ? <h3>{windowTitle}</h3> : null}
       </header>
       <div
         ref={terminalHistoryRef}

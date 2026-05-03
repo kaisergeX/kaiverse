@@ -9,7 +9,7 @@ function Homepage() {
     <>
       <section className="p-4 space-y-4">
         <h2>Components</h2>
-        <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(16rem,_1fr))]">
+        <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(16rem,1fr))]">
           <Link to="/dialog" className="card">
             <h3 className="gradient-leaf">Dialog</h3>
             <p>
@@ -31,7 +31,7 @@ function Homepage() {
       </section>
       <section className="p-4 space-y-4">
         <h2>Hooks</h2>
-        <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(18rem,_1fr))]">
+        <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(18rem,1fr))]">
           <Link to="/use-drag" className="card">
             <h3 className="gradient-fire">useDrag</h3>
             <p>Feature-rich Drag element hook.</p>

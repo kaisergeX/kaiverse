@@ -27,7 +27,7 @@ export default function SlideActionResetRefDocs() {
       </p>
 
       <button
-        className="btn btn-neutral btn-outline mt-4"
+        className="btn btn-outline mt-4"
         type="button"
         onClick={() => slideActionRef.current?.resetState()}
       >

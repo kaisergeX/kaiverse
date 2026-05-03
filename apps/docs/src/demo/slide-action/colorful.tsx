@@ -7,7 +7,7 @@ const slideColors = [
   '#ea580c',
   'red',
   '#059669',
-  'oklch(var(--p))',
+  'var(--color-accent-content)',
   '#0891b2',
   '#7c3aed',
   '#e11d48',

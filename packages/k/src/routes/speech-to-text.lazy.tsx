@@ -93,14 +93,14 @@ function SpeechToTextPage() {
         Transcript
         <textarea
           ref={transcriptInputRef}
-          className="block min-h-12 w-full resize-none rounded-md p-2 shadow-sm [field-sizing:content]"
+          className="block min-h-12 w-full resize-none rounded-md p-2 shadow-xs field-sizing-content"
           name="transcript"
           defaultValue={transcript}
           wrap="soft"
           placeholder="The transcript will be displayed here"
         />
         <button
-          className="k-button-secondary bg-primary absolute top-8 right-2 hidden h-fit p-1 shadow group-focus-within:block"
+          className="k-button-secondary bg-primary absolute top-8 right-2 hidden h-fit p-1 shadow-sm group-focus-within:block"
           type="button"
           onClick={handleCopyClipboard}
         >

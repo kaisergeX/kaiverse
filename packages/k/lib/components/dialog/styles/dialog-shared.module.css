@@ -1,11 +1,11 @@
-@layer k-default, k-keyframes;
+@layer default, keyframes;
 
-body:has(.dialog[open].modal) {
-  scrollbar-gutter: stable;
-  overflow: hidden;
-}
+@layer default {
+  :root:has(.dialog[open].modal) {
+    scrollbar-gutter: stable;
+    overflow-y: clip;
+  }
 
-@layer k-default {
   .dialog,
   .dialogHeader,
   .dialogContent {
@@ -27,8 +27,8 @@ body:has(.dialog[open].modal) {
     --k-dialog-offset: 0px;
 
     padding: 0;
-    max-width: calc(100dvw - var(--k-dialog-offset, 0px));
-    max-height: calc(100dvh - var(--k-dialog-offset, 0px));
+    max-width: calc(100dvw - var(--k-dialog-offset, 0px) * 2);
+    max-height: calc(100dvh - var(--k-dialog-offset, 0px) * 2);
     /* max-block-size: 100%;
     max-inline-size: unset; */
 
@@ -115,7 +115,7 @@ body:has(.dialog[open].modal) {
   }
 }
 
-@layer k-keyframes {
+@layer keyframes {
   @keyframes slideInLeft {
     from {
       transform: translateX(-100%);

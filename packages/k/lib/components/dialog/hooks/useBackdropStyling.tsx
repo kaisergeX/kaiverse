@@ -1,5 +1,5 @@
 import {useEffect, useMemo} from 'react'
-import {DIALOG_CSS_VARIABLES} from '../constants'
+import {DIALOG_CSS_VARIABLES} from '../internals/constants'
 import type {DialogProps} from '../types'
 import {isDOMAvailable, updateElementStyles} from '#utils'
 import type {NullableRefObject} from '#types'

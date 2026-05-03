@@ -16,7 +16,7 @@ export default function UseDragBasic() {
       </div>
       <div className="mt-4 flex items-center gap-4">
         <button
-          className="btn btn-neutral btn-outline"
+          className="btn btn-outline"
           type="button"
           onClick={() => setPosition({x: 0, y: 0})}
         >

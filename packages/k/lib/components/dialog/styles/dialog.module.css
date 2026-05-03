@@ -1,8 +1,8 @@
 @import './dialog-shared.module.css';
 
-@layer k-default, k-variant;
+@layer default, variant;
 
-@layer k-default {
+@layer default {
   @media (prefers-reduced-motion: no-preference) {
     .dialog,
     .dialog::backdrop {
@@ -51,9 +51,15 @@
   }
 }
 
-@layer k-variant {
+@layer variant {
   .dialog:where(.default) {
     border-radius: 0.5rem;
+    /* 
+      Reset to the user agent styles (auto).
+      In case the default styles are overridden accidentally by other styles system (e.g. Tailwind's preflight)
+      User still can customize the margin if needed.
+    */
+    margin: revert;
   }
 
   .dialog:where(.modal) {
@@ -69,7 +75,7 @@
   }
 
   .dialog:where(.drawer) {
-    --_k-drawer-offset: calc(var(--k-dialog-offset, 0px) / 2);
+    --_k-drawer-offset: var(--k-dialog-offset, 0px);
 
     height: 100dvh;
     width: 100%;

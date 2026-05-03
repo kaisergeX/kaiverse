@@ -15,7 +15,7 @@ export default function DrawerDialog() {
   return (
     <>
       <button
-        className="btn btn-outline btn-neutral mx-auto block"
+        className="btn btn-outline mx-auto block"
         type="button"
         onClick={() => openDrawerPosition('top')}
       >
@@ -30,7 +30,7 @@ export default function DrawerDialog() {
           Open on the left
         </button>
         <button
-          className="btn btn-outline btn-neutral"
+          className="btn btn-outline"
           type="button"
           onClick={() => openDrawerPosition('bottom')}
         >
