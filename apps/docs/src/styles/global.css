@@ -127,12 +127,6 @@
 }
 
 @layer base {
-  :root {
-    --sl-font: 'Nunito Variable', sans-serif;
-    --sl-sidebar-width: 15rem;
-    --sl-content-width: 60rem;
-  }
-
   [data-has-sidebar] .page {
     @apply dark:bg-base-300;
   }
@@ -145,6 +139,13 @@
 
   code {
     @apply [overflow-wrap:revert] bg-(--sl-color-bg-inline-code) px-1 py-0.5 text-sm;
+  }
+}
+
+@layer components {
+  :root {
+    --sl-sidebar-width: 15rem;
+    --sl-content-width: 60rem;
   }
 }
 

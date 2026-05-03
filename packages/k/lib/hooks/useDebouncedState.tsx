@@ -2,6 +2,7 @@
 
 import {useCallback, useEffect, useRef, useState, type Dispatch, type SetStateAction} from 'react'
 
+/** Debounces state changes */
 export function useDebouncedState<T = unknown>(
   defaultValue: T,
   debounceTime: number,
