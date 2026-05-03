@@ -1,5 +1,17 @@
 # @kaiverse/k
 
+## 0.7.0
+
+### Minor Changes
+
+- c429baf: Components CSS: grouped layers to `k-components`
+- c429baf: Dialog: expose base components for unstyled and clean DOM
+- c429baf: `Terminal`: enhance UI, new control callbacks
+
+### Patch Changes
+
+- c429baf: Build: improve generated declaration files, and exports structure.
+
 ## 0.6.0
 
 ### Minor Changes
