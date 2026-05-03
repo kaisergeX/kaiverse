@@ -1,13 +1,13 @@
-import {Dialog} from '@kaiverse/k/ui'
-import {useState, type FormEventHandler} from 'react'
 import {useDisclosure} from '@kaiverse/k/hooks'
+import {Dialog} from '@kaiverse/k/ui'
+import {useState, type SubmitEventHandler} from 'react'
 import JunkArticle from './junk-articles'
 
 export default function DialogControlledByForm() {
   const [opened, {open, close}] = useDisclosure(false)
   const [keyword, setKeyword] = useState('') // just for display form value
 
-  const handleFormSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+  const handleFormSubmit: SubmitEventHandler<HTMLFormElement> = (e) => {
     const formData = new FormData(e.currentTarget)
     setKeyword((formData.get('keyword') as string) || '')
 

@@ -1,8 +1,10 @@
+import './web-speech-api'
+
 // SpeechRecognitionErrorCode https://wicg.github.io/speech-api/#enumdef-speechrecognitionerrorcode
 export type SpeechToTextHookErrorCode =
   | 'aborted'
   | 'audio-capture'
-  | 'bad-grammar'
+  | 'phrases-not-supported'
   | 'language-not-supported'
   | 'network'
   | 'no-speech'

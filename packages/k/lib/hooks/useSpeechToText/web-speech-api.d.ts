@@ -79,12 +79,12 @@ declare var SpeechRecognitionEvent: {
 type SpeechRecognitionErrorCode =
   | 'aborted'
   | 'audio-capture'
-  | 'bad-grammar'
   | 'language-not-supported'
   | 'network'
   | 'no-speech'
   | 'not-allowed'
   | 'service-not-allowed'
+  | 'phrases-not-supported'
 
 // https://wicg.github.io/speech-api/#dictdef-speechrecognitionerroreventinit
 interface SpeechRecognitionErrorEventInit extends EventInit {
