@@ -12,7 +12,13 @@ These hooks are separate to an independent package <a href="https://jsr.io/@kaiv
 </Aside>
 
 ```js
-import {useSignal, useSyncSignal, useSignalEffect, useComputed} from '@kaiverse/signal-react'
+import {
+  useSignal,
+  useSyncSignal,
+  useSignalEffect,
+  useComputed,
+  useSyncComputed,
+} from '@kaiverse/signal-react'
 ```
 
 A collection of hooks that allow us to use [`signal` features](../utils/signal) inside React components.
@@ -22,7 +28,8 @@ Includes:
 - `useSignal` - create a `Signal`.
 - `useSyncSignal` - create a `Signal`. Integrated with `useSyncExternalStore`.
 - `useSignalEffect` - register a `Signal` effect.
-- `useComputed` - create a computed value from `Signal`(s).
+- `useComputed` - create a computed value from `Signal` and `useSignal`.
+- `useSyncComputed` - create a computed value from `Signal` and `useSyncSignal`. Integrated with `useSyncExternalStore`.
 
 ## Installation
 
@@ -79,7 +86,7 @@ It's a trade-off after all. Choose the one that fits your use case.
 
 ## `useSignalEffect`
 
-Signal effect inside React component. It accepts a imperative function that will run whenever dependencies change. Dependencies are Signals that are used inside the Effect itself.
+Signal effect inside React component. It accepts an imperative function that will run whenever dependencies change. Dependencies are Signals that are used inside the Effect itself.
 
 `useSignalEffect` can track either global Signal(s) or local (both inside or outside component) Signal(s) or all of them together.
 
@@ -105,7 +112,19 @@ export function UseSignalEffectExample() {
 
 Derived signals inside React component.
 
-Usually used to create a computed Signal from Signal(s) or to bind Signal(s), that created outside components, to React reactive system.
+Usually used to create a computed Signal from multiple `useSignal`, Signal(s) or to bind Signal(s), that created outside components, to React reactive system.
+
+<Aside title="Only reacts to Signals" type="note">
+
+The factory only reacts to Signals read inside it — plain React state/props are invisible to it. Reading them is fine, but changes won't trigger a recompute; the old value sticks around until some Signal change causes a recompute. To make a computed react to a React value, mirror it into a Signal first (e.g. `useEffect(() => setSomeSignal(value), [value])`)... But why?
+
+</Aside>
+
+<Aside title="React StrictMode (dev)" type="caution">
+
+The double render pass creates a throwaway computed that is never cleaned up, so it stays subscribed to its dependencies. Harmless but real: every Signal it depends on recomputes for it on each change.
+
+</Aside>
 
 <Tabs>
   <TabItem label="use-computed-example.tsx">
@@ -144,3 +163,63 @@ export const globalCountSignal = createSignal(0)
 
   </TabItem>
 </Tabs>
+
+The returned value is always the stable Signal getter. `options.equals` customizes the change comparison, same as `createSignal`.
+
+## `useSyncComputed`
+
+Derived signals inside React component.
+`useSyncComputed` is integrated with `useSyncExternalStore` (`uSES`), the recommended way to use "external stores" in React, and solves the tearing issue.
+
+The value returned is always the stable Signal getter. It shares [`useSyncSignal`](#usesyncsignal)'s concurrent rendering caveats, since both are `uSES`-backed.
+
+[`useComputed`](#usecomputed), on the other hand, uses `useReducer` and returns a snapshot of Signal. It works better with concurrent rendering but has the same temporary tearing issue as `useSignal`.
+
+It's a trade-off after all. Choose the one that fits your use case.
+
+<Aside title="React StrictMode (dev)" type="caution">
+
+The double render pass creates a throwaway computed that is never cleaned up, so it stays subscribed to its dependencies. Harmless but real: every Signal it depends on recomputes for it on each change.
+
+</Aside>
+
+## HMR
+
+When a bundler hot-swaps a module that creates a Signal at module scope, the module re-evaluates and a **new** Signal instance is created: hooks created from it on first render (`useComputed`, `useSignalEffect`) stay subscribed to the dead instance, so the UI freezes and effects stop firing — while module-level effects are recreated on every save, duplicating on each edit.
+
+Until a dedicated bundler plugin automates this, persist the Signal instance and dispose module-level effects yourself:
+
+<Tabs>
+  <TabItem label="store.ts">
+
+```ts
+import {createSignal, type SignalFactoryReturnType} from '@kaiverse/signal-react'
+
+// Reuse the same Signal instance across HMR updates so one-time hook state
+// (useComputed/useSignalEffect) doesn't end up subscribed to a dead instance.
+export const playgroundSignal =
+  (import.meta.hot?.data.playgroundSignal as SignalFactoryReturnType<number>) ?? createSignal(0)
+
+if (import.meta.hot) {
+  import.meta.hot.data.playgroundSignal = playgroundSignal
+  import.meta.hot.accept()
+}
+```
+
+  </TabItem>
+  <TabItem label="module with top-level effects">
+
+```ts
+import {withHMR} from '@kaiverse/signal-react'
+
+const {createEffect, createComputed} = withHMR(import.meta.hot)
+
+createEffect(() => {
+  console.log('globalCount =', globalCount())
+})
+```
+
+  </TabItem>
+</Tabs>
+
+A dedicated bundler plugin (`@kaiverse/signal-plugins`) that automates both is planned.
