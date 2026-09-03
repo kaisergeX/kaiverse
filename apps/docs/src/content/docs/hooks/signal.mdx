@@ -68,12 +68,12 @@ import {
 | `useSignal`/`useSyncSignal`           | Creates a `Signal` that also happens to trigger React re-renders. You get both a Signal (usable in createEffect/createComputed) and React reactivity, same underlying value. |
 | `useSignalEffect`                     | Runs an imperative effect whenever a Signal read inside it changes — the side-effect counterpart to the hooks below.                                                         |
 | `useComputed`/`useSyncComputed`       | Same as `useSignal`/`useSyncSignal`, but derived rather than a raw signal.                                                                                                   |
-| `useSignalValue`/`useSyncSignalValue` | The one-way door. Takes a Signal you don't own, and converts it purely into React state for this render. What comes out the other side is indistinguishable from useState.   |
+| `useSignalValue`/`useSyncSignalValue` | Reads a Signal inside a React component. Returns a plain reactive value, that acts like React state, not a Signal.                                                           |
 
 ## `useSignal`
 
 Create a `Signal` inside React component.
-`useSignal` uses `useReducer` and returns a snapshot of Signal. It works better with concurrent rendering but has temporary tearing issue.
+It uses `useReducer` and returns a snapshot of Signal. It works better with concurrent rendering but has temporary tearing issue.
 
 Consider using [`useSyncSignal`](#usesyncsignal) which uses `useSyncExternalStore` that solves tearing issues, but doesn't work well with concurrent rendering. It's a trade-off, choose wisely.
 
@@ -82,13 +82,13 @@ Read more about [the tearing issue](https://github.com/reactwg/react-18/discussi
 ## `useSyncSignal`
 
 Create a `Signal` inside React component.
-`useSyncSignal` is integrated with `useSyncExternalStore` (`uSES`) which is a recommended way to use "external stores" in React.
+`useSyncSignal` is integrated with `useSyncExternalStore` (uSES) which is a recommended way to use "external stores" in React.
 
-`useSyncSignal` works well in most cases. However, `uSES` doesn't work with concurrent rendering. `useSyncSignal`'s setter wrapped with `startTransition` won't behave as expected.
-Suspend a render based on a store value returned by `uSES` will trigger the nearest `Suspense` fallback instead of showing the old UI.
+`useSyncSignal` works well in most cases. However, uSES doesn't work with concurrent rendering. `useSyncSignal`'s setter wrapped with `startTransition` won't behave as expected.
+Suspend a render based on a store value returned by uSES will trigger the nearest `Suspense` fallback instead of showing the old UI.
 Read more: [useSyncExternalStore](https://react.dev/reference/react/useSyncExternalStore#:~:text=It%E2%80%99s%20not%20recommended%20to%20suspend%20a%20render%20based%20on%20a%20store%20value%20returned%20by%20useSyncExternalStore)
 
-[`useSignal`](#usesignal), on the other hand, doesn't use `uSES`. It returns a snapshot of Signal and uses `useReducer` to perform a re-render on Signal changes.
+[`useSignal`](#usesignal), on the other hand, doesn't use uSES. It returns a snapshot of Signal and uses `useReducer` to perform a re-render on Signal changes.
 As a result, It works better with concurrent rendering but suffers from temporary tearing issue.
 
 It's a trade-off after all. Choose the one that fits your use case.
@@ -184,15 +184,15 @@ The returned value is always the stable Signal getter. `options.equals` customiz
 ## `useSyncComputed`
 
 Derived signals inside React component.
-`useSyncComputed` is integrated with `useSyncExternalStore` (`uSES`), the recommended way to use "external stores" in React, and solves the tearing issue.
+`useSyncComputed` is integrated with `useSyncExternalStore` (uSES), the recommended way to use "external stores" in React, and solves the tearing issue.
 
-The value returned is always the stable Signal getter. It shares [`useSyncSignal`](#usesyncsignal)'s concurrent rendering caveats, since both are `uSES`-backed.
+The value returned is always the stable Signal getter. It shares [`useSyncSignal`](#usesyncsignal)'s concurrent rendering caveats, since both are uSES-backed.
 
 [`useComputed`](#usecomputed), on the other hand, uses `useReducer` and returns a snapshot of Signal. It works better with concurrent rendering but has the same temporary tearing issue as `useSignal`.
 
 <Aside title="Just reading one Signal, not deriving?" type="tip">
 
-Same as `useComputed` — if `factory` only reads a single existing Signal, prefer [`useSyncSignalValue`](#usesyncsignalvalue) instead. No extra `createComputed` hop, no owned resource to tear down.
+Same as `useComputed`, if `factory` only reads a single existing Signal, prefer [`useSyncSignalValue`](#usesyncsignalvalue) instead. No extra `createComputed` hop, no owned resource to tear down.
 
 </Aside>
 
@@ -208,9 +208,11 @@ Reads the current value of an already-existing Signal inside a React component.
 
 Use this to consume a Signal created _outside_ the component — a module-level store, or a Signal returned by another hook — as opposed to `useSignal`/`useSyncSignal`, which both create and own a Signal local to the component.
 
-`useSignalValue` uses `useReducer`, same trade-off as [`useSignal`](#usesignal): works better with concurrent rendering, has the temporary tearing issue. See [`useSyncSignalValue`](#usesyncsignalvalue) for the `uSES`-backed twin.
+`useSignalValue` uses `useReducer`, same trade-off as [`useSignal`](#usesignal): works better with concurrent rendering, has the temporary tearing issue. See [`useSyncSignalValue`](#usesyncsignalvalue) for the uSES-backed twin.
 
-```tsx title="use-signal-value-example.tsx"
+<Tabs>
+  <TabItem label="use-signal-value-example.tsx">
+  ```tsx 
 import {useSignalValue} from '@kaiverse/signal-react'
 import {globalCountSignal} from './global-store'
 
@@ -221,6 +223,16 @@ export function UseSignalValueExample() {
   return <p>Global count: {count}</p>
 }
 ```
+  </TabItem>
+  <TabItem label="global-store.ts">
+
+```ts
+import {createSignal} from '@kaiverse/signal-react'
+export const globalCountSignal = createSignal(0)
+```
+
+  </TabItem>
+</Tabs>
 
 <Aside title="Returns a plain reactive value, not a Signal" type="caution">
 
