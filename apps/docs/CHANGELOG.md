@@ -1,5 +1,16 @@
 # docs
 
+## 0.8.0
+
+### Minor Changes
+
+- 4efc585: Update layout
+
+### Patch Changes
+
+- Updated dependencies [4efc585]
+  - @kaiverse/k@0.8.0
+
 ## 0.7.0
 
 ### Minor Changes

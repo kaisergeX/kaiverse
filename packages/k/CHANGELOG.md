@@ -1,5 +1,11 @@
 # @kaiverse/k
 
+## 0.8.0
+
+### Minor Changes
+
+- 4efc585: Hooks: add useClickOutside
+
 ## 0.7.0
 
 ### Minor Changes
