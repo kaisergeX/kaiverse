@@ -32,7 +32,8 @@ It only provides the structure, control logic, and accessibility features of a d
     <Code
       title="base.tsx"
       lang="tsx"
-      code={`function BaseDialog() {
+      code={`import {DialogBase} from '@kaiverse/k/ui'\n
+  function BaseDialog() {
     const [openDialog, setOpenDialog] = useState(false)
     return (
       <>
@@ -67,7 +68,8 @@ It only provides the structure, control logic, and accessibility features of a d
     <Code
       title="basic.tsx"
       lang="tsx"
-      code={`function BasicDialog() {
+      code={`import {Dialog} from '@kaiverse/k/ui'\n
+  function BasicDialog() {
     const [openDialog, setOpenDialog] = useState(false)
     return (
       <>

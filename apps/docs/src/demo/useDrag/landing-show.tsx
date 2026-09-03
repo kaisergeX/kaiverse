@@ -3,7 +3,7 @@ import {useDrag, type DragHookOptions} from '@kaiverse/k/hooks'
 const limit: DragHookOptions['limit'] = {x: {min: 0, max: 200}, y: {min: 0, max: 100}}
 
 export default function UseDragLandingShow() {
-  const {targetRef} = useDrag<HTMLDivElement>({limit})
+  const {targetRef} = useDrag<HTMLDivElement>({limit, decelerationEffect: true})
 
   return (
     <div className="outline-2 outline-solid rounded-lg outline-base-300 w-[300px] h-[150px] mt-4">
