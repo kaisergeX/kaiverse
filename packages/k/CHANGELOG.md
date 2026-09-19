@@ -1,5 +1,15 @@
 # @kaiverse/k
 
+## 0.8.0
+
+### Minor Changes
+
+- 4efc585: Hooks: add useClickOutside
+
+### Patch Changes
+
+- af65bd3: Terminal: fix `commandPrefix` default fallback and improve performance
+
 ## 0.7.0
 
 ### Minor Changes
