@@ -5,7 +5,6 @@ import {
   useCallback,
   useEffect,
   useImperativeHandle,
-  useMemo,
   useRef,
   type MouseEventHandler,
   type SubmitEventHandler,
@@ -23,7 +22,7 @@ export const Terminal = refFactory<TerminalRef, TerminalProps>((props, ref) => {
     className,
     windowTitle,
     greeting = '',
-    commandPrefix = props.theme === 'window' ? '>' : '$',
+    commandPrefix,
     commandHandler,
     theme = 'macos',
     hideWindowCtrls = false,
@@ -41,13 +40,12 @@ export const Terminal = refFactory<TerminalRef, TerminalProps>((props, ref) => {
   const terminalInput = useRef<HTMLInputElement>(null)
   const {renderHistories, helpers} = useTerminalHistory()
 
-  const hideCtrls = useMemo<Exclude<NonNullable<TerminalProps['hideWindowCtrls']>, boolean>>(
-    () =>
-      typeof hideWindowCtrls === 'boolean'
-        ? {close: hideWindowCtrls, minimize: hideWindowCtrls, maximize: hideWindowCtrls}
-        : hideWindowCtrls,
-    [hideWindowCtrls],
-  )
+  const hideCtrls: Exclude<
+    NonNullable<TerminalProps['hideWindowCtrls']>,
+    boolean
+  > = typeof hideWindowCtrls === 'boolean'
+    ? {close: hideWindowCtrls, minimize: hideWindowCtrls, maximize: hideWindowCtrls}
+    : hideWindowCtrls
 
   const hideAllCtrls = hideCtrls.close && hideCtrls.minimize && hideCtrls.maximize
 
@@ -225,7 +223,7 @@ export const Terminal = refFactory<TerminalRef, TerminalProps>((props, ref) => {
           onSubmit={handleInput}
           style={styles?.commandForm}
         >
-          <span>{commandPrefix}</span>
+          <span>{commandPrefix ?? (theme === 'window' ? '>' : '$')}</span>
           <input
             ref={terminalInput}
             className={TERMINAL_CLASSES.INPUT}
